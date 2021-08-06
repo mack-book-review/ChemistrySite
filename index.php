@@ -13,6 +13,8 @@ include "templates/navbar.php";
 	<h1>Welcome to Independent Claws Chemistry Review!</h1>
 </div>
 
+
+
 <?php
 
 include "classes/Hydrocarbons.php";
@@ -21,20 +23,14 @@ include "classes/Alkenes.php";
 
 include "classes/ChemRxnRenderer.php";
 include "classes/ThermoQuestionMaker.php";
-include "classes/ThermoQuestion1.php";
+include "classes/Quizmaker.php";
 ?>
 
 <div class="container">
 	<?php
+$sample_quiz1 = Quizmaker::Make_Sample_Quiz1();
 
-$quizmaker1 = new ThermoQuestion1(new Alkane(4));
-echo $quizmaker1->get_question_text();
-echo "<br>";
-echo "Correct Choice: " . $quizmaker1->get_correct_choice();
-echo "<br>";
-echo "Choices:";
-echo $quizmaker1->get_choices();
-
+echo $sample_quiz1->get_quiz_html_form("index.php");
 ?>
 </div>
 
@@ -79,5 +75,4 @@ echo ChemRxnRenderer::Get_HTML_Molar_Mass_Table(Alkane::GET_COMMON_ALKANES());
 <?php
 include "templates/footer_menu.php";
 include "templates/footer.php";
-include "inc/ThermoQuestionMaker.php";
 ?>

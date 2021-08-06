@@ -5,18 +5,26 @@ include "QuizQuestion.php";
 /** Responsible for generate question of a specific type: asks user for the amount of hydrocarbon (in g) that must be combusted in order to raise the temperature of a given amount of water from a given starting temp to a given final temp**/
 
 class ThermoQuestion1 extends QuizQuestion {
+	private static int $Question_Counter = 1;
+
+	private static function Increment_Question_Counter() {
+		ThermoQuestion1::$Question_Counter += 1;
+	}
 
 	private ThermoQuestionMaker1 $question_maker;
 	private Hydrocarbon $hydrocarbon;
+	private int $question_id;
 	private float $vol_water_ml;
 	private float $start_temp;
 	private float $end_temp;
 	private string $correct_choice;
-	private $choices;
+	private array $choices;
 
 	public function __construct($u_hydrocarbon) {
 		//randomly set $start_temp and $end_temp
 		//randomly set $vol water in ml
+		$this->question_id = ThermoQuestion1::$Question_Counter;
+		ThermoQuestion1::Increment_Question_Counter();
 		$this->hydrocarbon = $u_hydrocarbon;
 		$this->question_maker = new ThermoQuestionMaker1($u_hydrocarbon);
 		$this->randomize_private_vars();
@@ -27,6 +35,10 @@ class ThermoQuestion1 extends QuizQuestion {
 			"D" => null,
 		];
 		$this->generate_choices();
+	}
+
+	public function get_question_id() {
+		return $this->question_id;
 	}
 
 	private function randomize_private_vars() {
@@ -45,12 +57,8 @@ class ThermoQuestion1 extends QuizQuestion {
 		return $this->correct_choice;
 	}
 
-	public function get_choices() {
-		$html = "<br>";
-		foreach ($this->choices as $letter => $choice) {
-			$html .= "($letter) $choice <br>";
-		}
-		return $html;
+	public function get_choices(): array{
+		return $this->choices;
 	}
 
 	private function get_erroneous_answer1() {
