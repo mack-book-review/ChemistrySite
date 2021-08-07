@@ -4,15 +4,24 @@
 class ThermoQuestionMaker1 {
 
 	private Hydrocarbon $hydrocarbon;
+	private ErrorGenerator3 $error_generator3;
+	private float $volume_ml;
+	private float $start_temp;
+	private float $final_temp;
 
-	public function __construct($u_hydrocarbon) {
+	public function __construct($u_hydrocarbon, $volume_ml, $start_temp, $final_temp) {
 		$this->hydrocarbon = $u_hydrocarbon;
+		$this->error_generator3 = new ErrorGenerator3($u_hydrocarbon);
+		$this->volume_ml = $volume_ml;
+		$this->start_temp = $start_temp;
+		$this->final_temp = $final_temp;
+
 	}
 
 	//Returns the correct mass of the hydrocarbon (in kg) required to heat a given volume of water (in ml) from the starting temperature to the final temperature
-	public function correct_amount_required_to_heat_water($volume_ml, $start_temperature, $final_temperature) {
+	public function correct_amount_required_to_heat_water() {
 
-		return $this->amount_required_to_heat_water_question_maker($volume_ml, $start_temperature, $final_temperature,
+		return $this->amount_required_to_heat_water_question_maker($this->volume_ml, $this->start_temp, $this->final_temp,
 
 			function ($delta_temp, $volume_ml) {
 
@@ -25,9 +34,9 @@ class ThermoQuestionMaker1 {
 	}
 
 	/** Error-producing functions: the helper functions below are used to generate erroneous answer choices that are used to test students' ability to avoid common calculation mistakes **/
-	public function error1_amount_required_to_heat_water($volume_ml, $start_temperature, $final_temperature) {
+	public function error1_amount_required_to_heat_water() {
 
-		return $this->amount_required_to_heat_water_question_maker($volume_ml, $start_temperature, $final_temperature,
+		return $this->amount_required_to_heat_water_question_maker($this->volume_ml, $this->start_temp, $this->final_temp,
 			function ($delta_temp, $volume_ml) {
 
 				return $this->generate_error1_heat_required_for_water_delta_temp($delta_temp, $volume_ml);
@@ -38,9 +47,9 @@ class ThermoQuestionMaker1 {
 
 	}
 
-	public function error2_amount_required_to_heat_water($volume_ml, $start_temperature, $final_temperature) {
+	public function error2_amount_required_to_heat_water() {
 
-		return $this->amount_required_to_heat_water_question_maker($volume_ml, $start_temperature, $final_temperature,
+		return $this->amount_required_to_heat_water_question_maker($this->volume_ml, $this->start_temp, $this->final_temp,
 
 			function ($delta_temp, $volume_ml) {
 				return $this->generate_error2_heat_required_for_water_delta_temp($delta_temp, $volume_ml);
@@ -54,9 +63,9 @@ class ThermoQuestionMaker1 {
 
 	}
 
-	public function error3_amount_required_to_heat_water($volume_ml, $start_temperature, $final_temperature) {
+	public function error3_amount_required_to_heat_water() {
 
-		return $this->amount_required_to_heat_water_question_maker($volume_ml, $start_temperature, $final_temperature,
+		return $this->amount_required_to_heat_water_question_maker($this->volume_ml, $this->start_temp, $this->final_temp,
 			function ($delta_temp, $volume_ml) {
 				return $this->heat_required_for_water_delta_temp($delta_temp, $volume_ml);
 			},
@@ -68,9 +77,9 @@ class ThermoQuestionMaker1 {
 
 	}
 
-	public function error4_amount_required_to_heat_water($volume_ml, $start_temperature, $final_temperature) {
+	public function error4_amount_required_to_heat_water() {
 
-		return $this->amount_required_to_heat_water_question_maker($volume_ml, $start_temperature, $final_temperature,
+		return $this->amount_required_to_heat_water_question_maker($this->volume_ml, $this->start_temp, $this->final_temp,
 
 			function ($delta_temp, $volume_ml) {
 				return $this->heat_required_for_water_delta_temp($delta_temp, $volume_ml);
@@ -84,7 +93,7 @@ class ThermoQuestionMaker1 {
 	}
 
 	/**A helper function that produces other functions that can calculate the mass of the hydrocarbon required to heat a given amount of water.  The functions passed in as arguments can be error-producing functions that will yield a function that gives the wrong answer**/
-	private function amount_required_to_heat_water_question_maker($volume_ml, $start_temperature, $final_temperature, $fn1, $fn2) {
+	public function amount_required_to_heat_water_question_maker($volume_ml, $start_temperature, $final_temperature, $fn1, $fn2) {
 
 		$delta_temp = $final_temperature - $start_temperature;
 
@@ -94,7 +103,7 @@ class ThermoQuestionMaker1 {
 	}
 
 	/** Returns the correct amount of heat required to raise a given volume of water (in ml) from a starting temp to a final temp, where delta_temp = final_temp - starting_temp **/
-	private function heat_required_for_water_delta_temp($delta_temp, $volume_ml) {
+	public function heat_required_for_water_delta_temp($delta_temp, $volume_ml) {
 		return $delta_temp * ($volume_ml / 1000) * HydroCarbon::$SPECIFIC_HEAT_CAPACITY_WATER;
 	}
 
@@ -118,7 +127,7 @@ class ThermoQuestionMaker1 {
 	private function generate_error1_kilograms_required_for_heat($heat) {
 
 		$moles = abs($heat / $this->hydrocarbon->get_standard_enthalpy_of_combustion());
-		return $moles * $this->hydrocarbon->get_err1_molar_mass();
+		return $moles * $this->error_generator3->get_err1_molar_mass();
 
 	}
 

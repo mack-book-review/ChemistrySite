@@ -1,17 +1,21 @@
 <?php
 
+include "QuizQuestion.php";
 include "ThermoQuestion1.php";
+include "ThermoQuestion2.php";
+include "ThermoQuestion3.php";
 include "QuestionTemplate.php";
 
 class Quizmaker {
 
 	public static function Make_Sample_Quiz1() {
 		return new Quizmaker([
-			new ThermoQuestion1(new Alkane(2)),
-			new ThermoQuestion1(new Alkane(3)),
 			new ThermoQuestion1(new Alkane(4)),
-			new ThermoQuestion1(new Alkane(5)),
-			new ThermoQuestion1(new Alkane(6)),
+			new ThermoQuestion2(new Alkane(2)),
+			new ThermoQuestion3(new Alkane(3)),
+			new ThermoQuestion2(new Alkane(4)),
+			new ThermoQuestion3(new Alkane(5)),
+			new ThermoQuestion2(new Alkane(6)),
 		]);
 	}
 	//Array of QuizQuestions (i.e. ThermoQuestion1, ThermoQuestion2, ThermoQuestion3, etc.)

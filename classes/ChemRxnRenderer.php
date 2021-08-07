@@ -32,7 +32,7 @@ class ChemRxnRenderer {
 	}
 
 	//Outputs the html required to display the combustion reaction for a given $hydrocarbon
-	public static function get_html_for_combustion_reaction($hydrocarbon) {
+	public static function Get_HTML_for_Combustion_Reaction($hydrocarbon) {
 
 		$number_oxygens_str = strval($hydrocarbon->get_number_carbons() * 2 + $hydrocarbon->get_number_hydrogens() / 2) . "/2";
 
@@ -40,7 +40,7 @@ class ChemRxnRenderer {
 
 		$html .= " -> ";
 
-		$html .= $hydrocarbon->get_number_carbons . "CO<sub>2</sub>(g) + " . $hydrocarbon->get_number_hydrogens() / 2 . "H<sub>2</sub>O(l)";
+		$html .= $hydrocarbon->get_number_carbons() . "CO<sub>2</sub>(g) + " . $hydrocarbon->get_number_hydrogens() / 2 . "H<sub>2</sub>O(l)";
 
 		return $html;
 

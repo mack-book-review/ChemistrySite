@@ -22,7 +22,6 @@ include "classes/Alkanes.php";
 include "classes/Alkenes.php";
 
 include "classes/ChemRxnRenderer.php";
-include "classes/ThermoQuestionMaker.php";
 include "classes/Quizmaker.php";
 ?>
 

@@ -1,66 +1,52 @@
 <?php
 
-// class ThermoQuestion2 implements QuizQuestion{
+include "ErrorGenerator2.php";
 
-// 	private Hydrocarbon $hydrocarbon;
+class ThermoQuestion2 extends QuizQuestion {
 
-// 	public function __construct($u_hydrocarbon){
+	private Hydrocarbon $hydrocarbon;
+	private ErrorGenerator2 $error_generator;
 
-// 		$this->hydrocarbon = $u_hydrocarbon;
-// 	}
+	public function __construct($u_hydrocarbon) {
 
-// 	public function get_question_text(){
-// 		$html = "<p>What is the standard enthalpy of combustion for " . $this->hydrocarbon . "?</p><br>";
+		$this->hydrocarbon = $u_hydrocarbon;
+		$this->error_generator = new ErrorGenerator2($u_hydrocarbon);
+		$this->choices = [
+			"A" => null,
+			"B" => null,
+			"C" => null,
+			"D" => null,
+		];
 
-// 		$html .= $this->get_html_for_combustion_reaction();
+		$this->generate_choices();
+	}
 
-// 		$html .= "<br>";
+	public function get_question_text() {
+		$html = "<p>What is the standard enthalpy of combustion for " . $this->hydrocarbon . "?  The equation for the combustion reaction is shown below:  </p><br>";
 
-// 		return $html;
-// 	}
+		$html .= ChemRxnRenderer::Get_HTML_for_Combustion_Reaction($this->hydrocarbon);
 
-// 	public function get_correct_answer(){
-// 		return $this->get_standard_enthalpy_of_combustion();
-// 	}
+		$html .= "<br>";
 
-// 	public function get_correct_answer(){
-// 		return $this->hydrocarbon->amount_required_to_heat_water($this->vol_water_ml, $this->start_temp, $this->end_temp);
-// 	}
+		return $html;
+	}
 
-// 	//generate erroneous choices
-// 	public function get_choices(){
+	public function get_question_id() {
+		$rand_num = rand(1000, 9999);
+		return $rand_num;
+	}
 
-// 	}
+	protected function get_erroneous_answers() {
+		return [
+			round($this->error_generator->get_err1_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
+			round($this->error_generator->get_err2_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
+			round($this->error_generator->get_err3_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
+			round($this->error_generator->get_err4_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION];
+	}
 
-// }
+	public function get_correct_answer() {
+		$correct_answer = $this->hydrocarbon->get_standard_enthalpy_of_combustion();
+		return strval(round($correct_answer, 2)) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION;
+	}
 
-// class ChoiceSet{
-// 	private $choice_set_id;
-// 	private $choices = [
-// 		"A" => null,
-// 		"B" => null,
-// 		"C" => null,
-// 		"D" => null,
-// 		"E" => null
-// 	];
-
-// 	public function __construct($id){
-// 		$this->choice_set_id;
-// 	}
-
-// 	public function get_choices(){
-// 		return $this->choices;
-// 	}
-
-// 	public function set_choice($choice_letter,$choice){
-// 		if($choice_letter != "A" || $choice_letter != "B" || $choice_letter != "C" || $choice_letter != "D" || $choice_letter != "E"){
-// 			echo "Failed to set choice: improper letter option";
-// 			return;
-// 		}
-
-// 		$this->choices[$choice_letter] = $choice;
-
-// 		return $this;
-
-// 	}
-// }
+}
