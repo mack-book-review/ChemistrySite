@@ -6,6 +6,7 @@ abstract class QuizQuestion {
 	protected int $question_id;
 	protected string $correct_choice;
 	protected array $choices;
+	protected string $img_path = "";
 
 	abstract public function get_question_id();
 	abstract public function get_question_text();
@@ -16,6 +17,19 @@ abstract class QuizQuestion {
 	}
 	public function get_choices(): array{
 		return $this->choices;
+	}
+
+	public function __construct($u_img_path = "") {
+		$this->choices = [
+			"A" => null,
+			"B" => null,
+			"C" => null,
+			"D" => null,
+		];
+
+		$this->generate_choices();
+
+		$this->img_path = $u_img_path;
 	}
 
 	//generate erroneous and correct choices

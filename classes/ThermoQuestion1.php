@@ -26,13 +26,7 @@ class ThermoQuestion1 extends QuizQuestion {
 		$this->randomize_private_vars();
 		$this->question_maker = new ThermoQuestionMaker1($u_hydrocarbon, $this->vol_water_ml, $this->start_temp, $this->end_temp);
 
-		$this->choices = [
-			"A" => null,
-			"B" => null,
-			"C" => null,
-			"D" => null,
-		];
-		$this->generate_choices();
+		parent::__construct();
 	}
 
 	public function get_question_id() {

@@ -4,6 +4,8 @@ include "QuizQuestion.php";
 include "ThermoQuestion1.php";
 include "ThermoQuestion2.php";
 include "ThermoQuestion3.php";
+include "ThermoQuestion11.php";
+
 include "QuestionTemplate.php";
 
 class Quizmaker {
@@ -16,6 +18,7 @@ class Quizmaker {
 			new ThermoQuestion2(new Alkane(4)),
 			new ThermoQuestion3(new Alkane(5)),
 			new ThermoQuestion2(new Alkane(6)),
+			new ThermoQuestion11(),
 		]);
 	}
 	//Array of QuizQuestions (i.e. ThermoQuestion1, ThermoQuestion2, ThermoQuestion3, etc.)

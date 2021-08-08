@@ -12,14 +12,7 @@ class ThermoQuestion3 extends QuizQuestion {
 
 		$this->hydrocarbon = $u_hydrocarbon;
 		$this->error_generator = new ErrorGenerator3($u_hydrocarbon);
-		$this->choices = [
-			"A" => null,
-			"B" => null,
-			"C" => null,
-			"D" => null,
-		];
-
-		$this->generate_choices();
+		parent::__construct();
 	}
 
 	public function get_question_text() {
