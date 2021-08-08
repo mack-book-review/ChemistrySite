@@ -29,14 +29,20 @@ class Quizmaker {
 	//Array of QuizQuestions (i.e. ThermoQuestion1, ThermoQuestion2, ThermoQuestion3, etc.)
 	private array $quiz_questions;
 
-	function __construct($some_quiz_questions) {
+	function __construct($some_quiz_questions = null) {
+
+		echo "Initializing quizmaker...";
+
 		$this->quiz_questions = $some_quiz_questions;
 
 		shuffle($this->quiz_questions);
 
+		echo "Finished creating quiz";
+
 	}
 
 	public function get_quiz_html_form($action_page) {
+		echo "Loading form...";
 
 		$html = "<form method='post' action='" . $action_page . "'>";
 

@@ -11,6 +11,10 @@
 
 	<?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include "data.php";
 include "functions.php";
 
@@ -65,23 +69,34 @@ if (isset($_POST["user_answer1"])) {
 
 	$topic = $_GET['topic'];
 
-	$topic_questions = get_questions_for_topic($topic, $all_questions);
+	if ($topic == "thermochemistry") {
+		echo "Making thermochem quiz...";
 
-	if (!empty($topic_questions)) {
+		include "classes/Quizmaker.php";
 
-		echo '<form method="post" action="form1.php">';
+		$quizmaker = Quizmaker::Make_Sample_Quiz1();
+		echo $quizmaker->get_quiz_html_form("form1.php");
+	} else {
 
-		foreach ($topic_questions as $question) {
-			display_question($question);
+		$topic_questions = get_questions_for_topic($topic, $all_questions);
+
+		if (!empty($topic_questions)) {
+
+			echo '<form method="post" action="form1.php">';
+
+			foreach ($topic_questions as $question) {
+				display_question($question);
+			}
+
+			echo '<input type="hidden" name="topic" value="' . $topic . '">';
+			echo '<input type="submit">';
+
+			echo '</form>';
+
+		} else {
+			echo "<h2>No questions for that topic</h2>";
 		}
 
-		echo '<input type="hidden" name="topic" value="' . $topic . '">';
-		echo '<input type="submit">';
-
-		echo '</form>';
-
-	} else {
-		echo "<h2>No questions for that topic</h2>";
 	}
 
 }

@@ -1,5 +1,9 @@
 <?php
 
+function get_questions_for_topic() {
+
+}
+
 function display_results() {
 	$count = 1;
 	$number_correct = 0;
