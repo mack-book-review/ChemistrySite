@@ -1,6 +1,6 @@
 <?php
 
-class Thermoquestion7 {
+class Thermoquestion7 extends QuizQuestion {
 
 	private GasMixture $gas_mixture;
 	private ErrorGenerator7 $error_generator;

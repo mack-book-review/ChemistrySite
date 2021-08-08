@@ -10,13 +10,15 @@ class QuestionTemplate {
 		$this->quiz_question = $u_quiz_question;
 	}
 
-	public function get_question_html() {
+	public function get_question_html($question_number) {
 
-		$html = "<p><b>(" . $this->quiz_question->get_question_id() . ")</b>  ";
+		$html = "<p>";
+
+		$html .= "<b>(" . $question_number . ")</b>  ";
 
 		$html .= $this->quiz_question->get_question_text();
 
-		$html .= "<p>";
+		$html .= "</p>";
 
 		$html .= "Choose answer:  ";
 

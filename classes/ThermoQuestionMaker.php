@@ -127,7 +127,7 @@ class ThermoQuestionMaker1 {
 	private function generate_error1_kilograms_required_for_heat($heat) {
 
 		$moles = abs($heat / $this->hydrocarbon->get_standard_enthalpy_of_combustion());
-		return $moles * $this->error_generator3->get_err1_molar_mass();
+		return $moles * $this->error_generator3->get_err1();
 
 	}
 

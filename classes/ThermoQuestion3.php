@@ -16,7 +16,7 @@ class ThermoQuestion3 extends QuizQuestion {
 	}
 
 	public function get_question_text() {
-		$html = "<p>What is the molar mass of " . $this->hydrocarbon . "?</p><br>";
+		$html = "What is the molar mass of " . $this->hydrocarbon . "?";
 
 		$html .= "<br>";
 
@@ -30,10 +30,11 @@ class ThermoQuestion3 extends QuizQuestion {
 
 	protected function get_erroneous_answers() {
 		return [
-			round($this->error_generator->get_err1_molar_mass(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS,
-			round($this->error_generator->get_err2_molar_mass(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS,
-			round($this->error_generator->get_err3_molar_mass(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS,
-			round($this->error_generator->get_err4_molar_mass(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS];
+			round($this->error_generator->get_err1(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS,
+			round($this->error_generator->get_err2(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS,
+			round($this->error_generator->get_err3(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS,
+			round($this->error_generator->get_err4(), 2) . " " . Hydrocarbon::$UNITS_MOLAR_MASS,
+		];
 	}
 
 	public function get_correct_answer() {

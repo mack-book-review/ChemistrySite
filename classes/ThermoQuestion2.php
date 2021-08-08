@@ -5,7 +5,7 @@ include "ErrorGenerator2.php";
 class ThermoQuestion2 extends QuizQuestion {
 
 	private Hydrocarbon $hydrocarbon;
-	private ErrorGenerator2 $error_generator;
+	private ErrorGeneratorInterface $error_generator;
 
 	public function __construct($u_hydrocarbon) {
 
@@ -16,7 +16,7 @@ class ThermoQuestion2 extends QuizQuestion {
 	}
 
 	public function get_question_text() {
-		$html = "<p>What is the standard enthalpy of combustion for " . $this->hydrocarbon . "?  The equation for the combustion reaction is shown below:  </p><br>";
+		$html = "What is the standard enthalpy of combustion for " . $this->hydrocarbon . "?  The equation for the combustion reaction is shown below:";
 
 		$html .= ChemRxnRenderer::Get_HTML_for_Combustion_Reaction($this->hydrocarbon);
 
@@ -32,10 +32,10 @@ class ThermoQuestion2 extends QuizQuestion {
 
 	protected function get_erroneous_answers() {
 		return [
-			round($this->error_generator->get_err1_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
-			round($this->error_generator->get_err2_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
-			round($this->error_generator->get_err3_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
-			round($this->error_generator->get_err4_standard_enthalpy_of_combustion(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION];
+			round($this->error_generator->get_err1(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
+			round($this->error_generator->get_err2(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
+			round($this->error_generator->get_err3(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION,
+			round($this->error_generator->get_err4(), 2) . Hydrocarbon::$UNITS_ENTHALPY_COMBUSTION];
 	}
 
 	public function get_correct_answer() {

@@ -13,8 +13,6 @@ class ThermoQuestion11 extends QuizQuestion {
 	private float $temperature;
 	private float $number_moles;
 
-	private ErrorGenerator11 $error_generator;
-
 	public function get_temperature() {
 		return $this->temperature;
 	}
@@ -41,9 +39,9 @@ class ThermoQuestion11 extends QuizQuestion {
 
 	public function get_question_text() {
 
-		$html = "<p>Suppose the gas in the picture below is " . number_format($this->number_moles, 1) . " mol of He at " . (number_format($this->temperature + 273, 1)) . " K, the two weights correspond to an external pressure of " . number_format($this->pressure_initial, 1) . " atm in Figure (a), and the single weight in Figure (b) corresponds to an external pressure of " . number_format($this->pressure_final, 1) . " atm.  How much work, in joules, is associated with the gas expansion at constant temperature?</p><br>";
+		$html = "Suppose the gas in the picture below is " . number_format($this->number_moles, 1) . " mol of He at " . (number_format($this->temperature + 273, 1)) . " K, the two weights correspond to an external pressure of " . number_format($this->pressure_initial, 1) . " atm in Figure (a), and the single weight in Figure (b) corresponds to an external pressure of " . number_format($this->pressure_final, 1) . " atm.  How much work, in joules, is associated with the gas expansion at constant temperature?";
 
-		$html .= "<img src='" . $this->img_path . "' id='question" . $this->get_question_id() . "' style='width:30em;height:auto;'>";
+		$html .= "<img src='" . $this->img_path . "' id='question" . $this->get_question_id() . "' style='display:block;width:30em;height:auto;margin-bottom:2em;'>";
 
 		$html .= "<br>";
 
@@ -76,10 +74,10 @@ class ThermoQuestion11 extends QuizQuestion {
 
 	protected function get_erroneous_answers() {
 		return [
-			$this->error_generator->get_err1() . " J",
-			$this->error_generator->get_err2() . " J",
-			$this->error_generator->get_err3() . " J",
-			$this->error_generator->get_err4() . " J",
+			number_format(-$this->error_generator->get_err1(), 2) . " J",
+			number_format(-$this->error_generator->get_err2(), 2) . " J",
+			number_format(-$this->error_generator->get_err3(), 2) . " J",
+			number_format(-$this->error_generator->get_err4(), 2) . " J",
 
 		];
 	}
@@ -90,6 +88,6 @@ class ThermoQuestion11 extends QuizQuestion {
 
 	public function get_correct_answer() {
 		$correct_answer = -$this->pressure_final * $this->get_change_in_vol();
-		return strval(round($correct_answer, 2)) . " " . " J";
+		return strval(number_format($correct_answer, 2)) . " " . " J";
 	}
 }
