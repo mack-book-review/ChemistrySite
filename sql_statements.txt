@@ -49,15 +49,15 @@ INSERT INTO  answer_choices(choice_set_id,choice_A,choice_B,choice_C,choice_D) V
 
 *********QUESTIONS*******
 
-INSERT INTO  questions(question_number, topic,difficulty,question_text,correct_answer,choice_set_id,answer_explanation) VALUES(1,"thermochemistry",1, "_____ is energy transferred between a system and its surroundings as a result of a temperature difference", "B", 1, "Heat is energy in transit.  It is something exchanged as opposed to something contained in a substance.  It is the result of a temperature difference, which means that two substances differ in their average kinetic energy, which result in the kinetic energy of particles being transferred to particles of another substance. ");
+INSERT INTO  questions(question_number, topic,difficulty,question_text,correct_answer,choice_set_id,answer_explanation) VALUES(1,"thermochemistry",1, "_____ is the energy transferred between a system and its surroundings as a result of a temperature difference.", "B", 1, "Heat is energy in transit.  It is something exchanged as opposed to something contained in a substance.  It is the result of a temperature difference, which means that two substances differ in their average kinetic energy, which result in the kinetic energy of particles being transferred to particles of another substance. ");
 
 
 
-INSERT INTO questions(question_number, topic,difficulty,question_text,correct_answer,choice_set_id,answer_explanation) VALUES(2, "thermochemistry",1, "Consider the following statements:
+INSERT INTO questions(question_number, topic,difficulty,question_text,correct_answer,choice_set_id,answer_explanation) VALUES(2, "thermochemistry",1, "Consider the following statements: <br><br>
 
-		I.	how much the temperature is to be changed
-		II.	the quantity of substance
-		III.	the nature of the substance (type ofatoms or molecules)",
+		I.	how much the temperature is to be changed <br>
+		II.	the quantity of substance	<br>
+		III.	the nature of the substance (type of atoms or molecules)",
 		"D",2, "");
 
 
@@ -72,7 +72,7 @@ INSERT INTO  questions(question_number,topic,difficulty,question_text,correct_an
 INSERT INTO  questions(question_number,topic,difficulty,question_text,correct_answer,choice_set_id,answer_explanation) VALUES(7, "thermochemistry",1, "If the internal energy of a system decreases by 125 J at the same time that the system absorbs  54 J of heat, does the system do work or have work done on it? How much?","B",7, "");
 
 
-INSERT INTO  questions(question_number,topic,difficulty,question_text,correct_answer,choice_set_id,answer_explanation) VALUES(8, "thermochemistry",1, "Which of the following is not a function of state for a system","D",8, "");
+INSERT INTO  questions(question_number,topic,difficulty,question_text,correct_answer,choice_set_id,answer_explanation) VALUES(8, "thermochemistry",1, "Which of the following is not a function of state for a system:","D",8, "");
 
 
 

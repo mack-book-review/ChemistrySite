@@ -12,7 +12,6 @@ function get_all_questions() {
 			LEFT JOIN answer_choices
 			ON questions.choice_set_id = answer_choices.choice_set_id");
 		$questions = $results->fetchAll(PDO::FETCH_ASSOC);
-		echo "Retrieved Results";
 	} catch (Exception $e) {
 		echo "Unable to retrieve results";
 		exit;
