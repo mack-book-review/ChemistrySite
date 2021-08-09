@@ -230,13 +230,8 @@ $all_questions = [
 		"topic" => "thermochemistry",
 		"difficulty" => 1,
 
-		"question_text" => "Consider the following statements:
-
-		I.		how much the temperature is to be 		changed
-		II.		the quantity of substance
-		III.	the nature of the substance (type of
-				atoms or molecules)
-	",
+		"question_text" => "Consider the following statements:<br><br>I.		how much the temperature is to be 		changed<br>II.		the quantity of substance<br>III.	the nature of the substance (type of atoms or molecules) <br><br>
+		Which of the above statements are true in that they represent factors that affect the specific heat capacity of a substance?",
 		"answer_choices" => [
 			"A" => "I only",
 			"B" => "II only",

@@ -1,3 +1,20 @@
+<?php
+include "inc/citation.php";
+?>
+<hr>
+<br>
+<div class='container'>
+
+<h1>Heat, Work, and Internal Energy</h1>
+
+<p><b>Heat</b> is energy transferred between a system and its surroundings as a result of a temperature difference.</p>
+
+<p>Work involved in the expansion or compression of gases is called <b>pressure-volume work.</b>  Pressure-volume, or <i>P-V,</i> work is the type of work performed by the explosives and gases formed in the combustion of gasoline in an automobile engine.</p>
+
+<p><b>Internal Energy, <i>U</i>,</b> is the total energy (both kinetic and potential) in a system, including <i>translational kinetic energy</i> of molecules, the energy associated with molecular vibrations and rotations, the energy stored in chemical bonds and intermolecular attractions, and the energy associated with electrons in the atoms.</p>
+
+</div>
+<hr>
 <div class="container">
 	<h1>Hydrocarbons</h1>
 

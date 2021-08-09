@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
 	echo "<h4 class='alert-heading'>Final Score</h4>";
 	echo "<hr>";
 
-	echo "<p>You answered: " . number_format(100 * ($number_correct / $i), 2) . "% Correct </p>";
+	echo "<p>You answered: " . number_format(100 * ($number_correct / ($i - 1)), 2) . "% Correct </p>";
 
 	echo "</div>";
 	echo "</div>";

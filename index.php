@@ -20,11 +20,7 @@ include "classes/Quizmaker.php";
 if (isset($_GET['page'])) {
 	if ($_GET['page'] == "thermochemistry-intro") {
 
-		echo "<div class='container mt-2 mb-2 ml-2'>";
-
-		echo "<h1>Primer on Thermochemistry</h1>";
-
-		echo "</div>";
+		echo "<h1 style='margin-left:0.5em;margin-top:0.5em;'>Some Thermochemistry Basics</h1>";
 
 		include "templates/HydrocarbonIntro.php";
 	}
