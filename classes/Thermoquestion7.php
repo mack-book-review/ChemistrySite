@@ -1,26 +1,28 @@
 <?php
 
+include "GasMixture.php";
+include "ErrorGenerator7.php";
+
 class Thermoquestion7 extends QuizQuestion {
 
 	private GasMixture $gas_mixture;
-	private ErrorGenerator7 $error_generator;
 
-	public function __construct($gas_mixture) {
+	public function __construct($gas_mixture = null) {
 
-		$this->error_generator = new ErrorGenerator7($gas_mixture);
+		if ($gas_mixture == null) {
+			$this->gas_mixture = new GasMixture();
+		} else {
+			$this->gas_mixture = $gas_mixture;
+		}
 
-		$this->choices = [
-			"A" => null,
-			"B" => null,
-			"C" => null,
-			"D" => null,
-		];
+		$this->error_generator = new ErrorGenerator7();
 
-		$this->generate_choices();
+		parent::__construct();
 	}
 
 	public function get_question_text() {
-		$html = "<p>A particular gas mixtures consists, in mole percents, of " . $this->gas_mixture . ".  A " . $this->gas_mixture->get_volume_liters() . " L sample of this gas, measured at " . $this->gas_mixture->get_temperature_celsius() . "&deg;C and " . $this->gas_mixture->get_pressure_mmHg() . " mmHg, is burned at constant pressure in an excess of oxygen gas. How much heat, in kilojoules, is evolved in a combustion reaction?</p><br>";
+
+		$html = "A particular gas mixtures consists, in mole percents, of " . $this->gas_mixture . ".  A " . number_format($this->gas_mixture->get_volume_liters(), 1) . " L sample of this gas, measured at " . number_format($this->gas_mixture->get_temperature_celsius(), 1) . "&deg;C and " . number_format($this->gas_mixture->get_pressure_mmHg(), 1) . " mmHg, is burned at constant pressure in an excess of oxygen gas. How much heat, in kilojoules, is evolved in a combustion reaction?";
 
 		$html .= "<br>";
 
@@ -33,11 +35,22 @@ class Thermoquestion7 extends QuizQuestion {
 	}
 
 	protected function get_erroneous_answers() {
-		return [];
+		return [
+			number_format(0.5 * $this->get_correct_answer_numerical(), 1) . " kJ",
+			number_format(1.5 * $this->get_correct_answer_numerical(), 1) . " kJ",
+			number_format(0.8 * $this->get_correct_answer_numerical(), 1) . " kJ",
+			number_format(1.2 * $this->get_correct_answer_numerical(), 1) . " kJ",
+
+		];
+	}
+
+	public function get_correct_answer_numerical() {
+		return $this->gas_mixture->get_total_heat_of_combustion();
 	}
 
 	public function get_correct_answer() {
-		$correct_answer = $this->gas_mixture->get_total_heat_of_combustion();
+		$correct_answer = $this->get_correct_answer_numerical();
+
 		return strval(round($correct_answer, 2)) . " " . "kJ";
 	}
 }
