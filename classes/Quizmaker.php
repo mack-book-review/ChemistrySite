@@ -60,7 +60,11 @@ class Quizmaker {
 			$html .= Quizmaker::Get_DB_Quiz_Question_HTML($question);
 		}
 
-		$html .= "<input type='submit'>";
+		$html .= "<br>";
+		$html .= "<br>";
+
+		$html .= "<button type='submit' class='btn btn-primary' name='submit' value='submit'>Submit</button>";
+
 		$html .= "</form>";
 
 		return $html;
@@ -74,7 +78,7 @@ class Quizmaker {
 
 		$html = "<p><b>(" . $id . ")</b> " . $text . "<p>";
 
-		$html .= "<select name='question" . $topic . $id . "' id='question" . $topic . $id . "'>";
+		$html .= "<select name='question" . $id . "' id='question" . $topic . $id . "'>";
 
 		$choice_A = $question['choice_A'];
 		$choice_B = $question['choice_B'];
@@ -127,10 +131,7 @@ class Quizmaker {
 			$i++;
 		}
 
-		$html .= "<br>";
-		$html .= "<br>";
-
-		$html .= "<input type='submit'>";
+		$html .= "<button type='submit' class='btn btn-primary' name='submit' value='submit'>Submit</button>";
 
 		$html .= "</form>";
 

@@ -22,7 +22,7 @@ class QuestionTemplate {
 
 		$html .= "Choose answer:  ";
 
-		$html .= '<select name="' . $this->quiz_question->get_question_id() . '" id=question"' . $this->quiz_question->get_question_id() . '">';
+		$html .= '<select name="question' . $question_number . '" id=question"' . $question_number . '">';
 
 		foreach ($this->quiz_question->get_choices() as $letter => $choice_text) {
 
@@ -35,7 +35,7 @@ class QuestionTemplate {
 
 		$html .= '</select>';
 
-		$html .= '<input type="hidden" name="' . "answer" . $this->quiz_question->get_question_id() . '" value="' . $this->quiz_question->get_correct_choice() . '">';
+		$html .= '<input type="hidden" name="' . "answer" . $question_number . '" value="' . $this->quiz_question->get_correct_choice() . '">';
 
 		return $html;
 	}

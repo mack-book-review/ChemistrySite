@@ -31,9 +31,15 @@ if (isset($_GET['page'])) {
 
 	if ($_GET['page'] == "dynamic-quiz") {
 
-		$quiz_html = Quizmaker::Get_Dynamic_Quiz_HTML_Form(Quizmaker::Get_Sample_Questions(), "index.php");
+		$quiz_html = Quizmaker::Get_Dynamic_Quiz_HTML_Form(Quizmaker::Get_Sample_Questions(), "inc/process_answers.php");
 
 		echo Quizmaker::Get_Quiz_Container("Dynamically-Generated Quiz", $quiz_html);
+
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+
 	}
 
 	if ($_GET['page'] == "db-quiz") {
@@ -41,9 +47,14 @@ if (isset($_GET['page'])) {
 
 		$questions = get_all_questions();
 
-		$quiz_html = Quizmaker::Get_DB_Quiz_Form($questions, "index.php");
+		$quiz_html = Quizmaker::Get_DB_Quiz_Form($questions, "inc/process_answers.php");
 
 		echo Quizmaker::Get_Quiz_Container("Database-Driven Quiz", $quiz_html);
+
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
 
 	}
 }
