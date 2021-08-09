@@ -7,7 +7,9 @@ include "ThermoQuestion3.php";
 include "ThermoQuestion4.php";
 include "ThermoQuestion5.php";
 include "ThermoQuestion7.php";
-
+include "ThermoQuestion8.php";
+include "ThermoQuestion9.php";
+include "ThermoQuestion10.php";
 include "ThermoQuestion11.php";
 include "ThermoQuestion12.php";
 
@@ -23,6 +25,11 @@ class Quizmaker {
 			new ThermoQuestion11(),
 			new ThermoQuestion4(),
 			new ThermoQuestion7(),
+			new ThermoQuestion8(new Alkane(4)),
+			new ThermoQuestion8(new Alkane(6)),
+			new ThermoQuestion9(new Alkane(5)),
+			new ThermoQuestion9(new Alkane(4)),
+			new ThermoQuestion10(new Alkane(4)),
 			new ThermoQuestion5(
 				new Solution(25.00, 0.100, "HCl"),
 				new Solution(30.000, 0.5, "NaOH"), -103.4),

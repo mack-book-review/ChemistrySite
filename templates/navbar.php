@@ -15,7 +15,7 @@
         <a class="nav-link" href="index.php?page=dynamic-quiz">Dynamic Quiz</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="index.php?page=dynamic-quiz" tabindex="-1" aria-disabled="true">Database-Driven Quiz</a>
+        <a class="nav-link" href="index.php?page=db-quiz" tabindex="-1" aria-disabled="true">Database-Driven Quiz</a>
       </li>
     </ul>
   </div>

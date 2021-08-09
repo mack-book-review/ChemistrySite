@@ -1,6 +1,24 @@
 <?php
 
-function get_questions_for_topic() {
+function get_all_questions() {
+	include "inc/connection.php";
+
+	$questions = null;
+
+	try {
+		$results = $db->query("
+			SELECT *
+			FROM questions
+			LEFT JOIN answer_choices
+			ON questions.choice_set_id = answer_choices.choice_set_id");
+		$questions = $results->fetchAll(PDO::FETCH_ASSOC);
+		echo "Retrieved Results";
+	} catch (Exception $e) {
+		echo "Unable to retrieve results";
+		exit;
+	}
+
+	return $questions;
 
 }
 
