@@ -4,13 +4,13 @@ include "ErrorGenerator8.php";
 
 class ThermoQuestion8 extends QuizQuestion {
 
-	static private float $HEAT_OF_FUSION_ICE = 6.01;
-	static private float $MOLAR_MASS_WATER = 18.01;
+	static private $HEAT_OF_FUSION_ICE = 6.01;
+	static private $MOLAR_MASS_WATER = 18.01;
 
-	private float $temperature;
-	private float $volume;
-	private float $pressure;
-	private Hydrocarbon $hydrocarbon;
+	private $temperature;
+	private $volume;
+	private $pressure;
+	private $hydrocarbon;
 
 	public function __construct($hydrocarbon) {
 		$this->hydrocarbon = $hydrocarbon;

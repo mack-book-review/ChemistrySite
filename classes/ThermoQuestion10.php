@@ -4,11 +4,11 @@ include "ErrorGenerator10.php";
 
 class ThermoQuestion10 extends QuizQuestion {
 
-	private Hydrocarbon $hydrocarbon;
-	private float $water_start_temp;
-	private float $water_end_temp;
-	private float $water_vol;
-	private ErrorGenerator10 $error_generator;
+	private $hydrocarbon;
+	private $water_start_temp;
+	private $water_end_temp;
+	private $water_vol;
+	private $error_generator;
 
 	public function __construct($u_hydrocarbon) {
 

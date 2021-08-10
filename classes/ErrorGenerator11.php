@@ -2,10 +2,10 @@
 
 class ErrorGenerator11 {
 
-	private float $temperature;
-	private float $number_moles;
-	private float $pressure_final;
-	private float $pressure_initial;
+	private $temperature;
+	private $number_moles;
+	private $pressure_final;
+	private $pressure_initial;
 
 	public function __construct($pressure_initial, $pressure_final, $number_moles, $temperature) {
 		$this->temperature = $temperature;

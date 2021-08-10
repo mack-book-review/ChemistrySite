@@ -4,30 +4,30 @@
 class ThermoQuestion4 extends QuizQuestion {
 
 	//Specific Heat Capacity of Water in kJ/kg-degree Celsius
-	private static float $WATER_SPECIFIC_HEAT = 4.18;
-
-	private static float $ICE_SPECIFIC_HEAT = 2.01;
+	private static $WATER_SPECIFIC_HEAT = 4.18;
+	private static $ICE_SPECIFIC_HEAT = 2.108;
+	private static $WATER_VAPOR_SPECIFIC_HEAT = 1.996;
 
 	//Molar Mass of Water (g/mol)
-	private static float $MOLAR_MASS_WATER = 18.02;
+	private static $MOLAR_MASS_WATER = 18.02;
 
 	//Molar Enthalpy of Freezing (kJ/mol)
-	private static float $WATER_ENTHALPY_FREEZING = -6.01;
+	private static $WATER_ENTHALPY_FREEZING = -6.01;
 
 	//Molar Enthalpy of Melting (kJ/mol)
-	private static float $WATER_ENTHALPY_MELTING = 6.01;
+	private static $WATER_ENTHALPY_MELTING = 6.01;
 
 	//Molar Enthalpy of Vaporization (kJ/mol)
-	private static float $WATER_ENTHALPY_VAPORIZING = 44.0;
+	private static $WATER_ENTHALPY_VAPORIZING = 44.0;
 
 	//Molar Enthalpy of Condensation (kJ/mol)
-	private static float $WATER_ENTHALPY_CONDENSING = -44.0;
+	private static $WATER_ENTHALPY_CONDENSING = -44.0;
 
-	private ErrorGeneratorInterface $error_generator;
-	private float $mass_water;
-	private float $start_temp;
-	private float $final_temp;
-	private int $transition_type;
+	private $error_generator;
+	private $mass_water;
+	private $start_temp;
+	private $final_temp;
+	private $transition_type;
 	private $transition_type_options = [
 		1 => ["liquid", "vapor"],
 		2 => ["vapor", "liquid"],
@@ -91,12 +91,40 @@ class ThermoQuestion4 extends QuizQuestion {
 		}
 	}
 
+	private function get_help_info() {
+
+		$provided_info = "Assume that ";
+
+		switch ($this->transition_type) {
+		case 1:
+			$provided_info .= "the enthalpy of vaporization for water is ";
+			break;
+		case 2:
+			$provided_info .= "the enthalpy of condensation for water is ";
+			break;
+		case 3:
+			$provided_info .= "the enthalpy of melting for water is ";
+			break;
+		case 4:
+			$provided_info .= "the enthalpy of freezing for water is ";
+			break;
+		}
+
+		$provided_info .= number_format($this->get_enthalpy_for_transition_type(), 1) . " kJ/mol";
+
+		$provided_info .= ".  Also assume that the heat capacity of liquid water is " . ThermoQuestion4::$WATER_SPECIFIC_HEAT . " J/&deg;C-g, that the heat capacity of water vapor is " . ThermoQuestion4::$WATER_VAPOR_SPECIFIC_HEAT . " J/&deg;C-g, and that the heat capacity of ice is " . ThermoQuestion4::$ICE_SPECIFIC_HEAT . " kJ/mol.";
+
+		return $provided_info;
+	}
+
 	public function get_question_text() {
 
 		$first_phase = $this->transition_type_options[$this->transition_type][0];
 		$second_phase = $this->transition_type_options[$this->transition_type][1];
 
-		$html = "Calculate &Delta;H for the process in which " . number_format($this->mass_water, 1) . " g of water is converted from " . $first_phase . " at " . number_format($this->start_temp, 1) . "&deg;C to " . $second_phase . " at " . number_format($this->final_temp, 1) . "&deg;C. ";
+		$help_info = $this->get_help_info();
+
+		$html = "Calculate &Delta;H for the process in which " . number_format($this->mass_water, 1) . " g of water is converted from " . $first_phase . " at " . number_format($this->start_temp, 1) . "&deg;C to " . $second_phase . " at " . number_format($this->final_temp, 1) . "&deg;C. " . $help_info;
 
 		return $html;
 	}
@@ -126,11 +154,11 @@ class ThermoQuestion4 extends QuizQuestion {
 		case 1:
 			$heat1 = (100.0 - $this->start_temp) * ThermoQuestion4::$WATER_SPECIFIC_HEAT * ($this->mass_water);
 
-			$heat2 = ($this->final_temp - 100.0) * ThermoQuestion4::$WATER_SPECIFIC_HEAT * ($this->mass_water);
+			$heat2 = ($this->final_temp - 100.0) * ThermoQuestion4::$WATER_VAPOR_SPECIFIC_HEAT * ($this->mass_water);
 
 			break;
 		case 2:
-			$heat1 = (100.0 - $this->start_temp) * ThermoQuestion4::$WATER_SPECIFIC_HEAT * ($this->mass_water);
+			$heat1 = (100.0 - $this->start_temp) * ThermoQuestion4::$WATER_VAPOR_SPECIFIC_HEAT * ($this->mass_water);
 
 			$heat2 = ($this->final_temp - 100.0) * ThermoQuestion4::$WATER_SPECIFIC_HEAT * ($this->mass_water);
 			break;

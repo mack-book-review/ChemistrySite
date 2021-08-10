@@ -2,7 +2,7 @@
 
 class ErrorGenerator10 implements ErrorGeneratorInterface {
 
-	public HydroCarbon $hydrocarbon;
+	public $hydrocarbon;
 
 	public function __construct($hydrocarbon) {
 		$this->hydrocarbon = $hydrocarbon;

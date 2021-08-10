@@ -3,9 +3,9 @@
 class GasCalculator {
 
 	//L-atm/mol-K
-	public static float $Gas_Constant1 = .0821;
+	public static $Gas_Constant1 = .0821;
 	//
-	public static float $Gas_Constant2 = 8.314;
+	public static $Gas_Constant2 = 8.314;
 
 	public static function Get_Moles_Of_Gas($volume, $temperature, $pressure) {
 		return ($pressure * $volume) / ($temperature * GasCalculator::$Gas_Constant1);

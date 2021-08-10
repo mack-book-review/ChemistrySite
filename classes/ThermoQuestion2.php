@@ -4,8 +4,8 @@ include "ErrorGenerator2.php";
 
 class ThermoQuestion2 extends QuizQuestion {
 
-	private Hydrocarbon $hydrocarbon;
-	private ErrorGeneratorInterface $error_generator;
+	private $hydrocarbon;
+	private $error_generator;
 
 	public function __construct($u_hydrocarbon) {
 
@@ -16,7 +16,7 @@ class ThermoQuestion2 extends QuizQuestion {
 	}
 
 	public function get_question_text() {
-		$html = "What is the standard enthalpy of combustion for " . $this->hydrocarbon . "?  The equation for the combustion reaction is shown below:";
+		$html = "What is the standard enthalpy of combustion for " . $this->hydrocarbon . "?  The equation for the combustion reaction is shown below:<br> <br>";
 
 		$html .= ChemRxnRenderer::Get_HTML_for_Combustion_Reaction($this->hydrocarbon);
 

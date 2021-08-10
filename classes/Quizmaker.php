@@ -38,7 +38,7 @@ class Quizmaker {
 	}
 
 	//Array of QuizQuestions (i.e. ThermoQuestion1, ThermoQuestion2, ThermoQuestion3, etc.)
-	private array $quiz_questions;
+	private $quiz_questions;
 
 	function __construct($some_quiz_questions = null) {
 

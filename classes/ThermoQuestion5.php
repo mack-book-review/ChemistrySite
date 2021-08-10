@@ -3,9 +3,9 @@
 
 class Solution {
 
-	private float $molarity;
-	private float $volume_ml;
-	private string $formula;
+	private $molarity;
+	private $volume_ml;
+	private $formula;
 
 	public function __construct($volume_ml, $molarity, $formula) {
 		$this->volume_ml = round($volume_ml, 2);
@@ -30,15 +30,15 @@ class Solution {
 
 class ThermoQuestion5 extends QuizQuestion {
 
-	private static float $SPECIFIC_HEAT_CAPACITY_WATER = 4.18;
+	private static $SPECIFIC_HEAT_CAPACITY_WATER = 4.18;
 
-	private Solution $solution1;
-	private Solution $solution2;
-	private float $start_temp = 0.00;
-	private float $final_temp = 0.00;
-	private float $heat_of_neutralization;
+	private $solution1;
+	private $solution2;
+	private $start_temp = 0.00;
+	private $final_temp = 0.00;
+	private $heat_of_neutralization;
 
-	private array $rxn_stoichiometry = [
+	private $rxn_stoichiometry = [
 		"mol_solute1" => 1,
 		"mol_solute2" => 1,
 		"mol_solute3" => 1,

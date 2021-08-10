@@ -18,9 +18,9 @@ class GasMixture {
 		return $total_percent == 1.0;
 	}
 
-	private float $temperature;
-	private float $pressure;
-	private float $volume;
+	private $temperature;
+	private $pressure;
+	private $volume;
 
 	//Not finished
 	private function generate_random_component_percents() {
@@ -39,9 +39,23 @@ class GasMixture {
 		$rand_alkane3 = new Alkane(rand(6, 8));
 
 		return [
-			$percent1 => $rand_alkane1,
-			$percent2 => $rand_alkane2,
-			$percent3 => $rand_alkane3,
+			[
+				"alkane" => $rand_alkane1,
+				"percent" => round($percent1, 2),
+
+			],
+
+			[
+				"alkane" => $rand_alkane2,
+				"percent" => round($percent2, 2),
+
+			],
+
+			[
+				"alkane" => $rand_alkane3,
+				"percent" => round($percent3, 2),
+
+			],
 
 		];
 	}
@@ -102,11 +116,21 @@ class GasMixture {
 
 		$html = "";
 
-		foreach ($this->component_percents as $percent => $component) {
+		$arr = $this->component_percents;
 
-			$html .= strval(100 * $percent) . "% " . strval($component) . "\r\n";
+		for ($i = 0; $i < count($arr) - 1; $i++) {
+
+			$html .= strval(100 * $arr[$i]['percent']) . "% " . strval($arr[$i]['alkane']);
+
+			$html .= ", ";
 
 		}
+
+		$last_index = count($arr) - 1;
+
+		$html .= " and ";
+
+		$html .= strval(100 * $arr[$last_index]['percent']) . "% " . strval($arr[$last_index]['alkane']);
 
 		return $html;
 	}
@@ -117,11 +141,11 @@ class GasMixture {
 
 		$total_heat_released = 0;
 
-		foreach ($this->component_percents as $percent => $component) {
+		foreach ($this->component_percents as $arr) {
 
-			$mole_amount = $total_moles * $percent;
+			$mole_amount = $total_moles * $arr['percent'];
 
-			$heat_released = $component->get_standard_enthalpy_of_combustion() * $mole_amount;
+			$heat_released = $arr['alkane']->get_standard_enthalpy_of_combustion() * $mole_amount;
 
 			$total_heat_released += $heat_released;
 		}

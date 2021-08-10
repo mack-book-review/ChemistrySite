@@ -5,8 +5,8 @@ include "ErrorGenerator3.php";
 
 class ThermoQuestion3 extends QuizQuestion {
 
-	private Hydrocarbon $hydrocarbon;
-	private ErrorGenerator3 $error_generator;
+	private $hydrocarbon;
+	private $error_generator;
 
 	public function __construct($u_hydrocarbon) {
 

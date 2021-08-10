@@ -37,8 +37,8 @@ abstract class Hydrocarbon {
 	];
 
 	//Define protected variables common to all child classes
-	protected int $number_carbons;
-	protected int $number_hydrogens;
+	protected $number_carbons;
+	protected $number_hydrogens;
 
 	//Define constructors
 	public function __construct($u_number_carbons, $u_number_hydrogens) {

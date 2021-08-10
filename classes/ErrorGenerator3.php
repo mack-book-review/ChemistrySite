@@ -1,7 +1,7 @@
 <?php
 
 class ErrorGenerator3 implements ErrorGeneratorInterface {
-	private Hydrocarbon $hydrocarbon;
+	private $hydrocarbon;
 
 	public function __construct($u_hydrocarbon) {
 		$this->hydrocarbon = $u_hydrocarbon;

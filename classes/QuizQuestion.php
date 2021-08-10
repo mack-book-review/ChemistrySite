@@ -1,15 +1,19 @@
 <?php
 
-include "ErrorGeneratorInterface.php";
-
 //Should be able to generate randomized choices along with erroneous answers
 abstract class QuizQuestion {
 
-	protected int $question_id;
-	protected string $correct_choice;
-	protected array $choices;
-	protected string $img_path = "";
-	private ErrorGeneratorInterface $error_generator;
+	private static $Question_Counter = 1;
+
+	private static function Increment_Question_Counter() {
+		QuizQuestion::$Question_Counter += 1;
+	}
+
+	protected $question_id;
+	protected $correct_choice;
+	protected $choices;
+	protected $img_path = "";
+	private $error_generator;
 
 	abstract public function get_question_id();
 	abstract public function get_question_text();
@@ -36,6 +40,8 @@ abstract class QuizQuestion {
 		$this->generate_choices();
 
 		$this->img_path = $u_img_path;
+
+		QuizQuestion::Increment_Question_Counter();
 	}
 
 	//generate erroneous and correct choices

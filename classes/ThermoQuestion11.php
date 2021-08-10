@@ -6,12 +6,12 @@ include "GasCalculator.php";
 class ThermoQuestion11 extends QuizQuestion {
 
 	//pressure is given in atm
-	private float $pressure_initial;
-	private float $pressure_final;
+	private $pressure_initial;
+	private $pressure_final;
 
 	//tempreature is given in celsius and therefore must be converted to Kevlin for some forms of the ideal gas equation
-	private float $temperature;
-	private float $number_moles;
+	private $temperature;
+	private $number_moles;
 
 	public function get_temperature() {
 		return $this->temperature;

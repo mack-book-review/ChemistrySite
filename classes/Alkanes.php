@@ -2,9 +2,9 @@
 
 class Alkane extends Hydrocarbon {
 
-	private int $length_longest_carbon_chain;
-	private array $alkyl_group_locations;
-	private array $isomers = array();
+	private $length_longest_carbon_chain;
+	private $alkyl_group_locations;
+	private $isomers = array();
 
 	public static function GET_COMMON_ALKANES() {
 

@@ -4,7 +4,7 @@
 
 class QuestionTemplate {
 
-	private QuizQuestion $quiz_question;
+	private $quiz_question;
 
 	function __construct($u_quiz_question) {
 		$this->quiz_question = $u_quiz_question;

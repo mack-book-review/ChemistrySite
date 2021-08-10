@@ -3,11 +3,11 @@
 /** This helper class helps to generate questions that ask students to determine the amount (in kg) of a hydrocarbon that will be required to heat a given volume of water (in ml) from a random starting temperature to a random ending temperature **/
 class ThermoQuestionMaker1 {
 
-	private Hydrocarbon $hydrocarbon;
-	private ErrorGenerator3 $error_generator3;
-	private float $volume_ml;
-	private float $start_temp;
-	private float $final_temp;
+	private $hydrocarbon;
+	private $error_generator3;
+	private $volume_ml;
+	private $start_temp;
+	private $final_temp;
 
 	public function __construct($u_hydrocarbon, $volume_ml, $start_temp, $final_temp) {
 		$this->hydrocarbon = $u_hydrocarbon;
@@ -102,9 +102,9 @@ class ThermoQuestionMaker1 {
 		return $fn2($heat);
 	}
 
-	/** Returns the correct amount of heat required to raise a given volume of water (in ml) from a starting temp to a final temp, where delta_temp = final_temp - starting_temp **/
+	/** Returns the correct amount of heat required to raise a given volume of water (in ml) from a starting temp to a final temp, where delta_temp = final_temp - starting_temp; heat capacity is given in kJ/degC-g **/
 	public function heat_required_for_water_delta_temp($delta_temp, $volume_ml) {
-		return $delta_temp * ($volume_ml / 1000) * HydroCarbon::$SPECIFIC_HEAT_CAPACITY_WATER;
+		return $delta_temp * ($volume_ml) * HydroCarbon::$SPECIFIC_HEAT_CAPACITY_WATER;
 	}
 
 	/** Returns the ERRONEOUS amount of heat required to raise a given volume of water (in ml) from a starting temp to a final temp, where delta_temp = final_temp - starting_temp **/

@@ -2,8 +2,8 @@
 
 class ErrorGenerator1 {
 
-	private Hydrocarbon $hydrocarbon;
-	private ThermoQuestionMaker1 $thermoquestionmaker1;
+	private $hydrocarbon;
+	private $thermoquestionmaker1;
 
 	public function __construct($u_hydrocarbon, $u_thermoquestionmaker1) {
 

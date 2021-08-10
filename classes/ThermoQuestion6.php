@@ -15,10 +15,10 @@ class SubstanceSPH {
 		return SubstanceSPH::COMMON_SUBSTANCES[$key];
 	}
 
-	private string $common_name;
-	private string $formula;
-	private float $sp_heat;
-	private string $phase;
+	private  $common_name;
+	private  $formula;
+	private  $sp_heat;
+	private  $phase;
 
 	public function get_specific_heat(){
 		return $this->sp_heat;
@@ -40,13 +40,13 @@ class SubstanceSPH {
 
 class ThermoQuestion6 extends QuizQuestion {
 
-	private static float $SPECIFIC_HEAT_CAPACITY_WATER = 4.18;
+	private static  $SPECIFIC_HEAT_CAPACITY_WATER = 4.18;
 
-	private float $mass_substance;
-	private SubstanceSPH $substance;
-	private float $substance_temp;
-	private float $water_temp;
-	private float $final_temp;
+	private  $mass_substance;
+	private  $substance;
+	private  $substance_temp;
+	private  $water_temp;
+	private  $final_temp;
 
 	public function __construct($u_substance_sph = null) {
 		if($u_substance_sph == null){

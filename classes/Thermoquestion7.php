@@ -5,7 +5,7 @@ include "ErrorGenerator7.php";
 
 class Thermoquestion7 extends QuizQuestion {
 
-	private GasMixture $gas_mixture;
+	private $gas_mixture;
 
 	public function __construct($gas_mixture = null) {
 

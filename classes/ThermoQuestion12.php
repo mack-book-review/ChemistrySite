@@ -15,13 +15,13 @@ class Precipitate implements ErrorGeneratorInterface {
 
 	}
 
-	private float $cation_enth_formation;
-	private float $anion_enth_formation;
-	private int $number_cation;
-	private int $number_anion;
-	private string $name;
-	private string $formula;
-	private float $standard_enthalpy_formation;
+	private $cation_enth_formation;
+	private $anion_enth_formation;
+	private $number_cation;
+	private $number_anion;
+	private $name;
+	private $formula;
+	private $standard_enthalpy_formation;
 
 	public function __construct(
 		$name,
@@ -91,7 +91,7 @@ class Precipitate implements ErrorGeneratorInterface {
 
 class ThermoQuestion12 extends QuizQuestion {
 
-	private Precipitate $precipitate;
+	private $precipitate;
 
 	public function __construct() {
 		$this->randomize_precipitate_info();

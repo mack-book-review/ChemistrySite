@@ -5,21 +5,21 @@ include "ErrorGenerator9.php";
 //Problem 106
 class ThermoQuestion9 extends QuizQuestion {
 
-	static private float $HEAT_OF_FUSION_ICE = 6.01;
-	static private float $MOLAR_MASS_WATER = 18.01;
-	static private float $WATER_SPECIFIC_HEAT = 4.01;
+	static private $HEAT_OF_FUSION_ICE = 6.01;
+	static private $MOLAR_MASS_WATER = 18.01;
+	static private $WATER_SPECIFIC_HEAT = 4.01;
 
-	private float $gas_temp;
-	private float $gas_vol;
-	private float $water_vol;
-	private float $gas_pressure_end;
-	private float $gas_pressure_start;
-	private float $water_start_temp;
-	private float $water_end_temp_ideal;
-	private float $water_end_temp_actual;
+	private $gas_temp;
+	private $gas_vol;
+	private $water_vol;
+	private $gas_pressure_end;
+	private $gas_pressure_start;
+	private $water_start_temp;
+	private $water_end_temp_ideal;
+	private $water_end_temp_actual;
 
-	private float $pressure;
-	private Hydrocarbon $hydrocarbon;
+	private $pressure;
+	private $hydrocarbon;
 
 	public function __construct($hydrocarbon) {
 		$this->hydrocarbon = $hydrocarbon;

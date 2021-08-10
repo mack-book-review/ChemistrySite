@@ -5,32 +5,29 @@ include "ThermoQuestionMaker.php";
 /** Responsible for generate question of a specific type: asks user for the amount of hydrocarbon (in g) that must be combusted in order to raise the temperature of a given amount of water from a given starting temp to a given final temp**/
 
 class ThermoQuestion1 extends QuizQuestion {
-	private static int $Question_Counter = 1;
 
-	private static function Increment_Question_Counter() {
-		ThermoQuestion1::$Question_Counter += 1;
-	}
-
-	private ThermoQuestionMaker1 $question_maker;
-	private Hydrocarbon $hydrocarbon;
-	private float $vol_water_ml;
-	private float $start_temp;
-	private float $end_temp;
+	private $question_maker;
+	private $hydrocarbon;
+	private $vol_water_ml;
+	private $start_temp;
+	private $end_temp;
 
 	public function __construct($u_hydrocarbon) {
 		//randomly set $start_temp and $end_temp
 		//randomly set $vol water in ml
-		$this->question_id = ThermoQuestion1::$Question_Counter;
-		ThermoQuestion1::Increment_Question_Counter();
+		$this->set_question_id();
 		$this->hydrocarbon = $u_hydrocarbon;
 		$this->randomize_private_vars();
-		$this->question_maker = new ThermoQuestionMaker1($u_hydrocarbon, $this->vol_water_ml, $this->start_temp, $this->end_temp);
 
 		parent::__construct();
 	}
 
 	public function get_question_id() {
 		return $this->question_id;
+	}
+
+	private function set_question_id() {
+		$this->question_id = rand(1000, 9999);
 	}
 
 	private function randomize_private_vars() {
@@ -42,21 +39,34 @@ class ThermoQuestion1 extends QuizQuestion {
 	}
 
 	public function get_question_text() {
-		return "What mass of " . $this->hydrocarbon . " (in g) must be combusted in order to raise the temperature of " . $this->vol_water_ml . " ml water from " . $this->start_temp . " &deg;C to " . $this->end_temp . " &deg;C?";
+		return "What mass of " . $this->hydrocarbon . " (in g) must be combusted in order to raise the temperature of " . number_format($this->vol_water_ml, 1) . " ml water from " . number_format($this->start_temp, 1) . " &deg;C to " . number_format($this->end_temp, 1) . " &deg;C?";
+	}
+
+	public function get_correct_answer_numerical() {
+
+		$heat_needed_joules = $this->vol_water_ml * ($this->end_temp - $this->start_temp) * 4.18;
+
+		$moles_substance = abs(($heat_needed_joules / 1000) / $this->hydrocarbon->get_standard_enthalpy_of_combustion());
+
+		$grams_substance = $moles_substance * $this->hydrocarbon->get_molar_mass();
+
+		return $grams_substance;
 	}
 
 	public function get_correct_answer() {
 
-		return strval(round($this->question_maker->correct_amount_required_to_heat_water() * 1000, 1)) . " g";
+		$correct_answer = $this->get_correct_answer_numerical();
+
+		return number_format($correct_answer, 1) . " g";
 	}
 
 	protected function get_erroneous_answers() {
 
 		return [
-			round($this->question_maker->error1_amount_required_to_heat_water() * 1000, 1) . " g",
-			round($this->question_maker->error2_amount_required_to_heat_water() * 1000, 1) . " g",
-			round($this->question_maker->error3_amount_required_to_heat_water() * 100, 1) . " g",
-			round($this->question_maker->error1_amount_required_to_heat_water() * 1000, 1) . " g"];
+			number_format(1.5 * $this->get_correct_answer_numerical(), 1) . " g",
+			number_format(0.5 * $this->get_correct_answer_numerical(), 1) . " g",
+			number_format(0.3 * $this->get_correct_answer_numerical(), 1) . " g",
+			number_format(1.8 * $this->get_correct_answer_numerical(), 1) . " g"];
 
 	}
 
