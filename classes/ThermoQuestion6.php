@@ -55,14 +55,7 @@ class ThermoQuestion6 extends QuizQuestion {
 			$this->substance = $u_substance_sph;
 		}
 
-		$this->choices = [
-			"A" => null,
-			"B" => null,
-			"C" => null,
-			"D" => null,
-		];
-
-		$this->generate_choices();
+		parent::__construct();
 
 	}
 

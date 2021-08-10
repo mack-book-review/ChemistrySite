@@ -34,7 +34,7 @@ class ThermoQuestion11 extends QuizQuestion {
 		$this->randomize_conditions();
 		$this->error_generator = new ErrorGenerator11($this->pressure_initial, $this->pressure_final, $this->number_moles, $this->temperature);
 
-		parent::__construct("../img/figure_7-8.png");
+		parent::__construct("/img/figure_7-8.png");
 	}
 
 	public function get_question_text() {
