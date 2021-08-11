@@ -31,11 +31,19 @@ class Alkene extends HydroCarbon {
 		10 => 0,
 	];
 
+	private $location_double_bond;
 	//Tested
-	public function __construct($u_number_carbons) {
+	public function __construct($u_number_carbons, $location_double_bond = 1) {
 		if ($u_number_carbons < count(Alkene::$SEF_FOR_ALKENES)) {
 			$this->standard_enthalpy_of_formation = Alkene::$SEF_FOR_ALKENES[$u_number_carbons];
 		}
+
+		if ($u_number_carbons >= 4) {
+			$this->location_double_bond = $location_double_bond;
+		} else {
+			$this->location_double_bond = 1;
+		}
+
 		parent::__construct($u_number_carbons, $u_number_carbons * 2);
 	}
 
@@ -47,8 +55,16 @@ class Alkene extends HydroCarbon {
 		return "";
 	}
 
+	public function get_heat_of_hydrogenation() {
+		return 0.00;
+	}
+
 	//Tested
 	public function get_common_name() {
-		return HydroCarbon::$PREFIXES[intval($this->number_carbons)] . "ene";
+		if ($this->number_carbons >= 4) {
+			return HydroCarbon::$PREFIXES[intval($this->number_carbons)] . "ene";
+		} else {
+			return $this->location_double_bond . "-" . HydroCarbon::$PREFIXES[intval($this->number_carbons)] . "ene";
+		}
 	}
 }

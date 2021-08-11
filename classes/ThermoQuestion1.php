@@ -20,6 +20,8 @@ class ThermoQuestion1 extends QuizQuestion {
 		$this->randomize_private_vars();
 
 		parent::__construct();
+
+		$this->set_answer_choice_explanation("For ThermoQuestion #1, You have to do some complex calculation in order to get this.");
 	}
 
 	public function get_question_id() {

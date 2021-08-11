@@ -13,11 +13,20 @@ abstract class QuizQuestion {
 	protected $correct_choice;
 	protected $choices;
 	protected $img_path = "";
+	protected $answer_choice_explanation = "";
 	private $error_generator;
 
 	abstract public function get_question_id();
 	abstract public function get_question_text();
 	abstract protected function get_erroneous_answers();
+
+	public function get_answer_choice_explanation() {
+		return $this->answer_choice_explanation;
+	}
+
+	public function set_answer_choice_explanation($answer_choice_explanation) {
+		$this->answer_choice_explanation = $answer_choice_explanation;
+	}
 
 	public function get_correct_choice() {
 		return $this->correct_choice;

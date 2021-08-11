@@ -37,6 +37,8 @@ class QuestionTemplate {
 
 		$html .= '<input type="hidden" name="' . "answer" . $question_number . '" value="' . $this->quiz_question->get_correct_choice() . '">';
 
+		$html .= '<input type="hidden" name="' . "answer_choice_explanation" . $question_number . '" value="' . $this->quiz_question->get_answer_choice_explanation() . '">';
+
 		return $html;
 	}
 }

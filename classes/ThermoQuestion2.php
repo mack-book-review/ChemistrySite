@@ -13,6 +13,9 @@ class ThermoQuestion2 extends QuizQuestion {
 		$this->error_generator = new ErrorGenerator2($u_hydrocarbon);
 
 		parent::__construct();
+
+		$this->set_answer_choice_explanation("For ThermoQuestion #2, You have to do some complex calculation in order to get this.");
+
 	}
 
 	public function get_question_text() {

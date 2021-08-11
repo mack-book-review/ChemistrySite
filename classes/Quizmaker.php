@@ -110,6 +110,14 @@ class Quizmaker {
 
 		$html .= "</select>";
 
+		if (isset($_POST['answer_choice_explanation']) && !empty($_POST['answer_choice_explanation'])) {
+
+			$answer_choice_explanation = $_POST['answer_choice_explanation'];
+
+			$html .= "<input type='hidden' name='answer_choice_explanation" . $id . "' value=" . $answer_choice_explanation . ">";
+
+		}
+
 		$html .= "<input type='hidden' name='answer" . $id . "' value=" . $answer . ">";
 
 		return $html;

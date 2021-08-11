@@ -15,6 +15,7 @@ if (isset($_POST['submit'])) {
 
 		$user_answer = $_POST['question' . $i];
 		$correct_answer = $_POST['answer' . $i];
+		$answer_choice_explanation = $_POST['answer_choice_explanation' . $i];
 
 		if ($user_answer == $correct_answer) {
 			$number_correct++;
@@ -39,7 +40,7 @@ if (isset($_POST['submit'])) {
 			echo "<p>User Answer: " . $user_answer . " </p>";
 			echo "<hr>";
 
-			echo "<p class='mb-0'>Answer Choice Explanation</p>";
+			echo "<p class='mb-0'>" . $answer_choice_explanation . "</p>";
 			echo "</div>";
 			echo "</div>";
 

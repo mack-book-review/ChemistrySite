@@ -42,6 +42,8 @@ class ThermoQuestion4 extends QuizQuestion {
 		$this->randomize_temps();
 
 		parent::__construct();
+
+		$this->set_answer_choice_explanation("For ThermoQuestion #4, You have to do some complex calculation in order to get this.");
 	}
 
 	private function randomize_transition_type() {
