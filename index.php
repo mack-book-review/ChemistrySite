@@ -6,12 +6,6 @@ error_reporting(E_ALL);
 
 include "templates/header.php";
 include "templates/navbar.php";
-
-include "classes/Hydrocarbons.php";
-include "classes/Alkanes.php";
-include "classes/Alkenes.php";
-
-include "classes/ChemRxnRenderer.php";
 include "classes/Quizmaker.php";
 ?>
 
@@ -56,7 +50,9 @@ if (isset($_GET['page'])) {
 }
 ?>
 
+
 <?php
 include "templates/footer_menu.php";
 include "templates/footer.php";
 ?>
+

@@ -1,11 +1,14 @@
 <?php
 
+require "hydrocarbons.php";
+
 class Alkane extends Hydrocarbon {
 
 	private $length_longest_carbon_chain;
 	private $alkyl_group_locations;
 	private $isomers = array();
 
+	/** Returns an array containing the first 10 n-isomer alkanes **/
 	public static function GET_COMMON_ALKANES() {
 
 		$common_alkanes = [];
@@ -98,6 +101,7 @@ class Alkane extends Hydrocarbon {
 
 	/**Implementation of abstract methods from base class **/
 
+	/** Returns standard enthalpy of formation in units of kJ/mol **/
 	public function get_standard_enthalpy_of_formation() {
 		return Alkane::$SEF_FOR_ALKANES[$this->number_carbons];
 	}

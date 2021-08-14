@@ -11,8 +11,8 @@ abstract class Hydrocarbon {
 	public static $SEF_CARBON_DIOXIDE = -393.5;
 	public static $SEF_WATER = -285.8;
 	public static $SPECIFIC_HEAT_CAPACITY_WATER = .004186;
-	public static $MOLAR_MASS_CARBON = 14.01;
-	public static $MOLAR_MASS_HYDROGEN = 1.01;
+	public static $MOLAR_MASS_CARBON = 12.01;
+	public static $MOLAR_MASS_HYDROGEN = 1.00784;
 	public static $MOLAR_MASS_OXYGEN = 15.999;
 	public static $UNITS_ENTHALPY_COMBUSTION = "kJ/mol";
 	public static $UNITS_MOLAR_MASS = "kg/mol";
@@ -62,7 +62,7 @@ abstract class Hydrocarbon {
 
 	public function get_standard_enthalpy_of_combustion() {
 
-		return (($this->number_carbons * HydroCarbon::$SEF_CARBON_DIOXIDE + (0.5 * $this->get_number_hydrogens()) * HydroCarbon::$SEF_WATER) - $this->standard_enthalpy_of_formation);
+		return (($this->number_carbons * HydroCarbon::$SEF_CARBON_DIOXIDE + (0.5 * $this->get_number_hydrogens()) * HydroCarbon::$SEF_WATER) - $this->get_standard_enthalpy_of_formation());
 	}
 
 	//Define toString() function

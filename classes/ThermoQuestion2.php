@@ -1,6 +1,7 @@
 <?php
 
 include "ErrorGenerator2.php";
+include "ChemRxnRenderer.php";
 
 class ThermoQuestion2 extends QuizQuestion {
 

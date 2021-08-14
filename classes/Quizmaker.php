@@ -1,6 +1,5 @@
 <?php
 
-include "QuizQuestion.php";
 include "ThermoQuestion1.php";
 include "ThermoQuestion2.php";
 include "ThermoQuestion3.php";
@@ -19,7 +18,7 @@ class Quizmaker {
 
 	public static function Get_Sample_Questions() {
 		return [
-			new ThermoQuestion1(new Alkane(4)),
+			ThermoQuestion1::MakeThermoQuestion1WithSpecificAlkaneAndSpecificConditions(2, 20.0, 25.1, 34.2),
 			new ThermoQuestion2(new Alkane(2)),
 			new ThermoQuestion3(new Alkane(3)),
 			new ThermoQuestion11(),
