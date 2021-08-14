@@ -7,9 +7,25 @@ require __DIR__ . "/../classes/Alkanes.php";
 
 final class AlkaneTest extends TestCase {
 
-	public function testStringConversion(): void{
+	public function stringProvider() {
+		return [
+			"methane gas" => [1, "g", "CH<sub>4</sub>(g)"],
+			"methane liquid" => [1, "l", "CH<sub>4</sub>(l)"],
 
-		$this->assertSame(strval(new Alkane(3)), "C<sub>3</sub>H<sub>8</sub>(g)");
+			"ethane gas" => [2, "g", "C<sub>2</sub>H<sub>6</sub>(g)"],
+			"ethane liquid" => [2, "l", "C<sub>2</sub>H<sub>6</sub>(l)"],
+
+		];
+	}
+
+	/**
+	 * 		@dataProvider stringProvider
+	 * */
+	public function testToStringMethod($number_carbons, $phase, $expected) {
+
+		$alkane = new Alkane($number_carbons, $phase);
+		$this->expectOutputString($expected);
+		echo $alkane;
 
 	}
 

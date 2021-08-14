@@ -33,12 +33,12 @@ class Alkane extends Hydrocarbon {
 	];
 
 	//Tested
-	public function __construct($u_number_carbons) {
+	public function __construct($u_number_carbons, $phase = "g") {
 
 		// if ($length_longest_carbon_chain < 3) {
 		// 	return null;
 		// }
-		parent::__construct($u_number_carbons, $u_number_carbons * 2 + 2);
+		parent::__construct($u_number_carbons, $u_number_carbons * 2 + 2, $phase);
 
 		if ($u_number_carbons < count(Alkane::$SEF_FOR_ALKANES)) {
 			$this->standard_enthalpy_of_formation = Alkane::$SEF_FOR_ALKANES[$u_number_carbons];

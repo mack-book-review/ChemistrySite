@@ -39,12 +39,13 @@ abstract class Hydrocarbon {
 	//Define protected variables common to all child classes
 	protected $number_carbons;
 	protected $number_hydrogens;
+	protected $phase;
 
 	//Define constructors
-	public function __construct($u_number_carbons, $u_number_hydrogens) {
+	public function __construct($u_number_carbons, $u_number_hydrogens, $phase = "g") {
 		$this->number_carbons = $u_number_carbons;
 		$this->number_hydrogens = $u_number_hydrogens;
-
+		$this->phase = $phase;
 	}
 
 	//Define methods common to all hydrocarbons
@@ -67,7 +68,22 @@ abstract class Hydrocarbon {
 
 	//Define toString() function
 	public function __toString() {
-		return "C<sub>" . $this->get_number_carbons() . "</sub>H<sub>" . $this->get_number_hydrogens() . "</sub>(g)";
+		if ($this->get_number_carbons() == 1 && $this->get_number_hydrogens() == 1) {
+
+			return "CH(" . $this->phase . ")";
+
+		} else if ($this->get_number_carbons() == 1) {
+
+			return "CH<sub>" . $this->get_number_hydrogens() . "</sub>(" . $this->phase . ")";
+
+		} else if ($this->get_number_hydrogens() == 1) {
+			return "C<sub>" . $this->get_number_carbons() . "</sub>H(" . $this->phase . ")";
+
+		} else {
+			return "C<sub>" . $this->get_number_carbons() . "</sub>H<sub>" . $this->get_number_hydrogens() . "</sub>(" . $this->phase . ")";
+
+		}
+
 	}
 
 }
