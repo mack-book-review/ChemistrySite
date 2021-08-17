@@ -8,10 +8,10 @@
 <style>
 	#game-container{
 		width:  90%;
-		height:  50em;
+		height:  40em;
 		margin:  0 auto;
-		background-color: orange;
-		border:  none 2px solid;
+		background-color: dodgerblue;
+		border:  black 2px solid;
 	}
 </style>
 
@@ -23,6 +23,7 @@
 <script src="js/sprite.js"></script>
 <script src="js/player.js"></script>
 <script src="js/alien.js"></script>
+<script src="js/hud.js"></script>
 <script src="js/spritegenerator.js"></script>
 <script src="js/game.js"></script>
 <script type = "text/javascript" charset = "utf-8">

@@ -42,10 +42,63 @@
 			};
 
 	
-			
+
 			this.configureCanvasKeyboardControls();
 			this.createPauseButton();
+			this.createInstructionsButton();
+			this.createTitleBanner();
 
+			this.hud = new HUD(this.container);
+			this.hud.addHUD();
+
+		}
+
+
+		
+
+
+		createTitleBanner(){
+			console.log("Adding title banner");
+			this.titleElement = document.createElement("p");
+
+			this.titleElement.style.backgroundImage = 'url(/assets/Banners/bannerScroll.png)';
+			this.titleElement.style.backgroundRepeat = 'no-repeat';
+
+			this.titleElement.style.position = 'absolute';
+			this.titleElement.style.display = 'block';
+			this.titleElement.style.textAlign = 'center';
+			this.titleElement.style.width = '250px';
+			this.titleElement.style.height = '50px';
+			this.titleElement.style.padding = "10px";
+			this.titleElement.style.paddingTop = '20px';
+			this.titleElement.style.fontFamily = "Baskerville";
+			this.titleElement.style.color = "white";
+			this.titleElement.style.transform = "scale(1.5)";
+
+			this.titleElement.style.top = 5 +'px';
+			this.titleElement.style.left = 300 +'px';
+			this.titleElement.appendChild(document.createTextNode("Alien Sniper Defense"));
+			console.log(this.titleElement);
+			this.addToContainer(this.titleElement);
+		}
+
+		createInstructionsButton(){
+			var currentGame = this;
+
+			this.instructionsButton = document.createElement("a");
+			this.configureMenuButton(this.instructionsButton,"20%");
+
+
+			var buttonText = document.createTextNode("Instructions");
+			this.instructionsButton.appendChild(buttonText);
+			var pauseButton = this.pauseButton;
+			this.instructionsButton.addEventListener("click", 
+				function(){
+				
+
+			});
+
+			this.addToContainer(this.instructionsButton);
 
 		}
 
@@ -53,7 +106,7 @@
 			var currentGame = this;
 
 			this.pauseButton = document.createElement("a");
-			this.configurePauseButton(this.pauseButton);
+			this.configureMenuButton(this.pauseButton,"10%");
 
 
 			var pauseText = document.createTextNode("Pause Game");
@@ -174,11 +227,11 @@
 
 			canvasElement.style.width = this.screenWidth + "px";
 			canvasElement.style.height = this.screenHeight + "px";
-			canvasElement.style.border = "black 1px solid";
+			canvasElement.style.border = "white 1px solid";
 			canvasElement.style.backgroundColor = "white";
 			canvasElement.style.position = "absolute";
-			canvasElement.style.top = 40 + "px";
-			canvasElement.style.left = 40 + "px";
+			canvasElement.style.top = "10%";
+			canvasElement.style.left = "10%";
 			canvasElement.style.zIndex = 0;
 
 		}
@@ -186,20 +239,24 @@
 
 		
 
-		configurePauseButton(button){
+		configureMenuButton(button,topDistance){
 			var cWidth = this.container.style.width;
 			var cHeight = this.container.style.height;
-
 			button.style.position = "absolute";
-			button.style.top = 20 + "px";
-			button.style.left = 30 + "px";
+			button.style.top = topDistance;
+			button.style.right = "10%";
+			button.style.width = 250 + "px";
+			button.style.height = 30 + "px";
+			button.style.textAlign = "center";
+			button.style.backgroundImage = "url(assets/Banners/bannerModern.png)";
+			button.style.backgroundRepeat = 'no-repeat';
 
-			button.style.backgroundColor = "pink";
 			button.style.padding = "10px";
-			button.style.borderRadius = "10%";
+			button.style.fontSize = "1.8em";
 			button.style.color = "white";
 			button.style.fontFamily = "Arial";
-			button.style.border = "solid 2px black";
+
+
 		}
 
 		addToContainer(element,zIndex = 0){

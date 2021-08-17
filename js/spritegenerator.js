@@ -4,10 +4,19 @@ class SpriteGenerator{
 	constructor(canvas){
 		this.canvas = canvas;
 		this.context = this.canvas.getContext('2d');
-	
+		this.totalSprites = 0;
+		this.killCount = 0;
 		this.sprites = [];
 		
 		
+	}
+
+	getTotalSprites(){
+		this.totalSprites;
+	}
+
+	getKillCount(){
+		return this.killCount;
 	}
 
 	getRandomSpawnPoint(){
@@ -40,6 +49,7 @@ class SpriteGenerator{
 			sprite.img.onload = callback;
 		}
 
+		this.totalSprites += 1;
 		return sprite;
 
 		
@@ -105,6 +115,7 @@ class SpriteGenerator{
 		for(var i = 0; i < this.sprites.length; i++){
 			if(this.sprites[i].isDead){
 				this.sprites.splice(i,1);
+				this.killCount += 1;
 			} 
 				
 			this.sprites[i].drawImage(this.context,timeDiff);
