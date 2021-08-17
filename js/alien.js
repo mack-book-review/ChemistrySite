@@ -14,38 +14,47 @@ class Alien extends Sprite{
 			this.velocityY = 0;
 			this.timer = 0;
 			this.img.style.zIndex = -10;
-			this.screenWidth = this.canvas.width;
-			this.screenHeight = this.canvas.height;
+			
 		}	
 
 	
 		randomizeVelocity(){
 
-			this.velocityX = Math.random()*5;
-			this.velocityY = Math.random()*5;
+			this.velocityX = Math.random()*10;
+			this.velocityY = Math.random()*10;
 
 			var flip1 = Math.floor(Math.random()*2);
 			var flip2 = Math.floor(Math.random()*2);
 
 			this.velocityX = flip1 == 0 ? this.velocityX : -this.velocityX;
 			this.velocityY = flip2 == 0 ? this.velocityY : -this.velocityY;
-	
+			
+
+				if(this.x < 0){
+					this.velocityX = 20;
+				}
+
+
+				if(this.x > 640-this.width){
+					this.velocityX = -20;
+				}
+
+
+				if(this.y < 0){
+					this.velocityY = 20;
+				}
+
+				if(this.y > 480 - this.height){
+					this.velocityY = -20;
+				}
 
 		}
 
-		update(timeDiff){
+		updatePhysics(timeDiff){
 			this.timer += timeDiff;
 			if(this.timer > 150){
 				this.randomizeVelocity();
 
-				if(this.x < 0 || this.x > this.screenWidth*-this.width){
-					this.velocityX = 0;
-				}
-
-
-				if(this.y < 0 || this.y > this.screenHeight - this.height){
-					this.velocityY = 0;
-				}
 
 				this.x += this.velocityX;
 				this.y += this.velocityY;

@@ -17,6 +17,9 @@
 
 
 <script src="js/animation.js"></script>
+<script src="js/position.js"></script>
+<script src="js/velocity.js"></script>
+<script src="js/physicsbody.js"></script>
 <script src="js/sprite.js"></script>
 <script src="js/player.js"></script>
 <script src="js/alien.js"></script>

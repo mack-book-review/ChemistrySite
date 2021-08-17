@@ -4,9 +4,9 @@ class SpriteGenerator{
 	constructor(canvas){
 		this.canvas = canvas;
 		this.context = this.canvas.getContext('2d');
+	
 		this.sprites = [];
-		this.screenWidth = this.canvas.width;
-		this.screenHeight = this.canvas.height;
+		
 		
 	}
 
@@ -15,8 +15,8 @@ class SpriteGenerator{
 		var maxY = this.canvas.height;
 
 		return [
-			Math.random()*(maxX)*0.80 + 0.10*this.screenWidth,
-			Math.random()*(maxY)*0.80 + 0.10*this.screenHeight
+			Math.random()*(maxX)*0.80 + 0.10*this.canvas.width,
+			Math.random()*(maxY)*0.80 + 0.10*this.canvas.height
 			];
 	}
 
@@ -27,40 +27,53 @@ class SpriteGenerator{
 		return COLORS[randIndex];
 	}
 
-	getRandomSprite(callback){
+	getRandomSprite(callback = null){
 		var spawnPoint = this.getRandomSpawnPoint();
 		var color =  this.getRandomColor();
 
 		var sprite = new Alien(color,
-			spawnPoint[0],
-			spawnPoint[1],
-			this.canvas);
+		spawnPoint[0],
+		spawnPoint[1],
+		this.canvas);
 
 		if(typeof(callback) == "function"){
 			sprite.img.onload = callback;
 		}
 
-		return alien;
+		return sprite;
+
+		
+
 
 	}
 
+
+
+	
 	getRandomSprites(numberSprites, sprites = []){
 		console.log("Getting another sprites: " + sprites.length);
 	
 		var spriteGenerator = this;
-		sprites.push(this.getRandomSprite(){
-			if(numberSprites > 0){
+
+		var sprite = this.getRandomSprite(function(){
+			if(numberSprites > 1){
 				console.log("Generating next sprite...");
 				spriteGenerator.getRandomSprites(numberSprites-1,sprites);
-			}
+			} 
 		});
 
+		if(sprite != null){
+			sprites.push(sprite);
+		}
+	
+
 		return sprites;
-	}
+	} 
+	
 
 	spawnObjects(numberSprites){
 		
-		return this.getRandomSprites(numberSprites);
+		this.sprites = this.getRandomSprites(numberSprites);
 	
 	}
 
@@ -68,7 +81,7 @@ class SpriteGenerator{
 	updatePhysics(timeDiff){
 		for(var i = 0; i < this.sprites.length; i++){
 				
-			this.sprites[i].update(timeDiff);
+			this.sprites[i].updatePhysics(timeDiff);
 
 				
 		}
@@ -78,9 +91,12 @@ class SpriteGenerator{
 	checkPlayerContact(player){
 		
 		for(var i = 0; i < this.sprites.length; i++){
-			if(this.sprites[i].hasOverlapWith(player)){
-					this.sprites[i].takeDamage();
-				}
+			if(player.hasOverlapWith(this.sprites[i],0.5)){
+				this.sprites[i].takeDamage();
+			}
+			// if(this.sprites[i].hasOverlapWith(player)){
+			// 		this.sprites[i].takeDamage();
+			// 	}
 					
 			}
 	}

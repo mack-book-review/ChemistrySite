@@ -97,14 +97,22 @@ class Player extends Sprite{
 
 		
 
-		update(timeDiff){
+		updatePhysics(timeDiff){
 
-			if(this.x < 0 || this.x > this.screenWidth - this.width){
-				this.velocityX = 0;
+			if(this.x < 0){
+				this.velocityX = 1;
 			}
 
-			if(this.y < 0 || this.y > this.screenHeight - this.height){
-				this.velocityY = 0;
+			if(this.x > this.canvas.width - this.width){
+				this.velocityX = -1;
+			}
+
+			if(this.y < 0){
+				this.velocityY = 1;
+			}
+
+			if(this.y > this.canvas.height - this.height){
+				this.velocityY = -1;
 			}
 			
 			this.y += this.velocityY;

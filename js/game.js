@@ -30,7 +30,7 @@
 			console.log("Creating sprite generator...");
 			this.alienGenerator = new SpriteGenerator(this.canvasElement);
 			console.log("Spawning objects...");
-			this.alienGenerator.spawnObjects(7);
+			this.alienGenerator.spawnObjects(6);
 			console.log("Finished creating sprite generator...");
 
 			var player = this.player;
@@ -98,7 +98,7 @@
 
 
 
-			this.player = new Player(50,50,this.canvas);
+			this.player = new Player(50,50,this.canvasElement);
 		}
 
 
@@ -221,7 +221,7 @@
 
 		updatePhysics(timeDiff){
 
-			this.player.update(timeDiff);
+			this.player.updatePhysics(timeDiff);
 			this.alienGenerator.updatePhysics(timeDiff);
 
 		}

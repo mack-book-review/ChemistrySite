@@ -6,32 +6,47 @@ class Sprite{
 			width = undefined,
 			height = undefined, canvas = undefined){
 
+			//Configure reference to image
 			this.img = new Image();
 			this.img.src = imgSrc;
 			this.img.style.zIndex = 10;
 
+			//Configure current animation
 			this.currentAnimation = null;
-			this.isDead = false;
+			
+			//Configure Physics Body
+			this.body = null;
+
+			//Configure position and size
 			this.x = x ?? 0;
 			this.y = y ?? 0;
 			this.width = width ?? this.img.naturalWidth;
 			this.height = height ?? this.img.naturalHeight;
-			this.health = 2;
 			
+			//Configure health and living status
+			this.health = 2;
+			this.isDead = false;
+
+			//Store reference to canvas and derivative properties, such as screenWidth and screenHeight
 			this.canvas = canvas;
-			this.screenWidth = this.canvas.width;
-			this.screenHeight = this.canvas.height;
+			this.screenWidth = 640;//this.canvas.width;
+			this.screenHeight = 480;//this.canvas.height;
+
 
 			
 
 		}
 
-		hasOverlapWith(otherSprite){
+		addPhysicsBody(){
+			this.body = new PhysicsBody(this.x,this.y,this.width,this.height);
+		}
+
+		hasOverlapWith(otherSprite,adjustmentFactor = 1){
 			return !(
-				this.x > (otherSprite.x+otherSprite.width) || 
-					(this.x + this.width < otherSprite.x) ||
-					(this.y > (otherSprite.y + otherSprite.height)) ||
-					((this.y+this.height) < otherSprite.y)
+				this.x > (otherSprite.x+otherSprite.width*adjustmentFactor) || 
+					(this.x + this.width*adjustmentFactor < otherSprite.x) ||
+					(this.y > (otherSprite.y + otherSprite.height*adjustmentFactor)) ||
+					((this.y+this.height*adjustmentFactor) < otherSprite.y)
 					);
 		}
 
