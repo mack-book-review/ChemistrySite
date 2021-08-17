@@ -1,0 +1,17 @@
+
+
+(1)	how to destroy game objects so as to implement the 	die() function for a sprite
+
+(2)	how to create abstract classes (or at least simulate abstract classes) so that the sprite class can act as a base class; maybe use regular inheritance?
+
+(3) how to preload images
+
+(4) how to load sprite sheets
+
+(5) how to run animations
+
+(6) how to use interfaces?
+
+(7) basic physics engine that uses bounding rectangles
+
+(8) associate a click handler with the game object to get coordinates

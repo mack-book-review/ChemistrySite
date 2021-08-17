@@ -4,6 +4,7 @@ declare (strict_types = 1);
 use PHPUnit\Framework\TestCase;
 
 require __DIR__ . "/../classes/ThermoQuestion1.php";
+require __DIR__ . "/../tests/ThermoQuestion1Conditions.php";
 
 final class ThermoQuestion1Test extends TestCase {
 
