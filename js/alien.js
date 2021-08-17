@@ -12,6 +12,7 @@ class Alien extends Sprite{
 			this.velocityX = 0;
 			this.velocityY = 0;
 			this.timer = 0;
+			this.img.style.zIndex = -10;
 		}	
 
 	

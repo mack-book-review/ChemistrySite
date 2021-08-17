@@ -10,11 +10,15 @@
 			this.sprites = [];
 			this.isPaused = false;
 			this.isEnded = false;
+			this.currentAnimation = null;
+
 
 			this.container = container;
+			this.createPlayer();
 			this.createCanvasElement();
 			this.context = this.canvasElement.getContext('2d');
 			
+
 			//add some aliens
 			var alien1 = new Alien("beige",10,10);
 			var alien2 = new Alien("blue",50,50);
@@ -26,8 +30,10 @@
 			this.addSprite(alien3);
 			this.addSprite(alien4);
 
+
+
 			
-			this.createPlayer();
+			
 			var player = this.player;
 			this.playerShootHandler = function(){
 
@@ -39,6 +45,7 @@
 				}
 			};
 
+		
 
 
 			
@@ -80,7 +87,23 @@
 
 		}
 
+		hasActiveAnimation(){
+			return this.currentAnimation != null;
+		}
+
+		run(animation,callback = null){
+
+			this.currentAnimation = animation;
+
+
+			if(callback != null && typeof(callback) == "function"){
+				callback();
+			}
+		}
+
 		createPlayer(){
+
+
 
 			this.player = new Player(50,50);
 		}
@@ -149,39 +172,27 @@
 				event.preventDefault();
 				//Down key
 				if(event.keyCode == 40) {
-						player.keyDown();
-					
-					
+						player.keyDown();	
       			}
 
       			//Up key
       			if(event.keyCode == 38) {
 						player.keyUp();
-      				
-
-
       			}
 
       			//Left key
       			if(event.keyCode == 37) {
-						player.keyLeft();
-      				
-         			
-
+						player.keyLeft();     				       	
       			}
 
       			//Right key
       			if(event.keyCode == 39) {
          				player.keyRight();
-
-      				
-
       			}
 
       			//Hit spacebar
       			if(event.keyCode == 32) {
          			currentGame.playerShootHandler();
-      			
       			}
 
 			});
@@ -265,7 +276,7 @@
 		createCanvasElement(){
 			this.canvasElement = document.createElement("canvas");
 			this.configureCanvasElement(this.canvasElement);
-			this.addToContainer(this.canvasElement);
+			this.addToContainer(this.canvasElement,0);
 	
 		}
 
@@ -325,8 +336,8 @@
 			button.style.border = "solid 2px black";
 		}
 
-		addToContainer(element){
-
+		addToContainer(element,zIndex = 0){
+			element.style.zIndex = zIndex;
 			this.container.appendChild(element);
 		}
 
@@ -359,14 +370,33 @@
 		drawAnimations(timeDiff){
 			//draw animations
 			//console.log("Drawing another animtaion..");
-			this.player.drawImage(this.context);
+
+			var backgroundImg = new Image();
+			backgroundImg.src = "assets/Backgrounds/starry_sky.jpg";
+
+			this.context.drawImage(
+				backgroundImg,
+				0,0,
+				backgroundImg.naturalWidth,
+				backgroundImg.naturalHeight,
+				0,0,
+				this.screenWidth,this.screenHeight
+				);
 
 			for(var i = 0; i < this.sprites.length; i++){
 				if(this.sprites[i].isDead){
 					this.sprites.splice(i,1);
-				}
+
+				} 
+				
 				this.sprites[i].drawImage(this.context,timeDiff);
+
+				
 			}
+
+			//Draw player last so that it's on top of aliens
+			this.player.drawImage(this.context);
+
 		}
 
 		//startGame
@@ -399,7 +429,6 @@
 				//console.log("Last Time: " + lastTime);
 
 			}, this.frameRate);
-			console.log("Game has started..");
 
 		}
 

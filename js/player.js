@@ -1,7 +1,7 @@
 class Player extends Sprite{
 		
 		constructor(x = undefined,y = undefined){
-			super("assets/BasicCrosshairs/crosshair075.png",x,y,40,40);
+			super("assets/BasicCrosshairs/White/crosshair061.png",x,y,40,40);
 			this.velocityX = 0;
 			this.velocityY = 0;
 			this.timeCounter = 0;
