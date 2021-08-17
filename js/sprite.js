@@ -4,7 +4,8 @@ class Sprite{
 			x = undefined,
 			y = undefined,
 			width = undefined,
-			height = undefined){
+			height = undefined, canvas = undefined){
+
 			this.img = new Image();
 			this.img.src = imgSrc;
 			this.img.style.zIndex = 10;
@@ -16,6 +17,10 @@ class Sprite{
 			this.width = width ?? this.img.naturalWidth;
 			this.height = height ?? this.img.naturalHeight;
 			this.health = 2;
+			
+			this.canvas = canvas;
+			this.screenWidth = this.canvas.width;
+			this.screenHeight = this.canvas.height;
 
 			
 

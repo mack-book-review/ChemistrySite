@@ -1,17 +1,21 @@
 class Alien extends Sprite{
 
-		constructor(alienColor, x = undefined,y = undefined){
+		constructor(alienColor, 
+			x = undefined,
+			y = undefined, canvas = undefined){
 			
 			var imgPath = "assets/Aliens/alien_";
 			imgPath += alienColor;
 			imgPath += ".png"
 
 
-			super(imgPath,x,y,30,30);
+			super(imgPath,x,y,30,30,canvas);
 			this.velocityX = 0;
 			this.velocityY = 0;
 			this.timer = 0;
 			this.img.style.zIndex = -10;
+			this.screenWidth = this.canvas.width;
+			this.screenHeight = this.canvas.height;
 		}	
 
 	
@@ -33,6 +37,16 @@ class Alien extends Sprite{
 			this.timer += timeDiff;
 			if(this.timer > 150){
 				this.randomizeVelocity();
+
+				if(this.x < 0 || this.x > this.screenWidth*-this.width){
+					this.velocityX = 0;
+				}
+
+
+				if(this.y < 0 || this.y > this.screenHeight - this.height){
+					this.velocityY = 0;
+				}
+
 				this.x += this.velocityX;
 				this.y += this.velocityY;
 				this.timer = 0;

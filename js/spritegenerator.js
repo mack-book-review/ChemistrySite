@@ -5,6 +5,8 @@ class SpriteGenerator{
 		this.canvas = canvas;
 		this.context = this.canvas.getContext('2d');
 		this.sprites = [];
+		this.screenWidth = this.canvas.width;
+		this.screenHeight = this.canvas.height;
 		
 	}
 
@@ -13,8 +15,8 @@ class SpriteGenerator{
 		var maxY = this.canvas.height;
 
 		return [
-			Math.random()*(maxX),
-			Math.random()*(maxY)
+			Math.random()*(maxX)*0.80 + 0.10*this.screenWidth,
+			Math.random()*(maxY)*0.80 + 0.10*this.screenHeight
 			];
 	}
 
@@ -25,21 +27,41 @@ class SpriteGenerator{
 		return COLORS[randIndex];
 	}
 
-	populateAliens(){
-		var pt1 = this.getRandomSpawnPoint();
-		var pt2 = this.getRandomSpawnPoint();
-		var pt3 = this.getRandomSpawnPoint();
-		var pt4 = this.getRandomSpawnPoint();
+	getRandomSprite(callback){
+		var spawnPoint = this.getRandomSpawnPoint();
+		var color =  this.getRandomColor();
 
-		var alien1 = new Alien(this.getRandomColor(),pt1[0],pt1[1]);
-		var alien2 = new Alien(this.getRandomColor(),pt2[0],pt2[1]);
-		var alien3 = new Alien(this.getRandomColor(),pt3[0],pt3[1]);
-		var alien4 = new Alien(this.getRandomColor(),pt4[0],pt4[1]);
+		var sprite = new Alien(color,
+			spawnPoint[0],
+			spawnPoint[1],
+			this.canvas);
 
-		this.addSprite(alien1);
-		this.addSprite(alien2);
-		this.addSprite(alien3);
-		this.addSprite(alien4);
+		if(typeof(callback) == "function"){
+			sprite.img.onload = callback;
+		}
+
+		return alien;
+
+	}
+
+	getRandomSprites(numberSprites, sprites = []){
+		console.log("Getting another sprites: " + sprites.length);
+	
+		var spriteGenerator = this;
+		sprites.push(this.getRandomSprite(){
+			if(numberSprites > 0){
+				console.log("Generating next sprite...");
+				spriteGenerator.getRandomSprites(numberSprites-1,sprites);
+			}
+		});
+
+		return sprites;
+	}
+
+	spawnObjects(numberSprites){
+		
+		return this.getRandomSprites(numberSprites);
+	
 	}
 
 

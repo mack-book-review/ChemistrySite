@@ -28,7 +28,7 @@
             function pageLoaded(){
 
 				var gameContainer = document.getElementById("game-container");
-				var game = new Game(gameContainer,600,400);
+				var game = new Game(gameContainer,640,480);
 				//game.loadBackgroundMusic("polka_train.ogg");
 
 				var player = new Sprite("assets/Meteors/spaceMeteors_001.png",0,0,40,30);

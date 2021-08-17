@@ -13,32 +13,38 @@
 			this.currentAnimation = null;
 
 
+			//Create the container before the canvas
 			this.container = container;
-			this.createPlayer();
+
+			//Instantiate the canvas before instantiating the player and other sprites
+			//Sprites will require a reference to the canvas on which they are drawn
 			this.createCanvasElement();
 			this.context = this.canvasElement.getContext('2d');
 			
 
-			//add some aliens
+			//Instantiate player
+			this.createPlayer();
+
+
+			//Create some aliens via an instance of a SpriteGenerator
+			console.log("Creating sprite generator...");
 			this.alienGenerator = new SpriteGenerator(this.canvasElement);
-		
-			console.log(this.alienGenerator);
-			this.alienGenerator.populateAliens();
+			console.log("Spawning objects...");
+			this.alienGenerator.spawnObjects(7);
+			console.log("Finished creating sprite generator...");
 
 			var player = this.player;
 			var alienGenerator = this.alienGenerator;
+			
 			this.playerShootHandler = function(){
 
 				alienGenerator.checkPlayerContact(player);
 			};
 
-		
-
-
+	
 			
 			this.configureCanvasKeyboardControls();
 			this.createPauseButton();
-
 
 
 		}
@@ -92,7 +98,7 @@
 
 
 
-			this.player = new Player(50,50);
+			this.player = new Player(50,50,this.canvas);
 		}
 
 

@@ -1,36 +1,31 @@
  
  class Animation{
 
+     static GetExplosionTextureImgPaths(){
+
+         var basePath = "assets/RegularExplosion/regularExplosion";
+         var imgPaths = [];
+
+         for(var i = 0; i < 9; i++){
+             var imgPath  = basePath + 0 + i + ".png";
+             imgPaths.push(imgPath);
+         }
+
+         return imgPaths;
+     }
+
      static GetExplosionTextures(){
-         var txtImg1 = new Image();
-            txtImg1.src = "assets/RegularExplosion/regularExplosion00.png";
-            
-            var txtImg2 = new Image();
-            txtImg2.src = "assets/RegularExplosion/regularExplosion01.png";
+         var imgPaths = this.GetExplosionTextureImgPaths();
+         var imgArray = [];
 
-            var txtImg3 = new Image();
-            txtImg3.src = "assets/RegularExplosion/regularExplosion02.png";
+         imgPaths.forEach((imgPath,index) =>{
+             var img = new Image();
+             img.src = imgPath;
+             imgArray.push(img);
+         });
 
-            var txtImg4 = new Image();
-            txtImg4.src = "assets/RegularExplosion/regularExplosion03.png";
-
-            var txtImg5 = new Image();
-            txtImg5.src = "assets/RegularExplosion/regularExplosion04.png";
-
-            var txtImg6 = new Image();
-            txtImg6.src = "assets/RegularExplosion/regularExplosion05.png";
-
-
-            var txtImg7 = new Image();
-            txtImg7.src = "assets/RegularExplosion/regularExplosion06.png";
-
-            var txtImg8 = new Image();
-            txtImg8.src = "assets/RegularExplosion/regularExplosion07.png";
-            
-            return [txtImg1,txtImg2,
-                txtImg3,txtImg4,
-                txtImg5,txtImg6,txtImg7,txtImg8,
-                ];
+         
+            return imgArray;
 
      }
 
