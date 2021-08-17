@@ -16,6 +16,7 @@
 </style>
 
 
+<script src="js/uigenerator.js"></script>
 <script src="js/animation.js"></script>
 <script src="js/position.js"></script>
 <script src="js/velocity.js"></script>
@@ -25,6 +26,7 @@
 <script src="js/alien.js"></script>
 <script src="js/hud.js"></script>
 <script src="js/spritegenerator.js"></script>
+<script src="js/inputhelper.js"></script>
 <script src="js/game.js"></script>
 <script type = "text/javascript" charset = "utf-8">
 

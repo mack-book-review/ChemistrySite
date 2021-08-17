@@ -42,43 +42,28 @@
 			};
 
 	
-
-			this.configureCanvasKeyboardControls();
+			//Create a way for player to interact with game
+			InputHelper.ConfigureCanvasKeyboardControls(this);
+			
+			//Create UI elements
 			this.createPauseButton();
 			this.createInstructionsButton();
 			this.createTitleBanner();
+			this.createHUD();
 
-			this.hud = new HUD(this.container);
-			this.hud.addHUD();
 
 		}
 
 
+		createHUD(){
 		
+			this.hud = new HUD(this.container);
+			this.hud.addHUD();
+		}
 
 
 		createTitleBanner(){
-			console.log("Adding title banner");
-			this.titleElement = document.createElement("p");
-
-			this.titleElement.style.backgroundImage = 'url(/assets/Banners/bannerScroll.png)';
-			this.titleElement.style.backgroundRepeat = 'no-repeat';
-
-			this.titleElement.style.position = 'absolute';
-			this.titleElement.style.display = 'block';
-			this.titleElement.style.textAlign = 'center';
-			this.titleElement.style.width = '250px';
-			this.titleElement.style.height = '50px';
-			this.titleElement.style.padding = "10px";
-			this.titleElement.style.paddingTop = '20px';
-			this.titleElement.style.fontFamily = "Baskerville";
-			this.titleElement.style.color = "white";
-			this.titleElement.style.transform = "scale(1.5)";
-
-			this.titleElement.style.top = 5 +'px';
-			this.titleElement.style.left = 300 +'px';
-			this.titleElement.appendChild(document.createTextNode("Alien Sniper Defense"));
-			console.log(this.titleElement);
+			this.titleElement = UIGenerator.CreateTitleBanner("Alien Sniper Defense");
 			this.addToContainer(this.titleElement);
 		}
 
@@ -86,12 +71,11 @@
 			var currentGame = this;
 
 			this.instructionsButton = document.createElement("a");
-			this.configureMenuButton(this.instructionsButton,"20%");
-
-
+			UIGenerator.ConfigureMenuButton(this.instructionsButton,"20%");
 			var buttonText = document.createTextNode("Instructions");
 			this.instructionsButton.appendChild(buttonText);
-			var pauseButton = this.pauseButton;
+			
+			var instructionsButton = this.instructionsButton;
 			this.instructionsButton.addEventListener("click", 
 				function(){
 				
@@ -174,46 +158,8 @@
 		}
 
 		
-		configureCanvasKeyboardControls(){
 
-			var player = this.player;
-			var currentGame = this;
-			document.addEventListener('keydown',event =>{
-				console.log("Key was pressed");
-				
-				event.preventDefault();
-				//Down key
-				if(event.keyCode == 40) {
-						player.keyDown();	
-      			}
-
-      			//Up key
-      			if(event.keyCode == 38) {
-						player.keyUp();
-      			}
-
-      			//Left key
-      			if(event.keyCode == 37) {
-						player.keyLeft();     				       	
-      			}
-
-      			//Right key
-      			if(event.keyCode == 39) {
-         				player.keyRight();
-      			}
-
-      			//Hit spacebar
-      			if(event.keyCode == 32) {
-         			currentGame.playerShootHandler();
-      			}
-
-			});
-
-			
-
-			
-		}
-
+		
 		
 
 		createCanvasElement(){
@@ -224,39 +170,13 @@
 		}
 
 		configureCanvasElement(canvasElement){
-
-			canvasElement.style.width = this.screenWidth + "px";
-			canvasElement.style.height = this.screenHeight + "px";
-			canvasElement.style.border = "white 1px solid";
-			canvasElement.style.backgroundColor = "white";
-			canvasElement.style.position = "absolute";
-			canvasElement.style.top = "10%";
-			canvasElement.style.left = "10%";
-			canvasElement.style.zIndex = 0;
+			UIGenerator.ConfigureCanvas(canvasElement,this.screenWidth,this.screenHeight);
 
 		}
 
-
-		
-
 		configureMenuButton(button,topDistance){
-			var cWidth = this.container.style.width;
-			var cHeight = this.container.style.height;
-			button.style.position = "absolute";
-			button.style.top = topDistance;
-			button.style.right = "10%";
-			button.style.width = 250 + "px";
-			button.style.height = 30 + "px";
-			button.style.textAlign = "center";
-			button.style.backgroundImage = "url(assets/Banners/bannerModern.png)";
-			button.style.backgroundRepeat = 'no-repeat';
-
-			button.style.padding = "10px";
-			button.style.fontSize = "1.8em";
-			button.style.color = "white";
-			button.style.fontFamily = "Arial";
-
-
+			UIGenerator.ConfigureMenuButton(button,topDistance);
+		
 		}
 
 		addToContainer(element,zIndex = 0){
