@@ -1,6 +1,5 @@
 class Alien extends Sprite{
 
-
 		constructor(alienColor, x = undefined,y = undefined){
 			
 			var imgPath = "assets/Aliens/alien_";

@@ -15,3 +15,7 @@
 (7) basic physics engine that uses bounding rectangles
 
 (8) associate a click handler with the game object to get coordinates
+
+(9) store game data in session storage
+
+(10) use the requestAnimationFrame

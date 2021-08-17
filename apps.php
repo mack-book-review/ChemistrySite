@@ -15,11 +15,12 @@
 	}
 </style>
 
+
 <script src="js/animation.js"></script>
 <script src="js/sprite.js"></script>
 <script src="js/player.js"></script>
 <script src="js/alien.js"></script>
-<script src="js/aliengenerator.js"></script>
+<script src="js/spritegenerator.js"></script>
 <script src="js/game.js"></script>
 <script type = "text/javascript" charset = "utf-8">
 

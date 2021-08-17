@@ -20,29 +20,16 @@
 			
 
 			//add some aliens
-			var alien1 = new Alien("beige",10,10);
-			var alien2 = new Alien("blue",50,50);
-			var alien3 = new Alien("green",70,70);
-			var alien4 = new Alien("yellow",100,100);
+			this.alienGenerator = new SpriteGenerator(this.canvasElement);
+		
+			console.log(this.alienGenerator);
+			this.alienGenerator.populateAliens();
 
-			this.addSprite(alien1);
-			this.addSprite(alien2);
-			this.addSprite(alien3);
-			this.addSprite(alien4);
-
-
-
-			
-			
 			var player = this.player;
+			var alienGenerator = this.alienGenerator;
 			this.playerShootHandler = function(){
 
-				for(var i = 0; i < this.sprites.length; i++){
-					if(this.sprites[i].hasOverlapWith(player)){
-						this.sprites[i].takeDamage();
-					}
-					
-				}
+				alienGenerator.checkPlayerContact(player);
 			};
 
 		
@@ -113,40 +100,6 @@
 			this.sprites.push(sprite);
 		}
 
-		configureMouseClickHandlers(){
-
-			var player = this.player;
-			var sprites = this.sprites;
-			var canvas = this.canvasElement;
-
-			this.mousedownHandler = function(xCor,yCor){
-				if(player.isClicked(xCor,yCor)){
-					console.log("Player was clicked..");
-					for(var i = 0; i < sprites.length; i++){
-						var sprite = sprites[i];
-						if(sprite.isClicked(xCor,yCor)){
-						console.log("Sprite was clicked..");
-							
-           						
-								sprite.takeDamage();
-							
-
-						}
-					}
-				}
-			};
-
-			this.mouseupHandler = function(xCor,yCor){
-				if(player.isClicked(xCor,yCor)){
-					for(var i = 0; i < sprites.length; i++){
-						
-					}
-					
-				}		
-			};
-		}
-
-
 		loadBackgroundMusic(filePath){
 
 			var audio = document.createElement("audio");
@@ -202,76 +155,7 @@
 			
 		}
 
-		configureOnscreenArrowControls(){
-			console.log("Adding controls...");
-			var currentGame = this;
-
-			this.controlLeft = document.createElement("div");
-			this.controlUp = document.createElement("div");
-			this.controlDown = document.createElement("div");
-			this.controlRight = document.createElement("div");
-
-			this.configureControlElement(
-				this.controlLeft,
-				"assets/BasicControls/left.png",
-				500,400,function(){
-					console.log("Move left");
-				});
-
-			this.configureControlElement(
-				this.controlRight,
-				"assets/BasicControls/right.png",
-				550,400,function(){
-					console.log("Move right");
-
-				});
-
-			this.configureControlElement(
-				this.controlUp,
-				"assets/BasicControls/up.png",
-				525,375,function(){
-					console.log("Move up");
-
-				});
-
-			this.configureControlElement(
-				this.controlDown,
-				"assets/BasicControls/down.png",
-				525,425,function(){
-					console.log("Move down");
-
-				});
-
-			console.log("Adding control elements...");
-			console.log(this.controlDown);
-			console.log(this.controlUp);
-			console.log(this.controlLeft);
-			console.log(this.controlRight);
-
-			this.addToContainer(this.controlDown);
-			this.addToContainer(this.controlUp);
-			this.addToContainer(this.controlRight);
-			this.addToContainer(this.controlLeft);
-
-
-		}
-
-		configureControlElement(controlElement, 
-			imgPath,
-			leftPos,
-			topPos,
-			clickHandler){
-
-			controlElement.style.backgroundColor = "blue";
-			controlElement.style.width = "50px";
-			controlElement.style.height = "50px";
-			controlElement.style.backgroundImage = imgPath;
-			controlElement.style.position = "absolute";
-			controlElement.style.top = topPos + "px";
-			controlElement.style.left = leftPos + "px";
-			controlElement.style.zIndex = 10;
-			controlElement.addEventListener("click",clickHandler);
-		}
+		
 
 		createCanvasElement(){
 			this.canvasElement = document.createElement("canvas");
@@ -294,31 +178,7 @@
 		}
 
 
-		configureCanvasMouseControl(){
-			var player = this.player;
-			var mousedownHandler = this.mousedownHandler;
-			var mouseupHandler = this.mouseupHandler;
-
-			this.canvasElement.addEventListener('mousedown',event =>{
-				
-				console.log("Mouse down");
-				console.log(event);
-				var newX = event.offsetX;
-				var newY = event.offsetY;
-				player.mousedownHandler(newX,newY);
-				mousedownHandler(newX,newY);
-			});
-
-			this.canvasElement.addEventListener('mouseup',event =>{
-			
-				console.log("Mouse up");
-				var newX = event.clientX;
-				var newY = event.clientY;
-				player.mouseupHandler();
-				mouseupHandler(newX,newY);
-
-			});
-		}
+		
 
 		configurePauseButton(button){
 			var cWidth = this.container.style.width;
@@ -356,14 +216,7 @@
 		updatePhysics(timeDiff){
 
 			this.player.update(timeDiff);
-			
-
-			for(var i = 0; i < this.sprites.length; i++){
-				
-				this.sprites[i].update(timeDiff);
-
-				
-			}
+			this.alienGenerator.updatePhysics(timeDiff);
 
 		}
 
@@ -383,16 +236,7 @@
 				this.screenWidth,this.screenHeight
 				);
 
-			for(var i = 0; i < this.sprites.length; i++){
-				if(this.sprites[i].isDead){
-					this.sprites.splice(i,1);
-
-				} 
-				
-				this.sprites[i].drawImage(this.context,timeDiff);
-
-				
-			}
+			this.alienGenerator.draw(timeDiff);
 
 			//Draw player last so that it's on top of aliens
 			this.player.drawImage(this.context);
