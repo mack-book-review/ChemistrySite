@@ -27,22 +27,21 @@ class Wingman extends Sprite{
 
 		//must have access to current texture
 		//keep trying
+		//not finished
+		//have objects recede into distance
+		//have objects approach
+
+		//can make it so that objects approach to a certian point
+		//and then hit the user (i.e. pilot's) window
 		scaleMovement(timeDiff){
 
 			this.timer += timeDiff;
-			if(this.timer > 300){
+			if(this.timer > 200){
 				
-				if(this.scaleValue >= 2){
-						this.scaleDelta = -.1;
-				}
-
-				if(this.scaleValue <= 0.5){
-						this.scaleDelta = .1;
-				}
-
-				//this.img.style.transform = "rotateZ(" + this.rotationAmount +"deg)";
-				//this.img.style.transform = "scale("+this.scaleValue+")";
-				this.scaleValue += this.scaleDelta;
+				
+				this.width -= 1;
+				this.height -= 1;
+				this.img.alpha -= 0.1;
 
 				this.timer = 0;
 			}
@@ -137,7 +136,7 @@ class Wingman extends Sprite{
 		}
 
 		updatePhysics(timeDiff){
-			this.moveInSquarePattern(timeDiff);
+			this.scaleMovement(timeDiff);
 
 		}
 
