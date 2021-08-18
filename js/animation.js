@@ -1,6 +1,17 @@
  
  class Animation{
 
+     static GetWingmanTextureImgPaths(){
+         var basePath = "assets/Wingman/wingMan";
+         var imgPaths = [];
+         for(var i = 1; i < 6; i++){
+             var fullPath = basePath + i + ".png";
+             imgPaths.push(fullPath);
+         }
+         return imgPaths;
+     }
+
+     
      static GetExplosionTextureImgPaths(){
 
          var basePath = "assets/RegularExplosion/regularExplosion";
@@ -14,8 +25,7 @@
          return imgPaths;
      }
 
-     static GetExplosionTextures(){
-         var imgPaths = this.GetExplosionTextureImgPaths();
+      static GetTextures(imgPaths){
          var imgArray = [];
 
          imgPaths.forEach((imgPath,index) =>{
@@ -29,12 +39,38 @@
 
      }
 
-     constructor(textures){
+    
+
+
+       static GetWingmanTextures(){
+         var imgPaths = Animation.GetWingmanTextureImgPaths();
+         return Animation.GetTextures(imgPaths);
+
+     }
+
+     static GetExplosionTextures(){
+         var imgPaths = Animation.GetExplosionTextureImgPaths();
+
+         return Animation.GetTextures(imgPaths);
+     }
+
+
+     static GetWingmanFlyingAnimation(){
+
+         return new Animation(Animation.GetWingmanTextures());
+     }
+     
+
+     constructor(textures, autoloop = false){
          this.textures = textures;
          this.currentFrame = 0;
          this.frameInterval = 10;
          this.timeCounter = 0;
-         this.autoLoop = false;
+         this.autoLoop = autoloop;
+     }
+
+     setAutoloopOn(){
+         this.autoloop = true;
      }
 
      resetCurrentFrame(){

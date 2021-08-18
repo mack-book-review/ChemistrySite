@@ -24,6 +24,7 @@
 <script src="js/sprite.js"></script>
 <script src="js/player.js"></script>
 <script src="js/alien.js"></script>
+<script src="js/wingman.js"></script>
 <script src="js/hud.js"></script>
 <script src="js/spritegenerator.js"></script>
 <script src="js/inputhelper.js"></script>

@@ -35,8 +35,24 @@
 
 			var player = this.player;
 			var alienGenerator = this.alienGenerator;
+
+
+			this.wingman = new Wingman(100,50,this.canvasElement);
+			var wingmanTextures = Animation.GetWingmanTextures();
+			var flyingAnimation = new Animation(
+				wingmanTextures,true);
 			
+			this.wingman.runAnimation(flyingAnimation);
+			this.addSprite(this.wingman);
+			console.log(this.wingman);
+
+			var wingman = this.wingman;
+
 			this.playerShootHandler = function(){
+
+				if(player.hasOverlapWith(wingman,0.5)){
+					wingman.takeDamage();
+				}
 
 				alienGenerator.checkPlayerContact(player);
 			};
@@ -200,7 +216,7 @@
 
 			this.player.updatePhysics(timeDiff);
 			this.alienGenerator.updatePhysics(timeDiff);
-
+			this.wingman.updatePhysics(timeDiff);
 		}
 
 		drawAnimations(timeDiff){
@@ -220,6 +236,20 @@
 				);
 
 			this.alienGenerator.draw(timeDiff);
+
+
+			//Draw the wingman
+
+			if(this.wingman.isDead){
+				var index = this.sprites.indexOf(this.wingman);
+				this.sprites.splice(index,1);
+				//delete this.wingman;
+				//this.wingman = null;
+				this.killCount += 1;
+			} else {
+				this.wingman.drawImage(this.context,timeDiff);
+
+			}
 
 			//Draw player last so that it's on top of aliens
 			this.player.drawImage(this.context);
