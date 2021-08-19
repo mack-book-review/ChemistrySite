@@ -30,6 +30,10 @@ class HUD{
 		this.playerHealth = playerHealth;
 	}
 
+	getEnemyCount(){
+		return this.enemyCount;
+	}
+
 	updateEnemyCount(enemyCount){
 		this.totalEnemies = enemyCount;
 	}

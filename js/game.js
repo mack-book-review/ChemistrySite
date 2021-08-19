@@ -23,22 +23,19 @@
 			//Instantiate player
 			this.createPlayer();
 
-			//Add Alien Generator
-			this.alienGenerator = new AlienGenerator(this.canvasElement);
-			this.alienGenerator.spawnObjects(3);
+			//Create sprite generators
+			this.spriteGenerators = [
+				new AlienGenerator(this.canvasElement),
+				new WingmanGenerator(this.canvasElement),
+				new EvilSunGenerator(this.canvasElement),
+				new EvilCloudGenerator(this.canvasElement)
 
-			//Add Wingman Generator
-			this.wingmanGenerator = new WingmanGenerator(
-				this.canvasElement);
-			this.wingmanGenerator.spawnObjects(3);
+			];
 
-			//Add EvilSun Generator
-			this.evilsunGenerator = new EvilSunGenerator(this.canvasElement);
-			this.evilsunGenerator.spawnObjects(3);
-
-			//Add EvilCloud Generator
-			this.evilcloudGenerator = new EvilCloudGenerator(this.canvasElement);
-			this.evilcloudGenerator.spawnObjects(3);
+			//Spawn enemies
+			this.spriteGenerators.forEach((generator) =>{
+				generator.spawnObjects(3);
+			});
 
 			//Configure the event handler that is called when the player shoots
 			this.configurePlayerShootHandler();
@@ -57,18 +54,16 @@
 
 		configurePlayerShootHandler(){
 			//Get references to enemy generators for playerShoot handler
-			var alienGenerator = this.alienGenerator;
-			var wingmanGenerator = this.wingmanGenerator;
-			var evilsunGenerator = this.evilsunGenerator;
-			var evilcloudGenerator = this.evilcloudGenerator;
+			var spriteGenerators = this.spriteGenerators;
 			var player = this.player;
 			
 			this.playerShootHandler = function(){
 
-				evilsunGenerator.checkPlayerContact(player);
-				wingmanGenerator.checkPlayerContact(player);
-				alienGenerator.checkPlayerContact(player);
-				evilcloudGenerator.checkPlayerContact(player);
+				spriteGenerators.forEach(function(spriteGenerator){
+
+					spriteGenerator.checkPlayerContact(player);
+				});
+				
 			};
 		}
 
@@ -91,11 +86,6 @@
 		}
 
 
-		createHUD(){
-		
-			this.hud = new HUD(this.container);
-			this.hud.addHUD();
-		}
 
 
 		createTitleBanner(){
@@ -157,7 +147,7 @@
 			return this.currentAnimation != null;
 		}
 
-		run(animation,callback = null){
+		runBackgroundAnimation(animation,callback = null){
 
 			this.currentAnimation = animation;
 
@@ -221,18 +211,6 @@
 
 		}
 
-
-
-		updatePhysics(timeDiff){
-			console.log("updating physics");
-			this.player.updatePhysics(timeDiff);
-			this.alienGenerator.updatePhysics(timeDiff,this.checkSpritePosition);
-			this.wingmanGenerator.updatePhysics(timeDiff);
-			this.evilsunGenerator.updatePhysics(timeDiff,this.checkSpritePosition);
-			this.evilcloudGenerator.updatePhysics(timeDiff,this.checkSpritePosition);
-
-		}
-
 		drawBackgroundImg(){
 			var backgroundImg = new Image();
 			backgroundImg.src = "assets/Backgrounds/starry_sky.jpg";
@@ -247,72 +225,141 @@
 				);
 		}
 
-		drawAnimations(timeDiff){
-			//draw animations
+		/** HUD-related Helper Functions **/
+		createHUD(){
+		
+			this.hud = new HUD(this.container);
+			this.hud.addHUD();
 
+		}
+
+		updateHUDSpriteCount(){
+			var totalEnemies = 0;
+
+			this.spriteGenerators.forEach(function(spriteGenerator){
+				totalEnemies += spriteGenerator.getTotalSprites();
+				console.log(spriteGenerator.getTotalSprites());
+				
+			});
+
+			this.hud.updateEnemyCount(totalEnemies);
+		}
+
+		updateHUDKillCount(){
+			var totalKills = 0;
+
+			this.spriteGenerators.forEach(function(spriteGenerator){
+				totalKills += spriteGenerator.getKillCount();
+			});
+
+			this.hud.updateKillCount(totalKills);
+		}
+
+
+		updateHUD(){
+			this.updateHUDSpriteCount();
+			this.updateHUDKillCount();
+
+			
+			this.hud.updateHUD();
+		}
+
+		/** Various 'hooks' for game loop **/
+
+		updatePhysics(timeDiff){
+			
+			this.player.updatePhysics(timeDiff);
+			
+			this.spriteGenerators.forEach(function(spriteGenerator){
+
+				spriteGenerator.updatePhysics(timeDiff);
+			});
+			
+
+		}
+
+		
+
+		updateAnimations(timeDiff){
+
+			//Draw the background image
 			this.drawBackgroundImg();
 
-			this.alienGenerator.draw(timeDiff);
+			this.spriteGenerators.forEach(function(spriteGenerator){
 
+				//Draw enemy sprites
+				spriteGenerator.draw(timeDiff);
 
-			//Draw the wingman
-			this.wingmanGenerator.draw(timeDiff);
+			});
 
-			//Draw the evil sun
-			this.evilsunGenerator.draw(timeDiff);
-
-			//Draw the evil clouds
-			this.evilcloudGenerator.draw(timeDiff);
 
 			//Draw player last so that it's on top of aliens
 			this.player.drawImage(this.context);
 
 		}
 
-		//startGame
-		startGame(){
-			var currentGame = this;
+		
 
+		//Run the game loop
+		runGame(){
+
+			
+			//Initialize timer-related variables
 			var lastTime = Date.now();
 			var currentTime = lastTime;
 			var timeDiff = lastTime - currentTime;
 
+			/** Store references to the current game,
+			 * current context, canvas, etc. **/			
+			var currentGame = this;
 			var context = this.context;
 			var canvas = this.canvasElement;
 			var isPaused = this.isPaused;
 			var isEnded = this.isEnded;
+
 			this.gameLoopID = setInterval(function(){
 				if(isPaused || isEnded){
 					return;
 				}
-				context.clearRect(0,0,canvas.width,canvas.height);
+				//Calculate time difference
 				timeDiff = lastTime - currentTime;
 				currentTime = lastTime;
-				//console.log("Current Time: " + currentTime);
 
+				//Clear the canvas before drawing other game objects
+				context.clearRect(0,0,canvas.width,canvas.height);
+				
+				//Update physics, animation, HUD, etc.
 				currentGame.updatePhysics(timeDiff);
-				currentGame.drawAnimations(timeDiff);
+				currentGame.updateAnimations(timeDiff);
+				currentGame.updateHUD();
 
-				//console.log("Time Difference:" + timeDiff);
+				//Reset the last time
 				lastTime = Date.now();
-				//console.log("Last Time: " + lastTime);
 
 			}, this.frameRate);
 
 		}
 
-		//pauseGame
-		pauseGame(){
-			console.log("Pausing game..");
-			clearInterval(this.gameLoopID);
-			console.log("Game has been paused..");
+		//Start Game
+		startGame(){
+			this.runGame();
+
 		}
 
-		//endGame
-		endGame(){
-			console.log("Ending game..");
+		//Restart Game
+		restartGame(){
+			this.runGame();
+
+		}
+
+		//Pause Game
+		pauseGame(){
 			clearInterval(this.gameLoopID);
-			console.log("Game has ended..");
+		}
+
+		//End Game
+		endGame(){
+			clearInterval(this.gameLoopID);
 
 		}
 

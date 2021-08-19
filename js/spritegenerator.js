@@ -14,7 +14,7 @@ class SpriteGenerator{
 	}
 
 	getTotalSprites(){
-		this.totalSprites;
+		return this.totalSprites;
 	}
 
 	getKillCount(){
@@ -110,18 +110,25 @@ class SpriteGenerator{
 			if(player.hasOverlapWith(this.sprites[i],0.5)){
 				this.sprites[i].takeDamage();
 			}
-			// if(this.sprites[i].hasOverlapWith(player)){
-			// 		this.sprites[i].takeDamage();
-			// 	}
 					
-			}
+		}
 	}
 
 	draw(timeDiff){
 		for(var i = 0; i < this.sprites.length; i++){
 			if(this.sprites[i].isDead){
+				//Remove the img object stored in the sprit
+				delete this.sprites[i].img;
+				this.sprites[i].img = null;
+
+				//Remove the 'dead' sprite from the sprites array
 				this.sprites.splice(i,1);
+
+				//Update the killCount
 				this.killCount += 1;
+
+				//Update totalSprites
+				this.totalSprites -= 1;
 			} 
 				
 			this.sprites[i].drawImage(this.context,timeDiff);
