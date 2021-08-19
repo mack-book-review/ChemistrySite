@@ -69,6 +69,7 @@
 			this.createMusicSettingsButton();
 			this.createCrosshairSettingsButton();
 			this.createTitleBanner();
+			this.createHomeReturnButton();
 			this.createHUD();
 
 			
@@ -121,6 +122,23 @@
 		createTitleBanner(){
 			this.titleElement = UIGenerator.CreateTitleBanner("Alien Sniper Defense");
 			this.addToContainer(this.titleElement);
+		}
+
+		createHomeReturnButton(){
+			var currentGame = this;
+
+			this.returnHomeButton = document.createElement("a");
+			UIGenerator.ConfigureMenuButton(this.returnHomeButton,"50%");
+			var buttonText = document.createTextNode("Return Home");
+			this.returnHomeButton.appendChild(buttonText);
+			
+			var returnHomeButton = this.returnHomeButton;
+			this.returnHomeButton.addEventListener("click", 
+				function(){
+					location.assign('https://suzhoupanda.github.io');			});
+
+			this.addToContainer(this.returnHomeButton);
+
 		}
 
 		createInstructionsButton(){
