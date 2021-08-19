@@ -34,15 +34,12 @@
 			//Create sprite generators
 			this.spriteGenerators = [
 				new AlienGenerator(this.canvasElement),
-				new WingmanGenerator(this.canvasElement),
-				new EvilSunGenerator(this.canvasElement),
-				new EvilCloudGenerator(this.canvasElement)
 
 			];
 
 			//Spawn enemies
 			this.spriteGenerators.forEach((generator) =>{
-				generator.spawnObjects(3);
+				generator.spawnObjects(2);
 			});
 
 			//Configure the event handler that is called when the player shoots
@@ -57,6 +54,7 @@
 			this.createTitleBanner();
 			this.createHUD();
 
+			
 
 		}
 
@@ -241,7 +239,8 @@
 
 		}
 
-		updateHUDSpriteCount(){
+
+		getTotalEnemies(){
 			var totalEnemies = 0;
 
 			this.spriteGenerators.forEach(function(spriteGenerator){
@@ -249,6 +248,12 @@
 				console.log(spriteGenerator.getTotalSprites());
 				
 			});
+
+			return totalEnemies;
+		}
+
+		updateHUDSpriteCount(){
+			var totalEnemies = this.getTotalEnemies();
 
 			this.hud.updateEnemyCount(totalEnemies);
 		}
@@ -308,6 +313,12 @@
 
 		checkForGameWinOrLoss(){
 
+			var currentGame = this;
+			if(currentGame.getTotalEnemies() == 0){
+				currentGame.isWon = true;
+				var msg = UIGenerator.CreateGameFinishedMessage("Congratulations! You won!",150,150);
+				currentGame.addToContainer(msg);
+			}
 		}
 
 		
@@ -326,22 +337,14 @@
 			var currentGame = this;
 			var context = this.context;
 			var canvas = this.canvasElement;
-			var isPaused = this.isPaused;
-			var isLost = this.isLost;
-			var isWon = this.isWon;
+		
 
 			this.gameLoopID = setInterval(function(){
-				if(isPaused){
+				if(currentGame.isPaused || currentGame.isLost || currentGame.isWon){
 					return;
 				}
 
-				if(isLost){
-					return;
-				}
-
-				if(isWon){
-					return;
-				}
+				
 
 				//Calculate time difference
 				timeDiff = lastTime - currentTime;

@@ -1,5 +1,69 @@
 class UIGenerator{
 
+	static CreateGameFinishedMessage(messageTxt, top, left,removeCallback = null){
+			var message = document.createElement("p");
+
+			var medal = document.createElement("img");
+			medal.src = "/assets/Medals/flat_medal1.png";
+			medal.style.float = "left";
+			medal.style.height = "90%";
+			medal.style.width = "auto";
+			medal.style.marginRight = "20px";
+
+			message.appendChild(medal);
+
+			var removeButton = document.createElement("a");
+
+			removeButton.appendChild(document.createTextNode("Play Again"));
+
+			removeButton.addEventListener("mouseenter", function(){
+				removeButton.style.textShadow = "2px 2px red";
+			});
+
+			removeButton.addEventListener("mouseleave", function(){
+				removeButton.style.textShadow = "none";
+			});
+
+			removeButton.addEventListener("click", function(){
+
+				
+				message.remove();
+				window.location.reload();
+
+				if(typeof(removeCallback) == "function"){
+					removeCallback();
+				}
+			});
+
+
+			message.style.position = 'absolute';
+			message.style.display = 'block';
+			
+
+			message.style.width = '500px';
+			message.style.height = '200px';
+			message.style.padding = "10px";
+			message.style.paddingTop = '20px';
+			message.style.fontFamily = "Baskerville";
+			message.style.color = "white";
+			message.style.borderRadius = "10%";
+			message.style.fontSize = "2em";
+
+			message.style.backgroundColor = "#A2CFF3";
+			message.style.border = "solid 2px #FC9E80";
+
+			message.style.top = top +'px';
+			message.style.left = left +'px';
+			message.appendChild(document.createTextNode(messageTxt));
+			
+			var breakElement = document.createElement("br");
+	
+			message.appendChild(breakElement);
+			message.appendChild(removeButton);
+
+			return message;
+	}
+
 	static CreateTitleBanner(text){
 			var title = document.createElement("p");
 
