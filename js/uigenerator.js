@@ -1,16 +1,16 @@
 class UIGenerator{
 
-	static CreateGameFinishedMessage(messageTxt, top, left,removeCallback = null){
+	static CreateGameFinishedMessage(messageTxt, top, left, imgSrc, removeCallback = null){
 			var message = document.createElement("p");
 
-			var medal = document.createElement("img");
-			medal.src = "/assets/Medals/flat_medal1.png";
-			medal.style.float = "left";
-			medal.style.height = "90%";
-			medal.style.width = "auto";
-			medal.style.marginRight = "20px";
+			var img = document.createElement("img");
+			img.src = imgSrc;
+			img.style.float = "left";
+			img.style.height = "90%";
+			img.style.width = "auto";
+			img.style.marginRight = "20px";
 
-			message.appendChild(medal);
+			message.appendChild(img);
 
 			var removeButton = document.createElement("a");
 

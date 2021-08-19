@@ -8,6 +8,9 @@
 			this.screenHeight = screenHeight;
 			this.gameLoopID = 0;
 			this.frameRate = 20;
+			this.timer = 0;
+			this.timeRemaining = 30;
+			this.clockTime = 0;
 
 			//Initialize game states
 			this.isPaused = false;
@@ -212,7 +215,8 @@
 
 
 		drawText(someText,x,y){
-			this.context.font = '16 pt Arial';
+			this.context.strokeStyle = "white";
+			this.context.font = '30 pt Arial';
 			this.context.strokeText(someText,x,y);
 
 		}
@@ -314,9 +318,16 @@
 		checkForGameWinOrLoss(){
 
 			var currentGame = this;
+
+			if(currentGame.timeRemaining == 0){
+				currentGame.isLost = true;
+				var msg = UIGenerator.CreateGameFinishedMessage("I'm Sorry! You Lost!",150,150,"/assets/Smilies/cry.gif");
+				currentGame.addToContainer(msg);
+			}
+
 			if(currentGame.getTotalEnemies() == 0){
 				currentGame.isWon = true;
-				var msg = UIGenerator.CreateGameFinishedMessage("Congratulations! You won!",150,150);
+				var msg = UIGenerator.CreateGameFinishedMessage("Congratulations! You won!",150,150,"/assets/Medals/flat_medal1.png");
 				currentGame.addToContainer(msg);
 			}
 		}
@@ -337,19 +348,20 @@
 			var currentGame = this;
 			var context = this.context;
 			var canvas = this.canvasElement;
-		
+	
 
 			this.gameLoopID = setInterval(function(){
 				if(currentGame.isPaused || currentGame.isLost || currentGame.isWon){
 					return;
 				}
 
-				
-
 				//Calculate time difference
 				timeDiff = lastTime - currentTime;
 				currentTime = lastTime;
+				currentGame.timer += timeDiff;
 
+
+			
 				//Clear the canvas before drawing other game objects
 				context.clearRect(0,0,canvas.width,canvas.height);
 				
@@ -357,6 +369,14 @@
 				currentGame.updatePhysics(timeDiff);
 				currentGame.updateAnimations(timeDiff);
 				currentGame.updateHUD();
+
+
+				
+				currentGame.clockTime = Math.floor(currentGame.timer / 1000);
+				currentGame.timeRemaining = 30 - currentGame.clockTime;
+				currentGame.drawText("Time Remaining: " + currentGame.timeRemaining,10,20);
+				
+
 
 				//Check if game win or loss conditions have been satisfied
 				currentGame.checkForGameWinOrLoss();
@@ -383,6 +403,7 @@
 		//Pause Game
 		pauseGame(){
 			clearInterval(this.gameLoopID);
+
 		}
 
 		//End Game
