@@ -10,6 +10,82 @@ class UIGenerator{
 
 	};
 
+	static CreateInstructionsPopup(messageTxt, top, left, imgSrc, removeCallback = null){
+			var message = document.createElement("p");
+
+			var img = document.createElement("img");
+			img.src = imgSrc;
+			img.style.float = "left";
+			img.style.height = "30%";
+			img.style.width = "auto";
+			img.style.marginRight = "20px";
+
+			message.appendChild(img);
+
+			var removeButton = document.createElement("a");
+
+			removeButton.style.cursor = "pointer";
+			removeButton.style.textDecoration = "none";
+			removeButton.style.color = "purple";
+			removeButton.style.padding = "10px";
+			removeButton.style.backgroundColor = "white";
+			removeButton.style.border = "solid 2px purple";
+			removeButton.style.marginTop = "30px";
+			removeButton.style.clear = "both";
+			removeButton.style.borderRadius = "10%";
+
+			removeButton.appendChild(document.createTextNode("Got It!"));
+
+			removeButton.addEventListener("mouseenter", function(){
+				removeButton.style.textShadow = "2px 2px red";
+			});
+
+			removeButton.addEventListener("mouseleave", function(){
+				removeButton.style.textShadow = "none";
+			});
+
+			removeButton.addEventListener("click", function(){
+
+				
+				message.remove();
+
+				if(typeof(removeCallback) == "function"){
+					removeCallback();
+				}
+			});
+
+
+			message.style.position = 'absolute';
+			message.style.display = 'block';
+			
+
+			message.style.width = '500px';
+			message.style.height = '200px';
+			message.style.overflowY = 'scroll';
+
+			message.style.padding = "10px";
+			message.style.paddingTop = '20px';
+			message.style.fontFamily = UIGenerator.Fonts.Bangers;
+			message.style.color = "white";
+			message.style.textShadow = "2px 2px purple";
+			message.style.borderRadius = "10%";
+			message.style.fontSize = "1.8em";
+
+			message.style.backgroundColor = "#A2CFF3";
+			message.style.border = "solid 2px #FC9E80";
+
+			message.style.top = top +'px';
+			message.style.left = left +'px';
+			message.appendChild(document.createTextNode(messageTxt));
+			
+			var breakElement = document.createElement("br");
+	
+			message.appendChild(breakElement);
+			message.appendChild(removeButton);
+
+			return message;
+	}
+
 	static CreateGameFinishedMessage(messageTxt, top, left, imgSrc, removeCallback = null){
 			var message = document.createElement("p");
 
@@ -23,6 +99,8 @@ class UIGenerator{
 			message.appendChild(img);
 
 			var removeButton = document.createElement("a");
+			removeButton.style.cursor = "pointer";
+			
 
 			removeButton.appendChild(document.createTextNode("Play Again"));
 
@@ -50,25 +128,28 @@ class UIGenerator{
 			message.style.display = 'block';
 			
 
-			message.style.width = '500px';
+			message.style.width = '700px';
 			message.style.height = '200px';
 			message.style.padding = "10px";
 			message.style.paddingTop = '20px';
-			message.style.fontFamily = "Baskerville";
+			message.style.fontFamily = UIGenerator.Fonts.Bangers;
 			message.style.color = "white";
 			message.style.borderRadius = "10%";
 			message.style.fontSize = "2em";
 
-			message.style.backgroundColor = "#A2CFF3";
+			message.style.backgroundColor = "purple";
 			message.style.border = "solid 2px #FC9E80";
-
 			message.style.top = top +'px';
 			message.style.left = left +'px';
-			message.appendChild(document.createTextNode(messageTxt));
+
+			var txtNode = document.createTextNode(messageTxt);
+			message.appendChild(txtNode);
 			
 			var breakElement = document.createElement("br");
 	
 			message.appendChild(breakElement);
+			message.appendChild(breakElement);
+
 			message.appendChild(removeButton);
 
 			return message;
@@ -120,6 +201,7 @@ class UIGenerator{
 			button.style.textAlign = "center";
 			button.style.backgroundImage = "url(assets/Banners/bannerModern.png)";
 			button.style.backgroundRepeat = 'no-repeat';
+			button.style.cursor = "pointer";
 
 			button.style.padding = "10px";
 			button.style.fontSize = "1.4em";

@@ -25,6 +25,7 @@ font-family: 'Sigmar One', cursive;
 		background-color: dodgerblue;
 		border:  black 2px solid;
 		font-family: 'Press Start 2P', cursive;
+
 	}
 
 </style>
@@ -61,12 +62,6 @@ font-family: 'Sigmar One', cursive;
 			//Declare the global game settings as a constant
 			var game = new Game(gameContainer);
 			//game.loadBackgroundMusic("polka_train.ogg");
-
-				var player = new Sprite("assets/Meteors/spaceMeteors_001.png",0,0,40,30);
-
-				game.addSprite(player);
-
-
 
 				game.startGame();
 			}
