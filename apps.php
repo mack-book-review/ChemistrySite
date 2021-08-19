@@ -6,6 +6,7 @@
 <meta http-equiv = "Content-type" content = "text/html; charset = utf-8"> <title>Sample HTML5 File</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Sigmar+One&display=swap" rel="stylesheet">
 
 <style>
@@ -29,6 +30,8 @@ font-family: 'Sigmar One', cursive;
 	}
 
 </style>
+
+
 
 <script src="js/gamesettings.js"></script>
 <script src="js/global_constants.js"></script>
@@ -61,9 +64,9 @@ font-family: 'Sigmar One', cursive;
 
 			//Declare the global game settings as a constant
 			var game = new Game(gameContainer);
-			//game.loadBackgroundMusic("polka_train.ogg");
 
-				game.startGame();
+
+			game.startGame();
 			}
 
 

@@ -1,5 +1,6 @@
 class InputHelper{
 
+
 	static ConfigureCanvasKeyboardControls(currentGame){
 
 			
@@ -29,6 +30,8 @@ class InputHelper{
 
       			//Hit spacebar
       			if(event.keyCode == 32) {
+
+      		
          			currentGame.playerShootHandler();
       			}
 

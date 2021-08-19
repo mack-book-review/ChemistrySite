@@ -214,4 +214,109 @@ class UIGenerator{
 			button.style.color = "white";
 			button.style.fontFamily = UIGenerator.Fonts.SigmarOne;
 	}
+
+
+	static CreateMusicSettingsPopup(titleText, top, left, imgSrc, checkBoxCallback = null, removeCallback = null){
+			var message = document.createElement("p");
+
+			var img = document.createElement("img");
+			img.src = imgSrc;
+			img.style.float = "left";
+			img.style.height = "30%";
+			img.style.width = "auto";
+			img.style.marginRight = "20px";
+
+			message.appendChild(img);
+
+			var form = document.createElement("form");
+			form.classList.add("form-check-input");
+			form.style.clear = "left";
+
+			var input = document.createElement("input");
+			input.classList.add("form-check-input");
+			input.setAttribute("type", "checkbox");
+			input.setAttribute("value", "on");
+			input.setAttribute("id", "flexCheckDefault");
+
+			input.addEventListener("input",function(event){
+				console.log(event);
+				checkBoxCallback(event);
+			});
+
+			var label = document.createElement("label");
+			label.classList.add("form-check-label");
+			label.setAttribute("for", "flexCheckDefault");
+			
+			label.appendChild(document.createTextNode("Toggle Background Music"));
+			
+			form.appendChild(input);
+			form.appendChild(label);
+
+			var removeButton = document.createElement("a");
+
+			removeButton.style.cursor = "pointer";
+			removeButton.style.textDecoration = "none";
+			removeButton.style.color = "purple";
+			removeButton.style.padding = "10px";
+			removeButton.style.backgroundColor = "white";
+			removeButton.style.border = "solid 2px purple";
+			removeButton.style.marginTop = "30px";
+			removeButton.style.clear = "both";
+			removeButton.style.borderRadius = "10%";
+
+			removeButton.appendChild(document.createTextNode("Got It!"));
+
+			removeButton.addEventListener("mouseenter", function(){
+				removeButton.style.textShadow = "2px 2px red";
+			});
+
+			removeButton.addEventListener("mouseleave", function(){
+				removeButton.style.textShadow = "none";
+			});
+
+			removeButton.addEventListener("click", function(){
+
+				
+				message.remove();
+
+				if(typeof(removeCallback) == "function"){
+					removeCallback();
+				}
+			});
+
+
+			message.style.position = 'absolute';
+			message.style.display = 'block';
+			
+
+			message.style.width = '500px';
+			message.style.height = '200px';
+			message.style.overflowY = 'scroll';
+
+			message.style.padding = "10px";
+			message.style.paddingTop = '20px';
+			message.style.fontFamily = UIGenerator.Fonts.Bangers;
+			message.style.color = "white";
+			message.style.textShadow = "2px 2px purple";
+			message.style.borderRadius = "10%";
+			message.style.fontSize = "1.8em";
+
+			message.style.backgroundColor = "#A2CFF3";
+			message.style.border = "solid 2px #FC9E80";
+
+			message.style.top = top +'px';
+			message.style.left = left +'px';
+			message.style.clear = "both";
+
+			message.appendChild(document.createTextNode(titleText));
+			message.appendChild(form);
+
+			var breakElement = document.createElement("br");
+	
+			message.appendChild(breakElement);
+			message.appendChild(removeButton);
+
+			return message;
+	}
+
 }

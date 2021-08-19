@@ -53,11 +53,20 @@
 			this.configurePlayerShootHandler();
 	
 			//Create a way for player to interact with game
+			
+		
+			var bgMusicAudio = document.createElement("audio");
+			this.bgMusicAudio = bgMusicAudio;
+			this.bgMusicAudio.src = "polka_train.ogg";
+			this.addToContainer(this.bgMusicAudio);
+			this.loadBackgroundMusic();
+	
 			InputHelper.ConfigureCanvasKeyboardControls(this);
 			
 			//Create UI elements
 			this.createPauseButton();
 			this.createInstructionsButton();
+			this.createMusicSettingsButton();
 			this.createTitleBanner();
 			this.createHUD();
 
@@ -69,9 +78,16 @@
 			//Get references to enemy generators for playerShoot handler
 			var spriteGenerators = this.spriteGenerators;
 			var player = this.player;
+
+			this.shootAudio = new Audio();
+			this.shootAudio.src = "assets/Sounds/laser2.ogg";
+			this.addToContainer(this.shootAudio);
+
+			var shootAudio = this.shootAudio;
 			
 			this.playerShootHandler = function(){
 
+				shootAudio.play();
 				spriteGenerators.forEach(function(spriteGenerator){
 
 					spriteGenerator.checkPlayerContact(player);
@@ -135,6 +151,54 @@
 
 		}
 
+		createMusicSettingsButton(){
+			var currentGame = this;
+
+			this.musicSettingsButton = document.createElement("a");
+			UIGenerator.ConfigureMenuButton(this.musicSettingsButton,"30%");
+			var buttonText = document.createTextNode("Music Settings");
+			this.musicSettingsButton.appendChild(buttonText);
+			
+			var musicSettingsButton = this.musicSettingsButton;
+			var bgMusicAudio = this.bgMusicAudio;
+			this.musicSettingsButton.addEventListener("click", 
+				function(){
+				
+					var popup = UIGenerator.CreateMusicSettingsPopup(
+						"Music Settings",
+						GAME_SETTINGS.getScreenHeight()/3,
+						GAME_SETTINGS.getScreenWidth()/4,
+						"assets/Smilies/confused.gif",
+						function(event){
+							console.log("Processing event...");
+							if(event.target.checked){
+								if(bgMusicAudio.muted){
+									bgMusicAudio.muted = false;
+								} else {
+									bgMusicAudio.muted = true;
+								}
+								
+							} else {
+								if(bgMusicAudio.muted){
+									bgMusicAudio.muted = false;
+								} else {
+									bgMusicAudio.muted = true;
+								}
+							
+							}
+						},
+						function(){
+							currentGame.isPaused = false;
+
+						});
+					currentGame.addToContainer(popup);
+					currentGame.isPaused = true;
+			});
+
+			this.addToContainer(this.musicSettingsButton);
+
+		}
+
 		createPauseButton(){
 			var currentGame = this;
 
@@ -193,16 +257,11 @@
 			this.sprites.push(sprite);
 		}
 
-		loadBackgroundMusic(filePath){
+		loadBackgroundMusic(){
 
-			var audio = document.createElement("audio");
-			this.audioElement = audio;
-			this.audioElement.src = filePath;
-			this.container.appendChild(this.audioElement);
-
-			audio = this.audioElement;
+			var bgMusicAudio = this.bgMusicAudio;
 			this.container.addEventListener("mousemove", function () {
-    			audio.play();
+    			bgMusicAudio.play();
 
     		});
 		}
@@ -267,7 +326,6 @@
 
 			this.spriteGenerators.forEach(function(spriteGenerator){
 				totalEnemies += spriteGenerator.getTotalSprites();
-				console.log(spriteGenerator.getTotalSprites());
 				
 			});
 

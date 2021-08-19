@@ -131,7 +131,9 @@ class SpriteGenerator{
 				this.totalSprites -= 1;
 			} 
 				
-			this.sprites[i].drawImage(this.context,timeDiff);
+			if(this.sprites[i] != null || this.sprites[i] != undefined){
+				this.sprites[i].drawImage(this.context,timeDiff);
+			}
 
 				
 		}
