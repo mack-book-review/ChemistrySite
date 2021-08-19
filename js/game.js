@@ -3,17 +3,25 @@
 	class Game{
 
 		constructor(container, screenWidth,screenHeight){
+			//Initialize game settings
 			this.screenWidth = screenWidth;
 			this.screenHeight = screenHeight;
 			this.gameLoopID = 0;
 			this.frameRate = 20;
-			this.sprites = [];
+
+			//Initialize game states
 			this.isPaused = false;
-			this.isEnded = false;
-			this.currentAnimation = null;
+			this.isLost = false;
+			this.isWon = false;
+
+			//Initialize current background animation
+			this.currrenbackgroundAnimation = null;
 
 			//Create the container before the canvas
 			this.container = container;
+
+			//Initialize game sprites array
+			this.sprites = [];
 
 			//Instantiate the canvas before instantiating the player and other sprites
 			//Sprites will require a reference to the canvas on which they are drawn
@@ -298,6 +306,10 @@
 
 		}
 
+		checkForGameWinOrLoss(){
+
+		}
+
 		
 
 		//Run the game loop
@@ -315,12 +327,22 @@
 			var context = this.context;
 			var canvas = this.canvasElement;
 			var isPaused = this.isPaused;
-			var isEnded = this.isEnded;
+			var isLost = this.isLost;
+			var isWon = this.isWon;
 
 			this.gameLoopID = setInterval(function(){
-				if(isPaused || isEnded){
+				if(isPaused){
 					return;
 				}
+
+				if(isLost){
+					return;
+				}
+
+				if(isWon){
+					return;
+				}
+
 				//Calculate time difference
 				timeDiff = lastTime - currentTime;
 				currentTime = lastTime;
@@ -332,6 +354,9 @@
 				currentGame.updatePhysics(timeDiff);
 				currentGame.updateAnimations(timeDiff);
 				currentGame.updateHUD();
+
+				//Check if game win or loss conditions have been satisfied
+				currentGame.checkForGameWinOrLoss();
 
 				//Reset the last time
 				lastTime = Date.now();
