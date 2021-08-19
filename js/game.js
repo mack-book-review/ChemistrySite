@@ -119,7 +119,7 @@
 				function(){
 				
 					var popup = UIGenerator.CreateInstructionsPopup(
-						"In order to move the player, use the up, down, left, and right arrows on your keypad.  When the crosshair is over an enemy, tap the spacebar to fire a missile at the enemy.",
+						"In order to move the targeting crosshair, use the up, down, left, and right arrows on your keypad.  When the crosshair is over an enemy, tap the spacebar to fire a missile at the enemy.",
 						GAME_SETTINGS.getScreenHeight()/3,
 						GAME_SETTINGS.getScreenWidth()/4,
 						"assets/Smilies/confused.gif",
