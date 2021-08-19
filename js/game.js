@@ -9,7 +9,7 @@
 			this.gameLoopID = 0;
 			this.frameRate = 20;
 			this.timer = 0;
-			this.timeRemaining = 30;
+			this.timeRemaining = 60;
 			this.clockTime = 0;
 
 			//Initialize game states
@@ -37,12 +37,15 @@
 			//Create sprite generators
 			this.spriteGenerators = [
 				new AlienGenerator(this.canvasElement),
+				new WingmanGenerator(this.canvasElement),
+				new EvilCloudGenerator(this.canvasElement),
+				new EvilSunGenerator(this.canvasElement)
 
 			];
 
 			//Spawn enemies
 			this.spriteGenerators.forEach((generator) =>{
-				generator.spawnObjects(2);
+				generator.spawnObjects(1);
 			});
 
 			//Configure the event handler that is called when the player shoots
@@ -373,7 +376,7 @@
 
 				
 				currentGame.clockTime = Math.floor(currentGame.timer / 1000);
-				currentGame.timeRemaining = 30 - currentGame.clockTime;
+				currentGame.timeRemaining = 60 - currentGame.clockTime;
 				currentGame.drawText("Time Remaining: " + currentGame.timeRemaining,10,20);
 				
 
