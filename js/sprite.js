@@ -138,8 +138,14 @@ class Sprite{
 			return containsX && containsY;
 		}
 		
-		update(timeDiff){
-
+		updatePhysics(timeDiff){
+			this.timer += timeDiff;
+			if(this.timer > 150){
+				
+				
+				this.timer = 0;
+			}
+				
 			
 		}
 
@@ -163,6 +169,20 @@ class Sprite{
 
 		die(){
 
+		}
+
+		/** MOVEMENT PATTERNS **/
+
+		moveRandomly(timeDiff){
+			this.timer += timeDiff;
+			if(this.timer > 150){
+				this.randomizeVelocity();
+
+
+				this.x += this.velocityX;
+				this.y += this.velocityY;
+				this.timer = 0;
+			}
 		}
 
 		drawImage(context,timeDiff){
@@ -199,7 +219,6 @@ class Sprite{
 						currentAnimation.incrementFrameNumber();
 					}
 				} else {
-					console.log("Resetting current frame");
 					currentAnimation.resetCurrentFrame();
 					if(!currentAnimation.autoLoop){
 						console.log("Removing animation");

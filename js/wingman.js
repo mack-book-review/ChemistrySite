@@ -17,6 +17,11 @@ class Wingman extends Sprite{
 			this.scaleValue = 1;
 			this.scaleDelta = .1;
 			this.rotationAmount = 10;
+
+			var wingmanTextures = Animation.GetWingmanTextures();
+			var flyingAnimation = new Animation(
+				wingmanTextures,true);
+			this.runAnimation(flyingAnimation);
 			
 		}
 
@@ -25,31 +30,7 @@ class Wingman extends Sprite{
 			this.destinationX = (Math.random()*200) + 20;
 		}
 
-		//must have access to current texture
-		//keep trying
-		//not finished
-		//have objects recede into distance
-		//have objects approach
-
-		//can make it so that objects approach to a certian point
-		//and then hit the user (i.e. pilot's) window
-		scaleMovement(timeDiff){
-
-			this.timer += timeDiff;
-			if(this.timer > 200){
-				
-				
-				this.width -= 1;
-				this.height -= 1;
-				this.img.alpha -= 0.1;
-
-				this.timer = 0;
-			}
-
-			
-
-		}
-
+	
 		//need to make sure has intial xVelocity
 		moveInTriangle1(timeDiff){
 
@@ -136,7 +117,7 @@ class Wingman extends Sprite{
 		}
 
 		updatePhysics(timeDiff){
-			this.scaleMovement(timeDiff);
+			this.moveInSquarePattern(timeDiff);
 
 		}
 

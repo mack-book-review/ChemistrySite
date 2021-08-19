@@ -1,6 +1,15 @@
  
  class Animation{
 
+     static GetEvilSunTextureImgPaths(){
+         var basePath = "assets/Sun/sun";
+         var imgPaths = [];
+         for(var i = 1; i < 3; i++){
+             var fullPath = basePath + i + ".png";
+             imgPaths.push(fullPath);
+         }
+         return imgPaths;
+     }
      static GetWingmanTextureImgPaths(){
          var basePath = "assets/Wingman/wingMan";
          var imgPaths = [];
@@ -39,7 +48,11 @@
 
      }
 
-    
+    static GetEvilSunTextures(){
+        var imgPaths = Animation.GetEvilSunTextureImgPaths();
+        return Animation.GetTextures(imgPaths);
+
+    }
 
 
        static GetWingmanTextures(){
@@ -52,6 +65,14 @@
          var imgPaths = Animation.GetExplosionTextureImgPaths();
 
          return Animation.GetTextures(imgPaths);
+     }
+
+     static GetEvilSunTurningAnimation(){
+
+         var anim = new Animation(Animation.GetEvilSunTextures());
+         anim.autoLoop = true;
+         anim.frameInterval = 30;
+         return anim;
      }
 
 

@@ -1,12 +1,14 @@
 //Should manage creation and destruction of alien objects
 class SpriteGenerator{
 
-	constructor(canvas){
+	constructor(canvas,defaultImgPath = "assets/Alien/alien_beige.png",defaultSize = [30,30]){
 		this.canvas = canvas;
 		this.context = this.canvas.getContext('2d');
 		this.totalSprites = 0;
 		this.killCount = 0;
 		this.sprites = [];
+		this.defaultImgPath = defaultImgPath;
+		this.defaultSize = defaultSize;
 		
 		
 	}
@@ -30,44 +32,42 @@ class SpriteGenerator{
 	}
 
 
-	getRandomColor(){
-		const COLORS = ["beige","pink","blue","green","yellow"];
-		var randIndex = Math.floor(Math.random()*COLORS.length);
-		return COLORS[randIndex];
+	getDefaultImgPath(){
+		return this.defaultImgPath;
 	}
 
-	getRandomSprite(callback = null){
-		var spawnPoint = this.getRandomSpawnPoint();
-		var color =  this.getRandomColor();
+	getDefaultSize(){
+		return this.defaultSize;;
+	}
 
-		var sprite = new Alien(color,
-		spawnPoint[0],
-		spawnPoint[1],
-		this.canvas);
+	getRandomSprite(onLoadCallback = null){
+		var spawnPoint = this.getRandomSpawnPoint();
+		var defaultSize = this.getDefaultSize();
+
+		/** generate a sprite here**/
+		var sprite = new Sprite(
+			this.getDefaultImgPath(),
+			spawnPoint[0],spawnPoint[1],
+			defaultSize[0],defaultSize[1],this.canvas
+			);
 
 		if(typeof(callback) == "function"){
-			sprite.img.onload = callback;
+			sprite.img.onload = onLoadCallback;
 		}
 
 		this.totalSprites += 1;
 		return sprite;
 
-		
-
 
 	}
 
 
-
-	
 	getRandomSprites(numberSprites, sprites = []){
-		console.log("Getting another sprites: " + sprites.length);
 	
 		var spriteGenerator = this;
 
 		var sprite = this.getRandomSprite(function(){
 			if(numberSprites > 1){
-				console.log("Generating next sprite...");
 				spriteGenerator.getRandomSprites(numberSprites-1,sprites);
 			} 
 		});
@@ -88,15 +88,21 @@ class SpriteGenerator{
 	}
 
 
-	updatePhysics(timeDiff){
+	updatePhysics(timeDiff,callback = null){
 		for(var i = 0; i < this.sprites.length; i++){
 				
 			this.sprites[i].updatePhysics(timeDiff);
 
-				
+			if(typeof(callback) == "function"){
+				callback(this.sprites[i],this.canvas);
+			}
 		}
 
+
+
 	}
+
+
 
 	checkPlayerContact(player){
 		
@@ -129,17 +135,4 @@ class SpriteGenerator{
 		this.sprites.push(newSprite);
 	}
 
-
-
-	getAliens(){
-
-	}
-
-	createRandomAliens(numberAliens){
-
-	}
-
-	createRandomAlien(){
-
-	}
 }

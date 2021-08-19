@@ -25,8 +25,14 @@
 <script src="js/player.js"></script>
 <script src="js/alien.js"></script>
 <script src="js/wingman.js"></script>
+<script src="js/evilsun.js"></script>
+<script src="js/evilcloud.js"></script>
 <script src="js/hud.js"></script>
 <script src="js/spritegenerator.js"></script>
+<script src="js/aliengenerator.js"></script>
+<script src="js/wingmangenerator.js"></script>
+<script src="js/evilsungenerator.js"></script>
+<script src="js/evilcloudgenerator.js"></script>
 <script src="js/inputhelper.js"></script>
 <script src="js/game.js"></script>
 <script type = "text/javascript" charset = "utf-8">

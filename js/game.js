@@ -12,7 +12,6 @@
 			this.isEnded = false;
 			this.currentAnimation = null;
 
-
 			//Create the container before the canvas
 			this.container = container;
 
@@ -21,42 +20,28 @@
 			this.createCanvasElement();
 			this.context = this.canvasElement.getContext('2d');
 			
-
 			//Instantiate player
 			this.createPlayer();
 
+			//Add Alien Generator
+			this.alienGenerator = new AlienGenerator(this.canvasElement);
+			this.alienGenerator.spawnObjects(3);
 
-			//Create some aliens via an instance of a SpriteGenerator
-			console.log("Creating sprite generator...");
-			this.alienGenerator = new SpriteGenerator(this.canvasElement);
-			console.log("Spawning objects...");
-			this.alienGenerator.spawnObjects(6);
-			console.log("Finished creating sprite generator...");
+			//Add Wingman Generator
+			this.wingmanGenerator = new WingmanGenerator(
+				this.canvasElement);
+			this.wingmanGenerator.spawnObjects(3);
 
-			var player = this.player;
-			var alienGenerator = this.alienGenerator;
+			//Add EvilSun Generator
+			this.evilsunGenerator = new EvilSunGenerator(this.canvasElement);
+			this.evilsunGenerator.spawnObjects(3);
 
+			//Add EvilCloud Generator
+			this.evilcloudGenerator = new EvilCloudGenerator(this.canvasElement);
+			this.evilcloudGenerator.spawnObjects(3);
 
-			this.wingman = new Wingman(100,50,this.canvasElement);
-			var wingmanTextures = Animation.GetWingmanTextures();
-			var flyingAnimation = new Animation(
-				wingmanTextures,true);
-			
-			this.wingman.runAnimation(flyingAnimation);
-			this.addSprite(this.wingman);
-			console.log(this.wingman);
-
-			var wingman = this.wingman;
-
-			this.playerShootHandler = function(){
-
-				if(player.hasOverlapWith(wingman,0.5)){
-					wingman.takeDamage();
-				}
-
-				alienGenerator.checkPlayerContact(player);
-			};
-
+			//Configure the event handler that is called when the player shoots
+			this.configurePlayerShootHandler();
 	
 			//Create a way for player to interact with game
 			InputHelper.ConfigureCanvasKeyboardControls(this);
@@ -68,6 +53,41 @@
 			this.createHUD();
 
 
+		}
+
+		configurePlayerShootHandler(){
+			//Get references to enemy generators for playerShoot handler
+			var alienGenerator = this.alienGenerator;
+			var wingmanGenerator = this.wingmanGenerator;
+			var evilsunGenerator = this.evilsunGenerator;
+			var evilcloudGenerator = this.evilcloudGenerator;
+			var player = this.player;
+			
+			this.playerShootHandler = function(){
+
+				evilsunGenerator.checkPlayerContact(player);
+				wingmanGenerator.checkPlayerContact(player);
+				alienGenerator.checkPlayerContact(player);
+				evilcloudGenerator.checkPlayerContact(player);
+			};
+		}
+
+		checkSpritePosition(sprite,canvasElement = this.canvasElement){
+			if(sprite.x < 0){
+				sprite.velocityX = 5;
+			}
+
+			if(sprite.y < 0){
+				sprite.velocityY = 5;
+			}
+
+			if(sprite.x > canvasElement.width - sprite.width){
+				sprite.velocityX = -5;
+			}
+
+			if(sprite.y > canvasElement.height - sprite.height){
+				sprite.velocityY = -5;
+			}
 		}
 
 
@@ -149,8 +169,6 @@
 
 		createPlayer(){
 
-
-
 			this.player = new Player(50,50,this.canvasElement);
 		}
 
@@ -173,10 +191,6 @@
     		});
 		}
 
-		
-
-		
-		
 
 		createCanvasElement(){
 			this.canvasElement = document.createElement("canvas");
@@ -207,22 +221,19 @@
 
 		}
 
-		updateAnimations(timeDiff){
 
-
-		}
 
 		updatePhysics(timeDiff){
-
+			console.log("updating physics");
 			this.player.updatePhysics(timeDiff);
-			this.alienGenerator.updatePhysics(timeDiff);
-			this.wingman.updatePhysics(timeDiff);
+			this.alienGenerator.updatePhysics(timeDiff,this.checkSpritePosition);
+			this.wingmanGenerator.updatePhysics(timeDiff);
+			this.evilsunGenerator.updatePhysics(timeDiff,this.checkSpritePosition);
+			this.evilcloudGenerator.updatePhysics(timeDiff,this.checkSpritePosition);
+
 		}
 
-		drawAnimations(timeDiff){
-			//draw animations
-			//console.log("Drawing another animtaion..");
-
+		drawBackgroundImg(){
 			var backgroundImg = new Image();
 			backgroundImg.src = "assets/Backgrounds/starry_sky.jpg";
 
@@ -234,22 +245,24 @@
 				0,0,
 				this.screenWidth,this.screenHeight
 				);
+		}
+
+		drawAnimations(timeDiff){
+			//draw animations
+
+			this.drawBackgroundImg();
 
 			this.alienGenerator.draw(timeDiff);
 
 
 			//Draw the wingman
+			this.wingmanGenerator.draw(timeDiff);
 
-			if(this.wingman.isDead){
-				var index = this.sprites.indexOf(this.wingman);
-				this.sprites.splice(index,1);
-				//delete this.wingman;
-				//this.wingman = null;
-				this.killCount += 1;
-			} else {
-				this.wingman.drawImage(this.context,timeDiff);
+			//Draw the evil sun
+			this.evilsunGenerator.draw(timeDiff);
 
-			}
+			//Draw the evil clouds
+			this.evilcloudGenerator.draw(timeDiff);
 
 			//Draw player last so that it's on top of aliens
 			this.player.drawImage(this.context);
@@ -278,7 +291,6 @@
 				//console.log("Current Time: " + currentTime);
 
 				currentGame.updatePhysics(timeDiff);
-				currentGame.updateAnimations(timeDiff);
 				currentGame.drawAnimations(timeDiff);
 
 				//console.log("Time Difference:" + timeDiff);
