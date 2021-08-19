@@ -100,7 +100,13 @@ class UIGenerator{
 
 			var removeButton = document.createElement("a");
 			removeButton.style.cursor = "pointer";
-			
+			removeButton.style.backgroundColor = "white";
+			removeButton.style.border = "solid 2px purple";
+			removeButton.style.padding = "5px";
+			removeButton.style.marginTop = "10px";
+			removeButton.style.color = "dodgerblue";
+			removeButton.style.borderRadius = "10%";
+
 
 			removeButton.appendChild(document.createTextNode("Play Again"));
 
@@ -128,8 +134,8 @@ class UIGenerator{
 			message.style.display = 'block';
 			
 
-			message.style.width = '700px';
-			message.style.height = '200px';
+			message.style.width = GAME_SETTINGS.getScreenWidth()*0.90;
+			message.style.height = GAME_SETTINGS.getScreenHeight()*0.60;
 			message.style.padding = "10px";
 			message.style.paddingTop = '20px';
 			message.style.fontFamily = UIGenerator.Fonts.Bangers;
@@ -137,7 +143,7 @@ class UIGenerator{
 			message.style.borderRadius = "10%";
 			message.style.fontSize = "2em";
 
-			message.style.backgroundColor = "purple";
+			message.style.backgroundColor = "dodgerblue";
 			message.style.border = "solid 2px #FC9E80";
 			message.style.top = top +'px';
 			message.style.left = left +'px';
