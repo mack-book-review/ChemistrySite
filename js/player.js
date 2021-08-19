@@ -6,17 +6,20 @@ class Player extends Sprite{
 			this.velocityX = 0;
 			this.velocityY = 0;
 			this.timeCounter = 0;
+			this.acceleration = 0.3;
 		}	
 
 
-
+		adjustAcceleration(acceleration){
+			this.acceleration = acceleration;
+		}
 
 		keyLeft(){
 			if(this.x < 0){
 				return;
 			}
 
-			this.velocityX += -0.3;
+			this.velocityX += -this.acceleration;
 		}
 
 		keyRight(){
@@ -24,7 +27,7 @@ class Player extends Sprite{
 				return;
 			}
 
-			this.velocityX += 0.3;
+			this.velocityX += this.acceleration;
 		}
 
 		keyUp(){
@@ -32,7 +35,7 @@ class Player extends Sprite{
 				return;
 			}
 
-			this.velocityY += -0.3;
+			this.velocityY += -this.acceleration;
 		}
 
 		keyDown(){
@@ -40,7 +43,7 @@ class Player extends Sprite{
 				return;
 			}
 
-			this.velocityY += 0.3;
+			this.velocityY += this.acceleration;
 		}
 
 		stopVelocityX(){

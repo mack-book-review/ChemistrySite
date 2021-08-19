@@ -67,6 +67,7 @@
 			this.createPauseButton();
 			this.createInstructionsButton();
 			this.createMusicSettingsButton();
+			this.createCrosshairSettingsButton();
 			this.createTitleBanner();
 			this.createHUD();
 
@@ -148,6 +149,46 @@
 			});
 
 			this.addToContainer(this.instructionsButton);
+
+		}
+
+		createCrosshairSettingsButton(){
+
+			var currentGame = this;
+
+			this.crosshairSettingsButton = document.createElement("a");
+			UIGenerator.ConfigureMenuButton(this.crosshairSettingsButton,"40%");
+			
+			var buttonText = document.createTextNode("Crosshair");
+			this.crosshairSettingsButton.appendChild(buttonText);
+			
+			var crosshairSettingsButton = this.crosshairSettingsButton;
+			var player = this.player;
+			this.crosshairSettingsButton.addEventListener("click", 
+				function(){
+				
+					var popup = UIGenerator.CreateCrosshairSettingsPopup(
+						"Crosshair Settings",
+						GAME_SETTINGS.getScreenHeight()/3,
+						GAME_SETTINGS.getScreenWidth()/4,
+						"assets/Smilies/confused.gif",
+						function(event){
+							console.log("Processing event...");
+							console.log(event);
+							console.log(event.target.value);
+							var newAcceleration = event.target.value/10
+							player.adjustAcceleration(newAcceleration);
+						},
+						function(){
+							currentGame.isPaused = false;
+
+						});
+					currentGame.addToContainer(popup);
+					currentGame.isPaused = true;
+			});
+
+			this.addToContainer(this.crosshairSettingsButton);
+
 
 		}
 

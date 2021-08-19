@@ -246,7 +246,7 @@ class UIGenerator{
 			var label = document.createElement("label");
 			label.classList.add("form-check-label");
 			label.setAttribute("for", "flexCheckDefault");
-			
+
 			label.appendChild(document.createTextNode("Toggle Background Music"));
 			
 			form.appendChild(input);
@@ -264,7 +264,112 @@ class UIGenerator{
 			removeButton.style.clear = "both";
 			removeButton.style.borderRadius = "10%";
 
-			removeButton.appendChild(document.createTextNode("Got It!"));
+			removeButton.appendChild(document.createTextNode("Done"));
+
+			removeButton.addEventListener("mouseenter", function(){
+				removeButton.style.textShadow = "2px 2px red";
+			});
+
+			removeButton.addEventListener("mouseleave", function(){
+				removeButton.style.textShadow = "none";
+			});
+
+			removeButton.addEventListener("click", function(){
+
+				
+				message.remove();
+
+				if(typeof(removeCallback) == "function"){
+					removeCallback();
+				}
+			});
+
+
+			message.style.position = 'absolute';
+			message.style.display = 'block';
+			
+
+			message.style.width = '500px';
+			message.style.height = '200px';
+			message.style.overflowY = 'scroll';
+
+			message.style.padding = "10px";
+			message.style.paddingTop = '20px';
+			message.style.fontFamily = UIGenerator.Fonts.Bangers;
+			message.style.color = "white";
+			message.style.textShadow = "2px 2px purple";
+			message.style.borderRadius = "10%";
+			message.style.fontSize = "1.8em";
+
+			message.style.backgroundColor = "#A2CFF3";
+			message.style.border = "solid 2px #FC9E80";
+
+			message.style.top = top +'px';
+			message.style.left = left +'px';
+			message.style.clear = "both";
+
+			message.appendChild(document.createTextNode(titleText));
+			message.appendChild(form);
+
+			var breakElement = document.createElement("br");
+	
+			message.appendChild(breakElement);
+			message.appendChild(removeButton);
+
+			return message;
+	}
+
+
+	static CreateCrosshairSettingsPopup(titleText, top, left, imgSrc, slideChangeCallback = null, removeCallback = null){
+			var message = document.createElement("p");
+
+			var img = document.createElement("img");
+			img.src = imgSrc;
+			img.style.float = "left";
+			img.style.height = "40%";
+			img.style.width = "auto";
+			img.style.marginRight = "20px";
+
+			message.appendChild(img);
+
+			var form = document.createElement("form");
+			form.classList.add("form-check-input");
+			form.style.clear = "left";
+
+			var input = document.createElement("input");
+			input.classList.add("slider");
+			input.setAttribute("type", "range");
+			input.setAttribute("min", 1);
+			input.setAttribute("value", 10);
+			input.setAttribute("max", 20);
+
+			input.addEventListener("change",function(event){
+				console.log(event);
+				slideChangeCallback(event);
+			});
+
+			var label = document.createElement("label");
+			label.classList.add("form-check-label");
+			label.setAttribute("for", "flexCheckDefault");
+			
+			label.appendChild(document.createTextNode("Adjust Crosshair Speed"));
+			
+			form.appendChild(input);
+			form.appendChild(label);
+
+			var removeButton = document.createElement("a");
+
+			removeButton.style.cursor = "pointer";
+			removeButton.style.textDecoration = "none";
+			removeButton.style.color = "purple";
+			removeButton.style.padding = "10px";
+			removeButton.style.backgroundColor = "white";
+			removeButton.style.border = "solid 2px purple";
+			removeButton.style.marginTop = "30px";
+			removeButton.style.clear = "both";
+			removeButton.style.borderRadius = "10%";
+
+			removeButton.appendChild(document.createTextNode("Done"));
 
 			removeButton.addEventListener("mouseenter", function(){
 				removeButton.style.textShadow = "2px 2px red";
