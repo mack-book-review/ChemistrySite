@@ -1,4 +1,14 @@
 class UIGenerator{
+	//Static Constants for Game Fonts
+
+	static Fonts = class {
+
+		static PressStart2P = "Press Start 2P";
+		static SigmarOne = "Sigmar One";
+		static Bangers = "Bangers";
+
+
+	};
 
 	static CreateGameFinishedMessage(messageTxt, top, left, imgSrc, removeCallback = null){
 			var message = document.createElement("p");
@@ -64,10 +74,10 @@ class UIGenerator{
 			return message;
 	}
 
-	static CreateTitleBanner(text){
+	static CreateTitleBanner(text,backgroundImgSrc = "/assets/Banners/bannerScroll.png"){
 			var title = document.createElement("p");
 
-			title.style.backgroundImage = 'url(/assets/Banners/bannerScroll.png)';
+			title.style.backgroundImage = 'url('+ backgroundImgSrc + ')';
 			title.style.backgroundRepeat = 'no-repeat';
 
 			title.style.position = 'absolute';
@@ -77,9 +87,10 @@ class UIGenerator{
 			title.style.height = '50px';
 			title.style.padding = "10px";
 			title.style.paddingTop = '20px';
-			title.style.fontFamily = "Baskerville";
+			title.style.fontFamily = UIGenerator.Fonts.Bangers;
 			title.style.color = "white";
-			title.style.transform = "scale(1.5)";
+			title.style.fontSize = "1.2em";
+			title.style.transform = "scale(1.2)";
 
 			title.style.top = 5 +'px';
 			title.style.left = 300 +'px';
@@ -87,10 +98,10 @@ class UIGenerator{
 			return title;
 	}
 
-	static ConfigureCanvas(canvas,width,height){
+	static ConfigureCanvas(canvas){
 
-		canvas.style.width = width + "px";
-		canvas.style.height = height + "px";
+		canvas.style.width = GAME_SETTINGS.getScreenWidth() + "px";
+		canvas.style.height = GAME_SETTINGS.getScreenHeight() + "px";
 		canvas.style.border = "white 1px solid";
 		canvas.style.backgroundColor = "white";
 		canvas.style.position = "absolute";
@@ -111,8 +122,8 @@ class UIGenerator{
 			button.style.backgroundRepeat = 'no-repeat';
 
 			button.style.padding = "10px";
-			button.style.fontSize = "1.8em";
+			button.style.fontSize = "1.4em";
 			button.style.color = "white";
-			button.style.fontFamily = "Arial";
+			button.style.fontFamily = UIGenerator.Fonts.SigmarOne;
 	}
 }

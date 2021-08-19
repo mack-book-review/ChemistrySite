@@ -1,10 +1,11 @@
 
 class HUD{
 
-	constructor(container){
+	constructor(container,gameSettings){
 		//Create references for HUD and textNode contained in HUD element
 		this.hud = null;
 		this.textNode = null;
+		
 
 		//Set game container
 		this.container = container;
@@ -55,8 +56,8 @@ class HUD{
 
 	getHUDText(){
 		var text = "Player Health:  " + this.playerHealth;
-		text += " - Total Enemies: " + this.totalEnemies;
-		text += " - Kill Count: " + this.killCount;
+		text += "  /  Total Enemies: " + this.totalEnemies;
+		text += "  /  Kill Count: " + this.killCount;
 		return text;
 	}
 
@@ -75,13 +76,13 @@ class HUD{
 		hud.style.position = 'absolute';
 		hud.style.display = 'block';
 		hud.style.textAlign = 'center';
-		hud.style.width = '400px';
-		hud.style.height = '30px';
+		hud.style.width =  GAME_SETTINGS.screenWidth*0.7 + 'px';
+		hud.style.height = GAME_SETTINGS.screenWidth*0.05 +'px';
 		hud.style.padding = "5px";
 		hud.style.paddingTop = '20px';
-		hud.style.fontFamily = "Arial";
+		hud.style.fontFamily = UIGenerator.Fonts.Bangers;
 		hud.style.color = "white";
-		hud.style.fontSize = "1em";
+		hud.style.fontSize = "1.2em";
 	}
 
 	//Method for initialzing HUD
@@ -93,7 +94,6 @@ class HUD{
 				this.hud.style.backgroundRepeat = 'no-repeat';
 			} else {
 				this.hud.style.backgroundColor = "tomato";
-				this.hud.style.borderRadius = "10%";
 				this.hud.style.border = "solid 4px white";
 			}
 

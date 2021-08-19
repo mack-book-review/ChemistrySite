@@ -4,17 +4,33 @@
 
 
 <meta http-equiv = "Content-type" content = "text/html; charset = utf-8"> <title>Sample HTML5 File</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Sigmar+One&display=swap" rel="stylesheet">
 
 <style>
+
+/*
+
+font-family: 'Bangers', cursive;
+font-family: 'Press Start 2P', cursive;
+font-family: 'Sigmar One', cursive;
+
+*/
+
 	#game-container{
 		width:  90%;
 		height:  40em;
 		margin:  0 auto;
 		background-color: dodgerblue;
 		border:  black 2px solid;
+		font-family: 'Press Start 2P', cursive;
 	}
+
 </style>
 
+<script src="js/gamesettings.js"></script>
+<script src="js/global_constants.js"></script>
 
 <script src="js/uigenerator.js"></script>
 <script src="js/animation.js"></script>
@@ -41,8 +57,10 @@
             function pageLoaded(){
 
 				var gameContainer = document.getElementById("game-container");
-				var game = new Game(gameContainer,640,480);
-				//game.loadBackgroundMusic("polka_train.ogg");
+
+			//Declare the global game settings as a constant
+			var game = new Game(gameContainer);
+			//game.loadBackgroundMusic("polka_train.ogg");
 
 				var player = new Sprite("assets/Meteors/spaceMeteors_001.png",0,0,40,30);
 

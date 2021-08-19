@@ -1,4 +1,11 @@
 
+(1)  LevelConfiguration Object 
+		-controls type of enemies, number of enemies,
+		time limit, etc.
+(2)	 Level Loader
+(3)  Game Settings - control type of crosshair, speed 		of crosshair, etc.
+(4)	Need a menu planel
+
 
 (1)	how to destroy game objects so as to implement the 	die() function for a sprite
 

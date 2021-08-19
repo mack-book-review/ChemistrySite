@@ -2,12 +2,13 @@
 
 	class Game{
 
-		constructor(container, screenWidth,screenHeight){
-			//Initialize game settings
-			this.screenWidth = screenWidth;
-			this.screenHeight = screenHeight;
+		constructor(container){
+			
+
+			//Initialize Game :oop ID
 			this.gameLoopID = 0;
-			this.frameRate = 20;
+
+			//Initialize Timer Variables
 			this.timer = 0;
 			this.timeRemaining = 60;
 			this.clockTime = 0;
@@ -170,8 +171,11 @@
 		}
 
 		createPlayer(){
-
-			this.player = new Player(50,50,this.canvasElement);
+			var startPos = GAME_SETTINGS.getPlayerStartPosition();
+			this.player = new Player(
+				startPos[0],
+				startPos[1],
+				this.canvasElement);
 		}
 
 
@@ -202,7 +206,7 @@
 		}
 
 		configureCanvasElement(canvasElement){
-			UIGenerator.ConfigureCanvas(canvasElement,this.screenWidth,this.screenHeight);
+			UIGenerator.ConfigureCanvas(canvasElement);
 
 		}
 
@@ -219,14 +223,14 @@
 
 		drawText(someText,x,y){
 			this.context.strokeStyle = "white";
-			this.context.font = '30 pt Arial';
+			this.context.font = '30 pt Times New Roman';
 			this.context.strokeText(someText,x,y);
 
 		}
 
 		drawBackgroundImg(){
 			var backgroundImg = new Image();
-			backgroundImg.src = "assets/Backgrounds/starry_sky.jpg";
+			backgroundImg.src = GAME_SETTINGS.getBackgroundImgPath();
 
 			this.context.drawImage(
 				backgroundImg,
@@ -234,14 +238,15 @@
 				backgroundImg.naturalWidth,
 				backgroundImg.naturalHeight,
 				0,0,
-				this.screenWidth,this.screenHeight
+				GAME_SETTINGS.screenWidth,
+				GAME_SETTINGS.screenHeight
 				);
 		}
 
 		/** HUD-related Helper Functions **/
 		createHUD(){
 		
-			this.hud = new HUD(this.container);
+			this.hud = new HUD(this.container,GAME_SETTINGS);
 			this.hud.addHUD();
 
 		}
@@ -387,7 +392,7 @@
 				//Reset the last time
 				lastTime = Date.now();
 
-			}, this.frameRate);
+			}, GAME_SETTINGS.frameRate);
 
 		}
 
