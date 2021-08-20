@@ -62,7 +62,7 @@ class UIGenerator{
 				}
 			});
 
-			UIGenerator.ConfigureMessageBox(message,messageTxt,top,left);
+			UIGenerator.ConfigureMessageBox(message,messageTxt,top,left,500,200);
 			
 			var breakElement = document.createElement("br");
 	
@@ -95,7 +95,7 @@ class UIGenerator{
 				}
 			});
 
-			UIGenerator.ConfigureMessageBox(message,messageTxt,top,left);
+			UIGenerator.ConfigureMessageBox(message,messageTxt,top,left,500,200);
 			
 			var breakElement = document.createElement("br");
 	

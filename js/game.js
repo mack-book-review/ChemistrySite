@@ -573,7 +573,7 @@
 
 				
 				currentGame.clockTime = Math.floor(currentGame.timer / 1000);
-				currentGame.timeRemaining = 60 - currentGame.clockTime;
+				currentGame.timeRemaining = currentGame.levelConfiguration.timeLimit - currentGame.clockTime;
 				currentGame.drawText("Time Remaining: " + currentGame.timeRemaining,10,20);
 				
 
