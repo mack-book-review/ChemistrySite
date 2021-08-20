@@ -9,8 +9,18 @@ class SpriteGenerator{
 		this.sprites = [];
 		this.defaultImgPath = defaultImgPath;
 		this.defaultSize = defaultSize;
-		
-		
+		this.timer = 0;
+		this.spawnInterval = 500*20;
+		this.minSprites = 1;
+		this.maxSprites = 3;
+	}
+
+	getFullSpawnRange(){
+		return this.maxSprites - this.minSprites;
+	}
+
+	getRandomNumberOfObjects(){
+		return Math.floor(Math.random()*this.getFullSpawnRange()) + this.minSprites;
 	}
 
 	getTotalSprites(){
@@ -88,6 +98,20 @@ class SpriteGenerator{
 	}
 
 
+	repeatSpawn(timeDiff){
+		this.timer += timeDiff;
+		if(this.timer > this.spawnInterval){
+
+			for(var i = 0; i < this.getRandomNumberOfObjects(); i++){
+				this.sprites.push(this.getRandomSprite());
+
+			}
+			
+			this.timer = 0;
+		}
+	}
+
+
 	updatePhysics(timeDiff,callback = null){
 		for(var i = 0; i < this.sprites.length; i++){
 				
@@ -115,6 +139,10 @@ class SpriteGenerator{
 	}
 
 	draw(timeDiff){
+
+
+		this.repeatSpawn(timeDiff);
+
 		for(var i = 0; i < this.sprites.length; i++){
 			if(this.sprites[i].isDead){
 				//Remove the img object stored in the sprit

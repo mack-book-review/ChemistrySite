@@ -18,31 +18,6 @@ class Alien extends Sprite{
 		}	
 
 
-		checkPosition(callback){
-
-				if(this.x < 0){
-					this.velocityX = 20;
-				}
-
-
-				if(this.x > this.canvas.width-this.width){
-					this.velocityX = -20;
-				}
-
-
-				if(this.y < 0){
-					this.velocityY = 20;
-				}
-
-				if(this.y > this.canvas.height - this.height){
-					this.velocityY = -20;
-				}
-
-				if(typeof(callback) == "function"){
-					callback();
-				}
-
-		}
 
 		randomizeVelocity(){
 
@@ -61,11 +36,9 @@ class Alien extends Sprite{
 			this.timer += timeDiff;
 			if(this.timer > 150){
 				this.randomizeVelocity();
-
+				this.checkPosition();
 				this.x += this.velocityX;
 				this.y += this.velocityY;
-
-
 
 				this.timer = 0;
 			}
@@ -75,8 +48,5 @@ class Alien extends Sprite{
 
 		updatePhysics(timeDiff){
 			this.moveRandomly(timeDiff);
-			this.checkPosition();
-				
-
 		}
 }

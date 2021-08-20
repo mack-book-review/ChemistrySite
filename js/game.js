@@ -1,10 +1,8 @@
-	
 
 	class Game{
 
 		constructor(container){
 			
-
 			//Initialize Game :oop ID
 			this.gameLoopID = 0;
 
@@ -140,27 +138,6 @@
 				
 			};
 		}
-
-		checkSpritePosition(sprite,canvasElement = this.canvasElement){
-			if(sprite.x < 0){
-				sprite.velocityX = 5;
-			}
-
-			if(sprite.y < 0){
-				sprite.velocityY = 5;
-			}
-
-			if(sprite.x > canvasElement.width - sprite.width){
-				sprite.velocityX = -5;
-			}
-
-			if(sprite.y > canvasElement.height - sprite.height){
-				sprite.velocityY = -5;
-			}
-		}
-
-
-
 
 		createTitleBanner(){
 			this.titleBannerText = "Current Level: " + this.levelConfiguration.levelNumber;
@@ -340,11 +317,11 @@
 
 		}
 
-		hasActiveAnimation(){
+		hasActiveBGAnimation(){
 			return this.currentAnimation != null;
 		}
 
-		runBackgroundAnimation(animation,callback = null){
+		runBGAnimation(animation,callback = null){
 
 			this.currentAnimation = animation;
 
@@ -474,8 +451,9 @@
 			this.player.updatePhysics(timeDiff);
 			
 			this.spriteGenerators.forEach(function(spriteGenerator){
-
+				
 				spriteGenerator.updatePhysics(timeDiff);
+
 			});
 			
 
@@ -532,8 +510,7 @@
 			}
 		}
 
-		
-
+	
 		//Run the game loop
 		runGame(){
 

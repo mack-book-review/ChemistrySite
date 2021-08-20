@@ -23,4 +23,6 @@ class AlienGenerator extends SpriteGenerator{
 		return sprite;
 
 	}
+
+	
 }

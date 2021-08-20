@@ -123,13 +123,6 @@ class Sprite{
 			}
 		}
 
-		mousedownHandler(){
-
-		}
-
-		mouseupHandler(){
-
-		}
 
 		isClicked(xCor,yCor){
 			var containsX = xCor > this.x && xCor < (this.x + this.width);
@@ -137,14 +130,42 @@ class Sprite{
 			
 			return containsX && containsY;
 		}
+
+
+		checkPosition(callback = null){
+
+				if(this.x < 0){
+
+					this.velocityX = 5;
+				}
+
+
+				if(this.x > this.canvas.width-this.width){
+
+					this.velocityX = -5;
+				}
+
+
+				if(this.y < 0){
+
+
+					this.velocityY = 5;
+				}
+
+				if(this.y > this.canvas.height - this.height){
+
+					this.velocityY = -5;
+				}
+
+				if(typeof(callback) == "function"){
+					callback();
+				}
+
+
+
+		}
 		
 		updatePhysics(timeDiff){
-			this.timer += timeDiff;
-			if(this.timer > 150){
-				
-				
-				this.timer = 0;
-			}
 				
 			
 		}
@@ -165,10 +186,6 @@ class Sprite{
 				callback();
 			}
 		
-		}
-
-		die(){
-
 		}
 
 		/** MOVEMENT PATTERNS **/
