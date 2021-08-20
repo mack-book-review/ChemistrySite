@@ -13,36 +13,11 @@ class UIGenerator{
 	static CreateInstructionsPopup(messageTxt, top, left, imgSrc, removeCallback = null){
 			var message = document.createElement("p");
 
-			var img = document.createElement("img");
-			img.src = imgSrc;
-			img.style.float = "left";
-			img.style.height = "30%";
-			img.style.width = "auto";
-			img.style.marginRight = "20px";
+			var img = UIGenerator.CreateImgElement("assets/Smilies/annoyed.gif");
 
 			message.appendChild(img);
 
-			var removeButton = document.createElement("a");
-
-			removeButton.style.cursor = "pointer";
-			removeButton.style.textDecoration = "none";
-			removeButton.style.color = "purple";
-			removeButton.style.padding = "10px";
-			removeButton.style.backgroundColor = "white";
-			removeButton.style.border = "solid 2px purple";
-			removeButton.style.marginTop = "30px";
-			removeButton.style.clear = "both";
-			removeButton.style.borderRadius = "10%";
-
-			removeButton.appendChild(document.createTextNode("Got It!"));
-
-			removeButton.addEventListener("mouseenter", function(){
-				removeButton.style.textShadow = "2px 2px red";
-			});
-
-			removeButton.addEventListener("mouseleave", function(){
-				removeButton.style.textShadow = "none";
-			});
+			var removeButton = UIGenerator.CreateRemoveButton("Got It!");
 
 			removeButton.addEventListener("click", function(){
 
@@ -54,29 +29,9 @@ class UIGenerator{
 				}
 			});
 
+			UIGenerator.ConfigureMessageBox(message,messageTxt,top,left,500,250);
 
-			message.style.position = 'absolute';
-			message.style.display = 'block';
-			
-
-			message.style.width = '500px';
-			message.style.height = '200px';
-			message.style.overflowY = 'scroll';
-
-			message.style.padding = "10px";
-			message.style.paddingTop = '20px';
-			message.style.fontFamily = UIGenerator.Fonts.Bangers;
-			message.style.color = "white";
-			message.style.textShadow = "2px 2px purple";
-			message.style.borderRadius = "10%";
-			message.style.fontSize = "1.8em";
-
-			message.style.backgroundColor = "#A2CFF3";
-			message.style.border = "solid 2px #FC9E80";
-
-			message.style.top = top +'px';
-			message.style.left = left +'px';
-			message.appendChild(document.createTextNode(messageTxt));
+		
 			
 			var breakElement = document.createElement("br");
 	
@@ -86,37 +41,48 @@ class UIGenerator{
 			return message;
 	}
 
-	static CreateGameFinishedMessage(messageTxt, top, left, imgSrc, removeCallback = null){
+	static CreateNextLevelMessage(messageTxt, 
+		top, left, imgSrc, removeCallback = null){
 			var message = document.createElement("p");
 
-			var img = document.createElement("img");
-			img.src = imgSrc;
-			img.style.float = "left";
-			img.style.height = "90%";
-			img.style.width = "auto";
-			img.style.marginRight = "20px";
+			var img = UIGenerator.CreateImgElement(imgSrc);
 
 			message.appendChild(img);
 
-			var removeButton = document.createElement("a");
-			removeButton.style.cursor = "pointer";
-			removeButton.style.backgroundColor = "white";
-			removeButton.style.border = "solid 2px purple";
-			removeButton.style.padding = "5px";
-			removeButton.style.marginTop = "10px";
-			removeButton.style.color = "dodgerblue";
-			removeButton.style.borderRadius = "10%";
+			var removeButton = UIGenerator.CreateRemoveButton("Next Level");
 
+			removeButton.addEventListener("click", function(){
 
-			removeButton.appendChild(document.createTextNode("Play Again"));
+				
+				message.remove();
+		
 
-			removeButton.addEventListener("mouseenter", function(){
-				removeButton.style.textShadow = "2px 2px red";
+				if(typeof(removeCallback) == "function"){
+					removeCallback();
+				}
 			});
 
-			removeButton.addEventListener("mouseleave", function(){
-				removeButton.style.textShadow = "none";
-			});
+			UIGenerator.ConfigureMessageBox(message,messageTxt,top,left);
+			
+			var breakElement = document.createElement("br");
+	
+			message.appendChild(breakElement);
+			message.appendChild(breakElement);
+
+			message.appendChild(removeButton);
+
+			return message;
+	}
+
+
+	static CreateGameFinishedMessage(messageTxt, top, left, imgSrc, removeCallback = null){
+			var message = document.createElement("p");
+
+			var img = UIGenerator.CreateImgElement(imgSrc);
+
+			message.appendChild(img);
+
+			var removeButton = UIGenerator.CreateRemoveButton("Play Again");
 
 			removeButton.addEventListener("click", function(){
 
@@ -129,27 +95,7 @@ class UIGenerator{
 				}
 			});
 
-
-			message.style.position = 'absolute';
-			message.style.display = 'block';
-			
-
-			message.style.width = GAME_SETTINGS.getScreenWidth()*0.90;
-			message.style.height = GAME_SETTINGS.getScreenHeight()*0.60;
-			message.style.padding = "10px";
-			message.style.paddingTop = '20px';
-			message.style.fontFamily = UIGenerator.Fonts.Bangers;
-			message.style.color = "white";
-			message.style.borderRadius = "10%";
-			message.style.fontSize = "2em";
-
-			message.style.backgroundColor = "dodgerblue";
-			message.style.border = "solid 2px #FC9E80";
-			message.style.top = top +'px';
-			message.style.left = left +'px';
-
-			var txtNode = document.createTextNode(messageTxt);
-			message.appendChild(txtNode);
+			UIGenerator.ConfigureMessageBox(message,messageTxt,top,left);
 			
 			var breakElement = document.createElement("br");
 	
@@ -219,12 +165,7 @@ class UIGenerator{
 	static CreateMusicSettingsPopup(titleText, top, left, imgSrc, checkBoxCallback = null, removeCallback = null){
 			var message = document.createElement("p");
 
-			var img = document.createElement("img");
-			img.src = imgSrc;
-			img.style.float = "left";
-			img.style.height = "30%";
-			img.style.width = "auto";
-			img.style.marginRight = "20px";
+			var img = UIGenerator.CreateImgElement("assets/Smilies/annoyed.gif");
 
 			message.appendChild(img);
 
@@ -252,27 +193,7 @@ class UIGenerator{
 			form.appendChild(input);
 			form.appendChild(label);
 
-			var removeButton = document.createElement("a");
-
-			removeButton.style.cursor = "pointer";
-			removeButton.style.textDecoration = "none";
-			removeButton.style.color = "purple";
-			removeButton.style.padding = "10px";
-			removeButton.style.backgroundColor = "white";
-			removeButton.style.border = "solid 2px purple";
-			removeButton.style.marginTop = "30px";
-			removeButton.style.clear = "both";
-			removeButton.style.borderRadius = "10%";
-
-			removeButton.appendChild(document.createTextNode("Done"));
-
-			removeButton.addEventListener("mouseenter", function(){
-				removeButton.style.textShadow = "2px 2px red";
-			});
-
-			removeButton.addEventListener("mouseleave", function(){
-				removeButton.style.textShadow = "none";
-			});
+			var removeButton = UIGenerator.CreateRemoveButton("Done");
 
 			removeButton.addEventListener("click", function(){
 
@@ -285,30 +206,7 @@ class UIGenerator{
 			});
 
 
-			message.style.position = 'absolute';
-			message.style.display = 'block';
-			
-
-			message.style.width = '500px';
-			message.style.height = '200px';
-			message.style.overflowY = 'scroll';
-
-			message.style.padding = "10px";
-			message.style.paddingTop = '20px';
-			message.style.fontFamily = UIGenerator.Fonts.Bangers;
-			message.style.color = "white";
-			message.style.textShadow = "2px 2px purple";
-			message.style.borderRadius = "10%";
-			message.style.fontSize = "1.8em";
-
-			message.style.backgroundColor = "#A2CFF3";
-			message.style.border = "solid 2px #FC9E80";
-
-			message.style.top = top +'px';
-			message.style.left = left +'px';
-			message.style.clear = "both";
-
-			message.appendChild(document.createTextNode(titleText));
+			UIGenerator.ConfigureMessageBox(message,titleText,top,left,500);
 			message.appendChild(form);
 
 			var breakElement = document.createElement("br");
@@ -322,14 +220,9 @@ class UIGenerator{
 
 	static CreateCrosshairSettingsPopup(titleText, top, left, imgSrc, slideChangeCallback = null, removeCallback = null){
 			var message = document.createElement("p");
+			UIGenerator.ConfigureMessageBox(message,titleText,top,left,500);
 
-			var img = document.createElement("img");
-			img.src = imgSrc;
-			img.style.float = "left";
-			img.style.height = "40%";
-			img.style.width = "auto";
-			img.style.marginRight = "20px";
-
+			var img = UIGenerator.CreateImgElement("assets/Smilies/annoyed.gif");
 			message.appendChild(img);
 
 			var form = document.createElement("form");
@@ -357,27 +250,7 @@ class UIGenerator{
 			form.appendChild(input);
 			form.appendChild(label);
 
-			var removeButton = document.createElement("a");
-
-			removeButton.style.cursor = "pointer";
-			removeButton.style.textDecoration = "none";
-			removeButton.style.color = "purple";
-			removeButton.style.padding = "10px";
-			removeButton.style.backgroundColor = "white";
-			removeButton.style.border = "solid 2px purple";
-			removeButton.style.marginTop = "30px";
-			removeButton.style.clear = "both";
-			removeButton.style.borderRadius = "10%";
-
-			removeButton.appendChild(document.createTextNode("Done"));
-
-			removeButton.addEventListener("mouseenter", function(){
-				removeButton.style.textShadow = "2px 2px red";
-			});
-
-			removeButton.addEventListener("mouseleave", function(){
-				removeButton.style.textShadow = "none";
-			});
+			var removeButton = UIGenerator.CreateRemoveButton("Done");
 
 			removeButton.addEventListener("click", function(){
 
@@ -389,31 +262,6 @@ class UIGenerator{
 				}
 			});
 
-
-			message.style.position = 'absolute';
-			message.style.display = 'block';
-			
-
-			message.style.width = '500px';
-			message.style.height = '200px';
-			message.style.overflowY = 'scroll';
-
-			message.style.padding = "10px";
-			message.style.paddingTop = '20px';
-			message.style.fontFamily = UIGenerator.Fonts.Bangers;
-			message.style.color = "white";
-			message.style.textShadow = "2px 2px purple";
-			message.style.borderRadius = "10%";
-			message.style.fontSize = "1.8em";
-
-			message.style.backgroundColor = "#A2CFF3";
-			message.style.border = "solid 2px #FC9E80";
-
-			message.style.top = top +'px';
-			message.style.left = left +'px';
-			message.style.clear = "both";
-
-			message.appendChild(document.createTextNode(titleText));
 			message.appendChild(form);
 
 			var breakElement = document.createElement("br");
@@ -423,5 +271,71 @@ class UIGenerator{
 
 			return message;
 	}
+
+
+	static CreateRemoveButton(buttonTxt){
+
+			var removeButton = document.createElement("a");
+			removeButton.style.cursor = "pointer";
+			removeButton.style.backgroundColor = "white";
+			removeButton.style.border = "solid 2px purple";
+			removeButton.style.padding = "5px";
+			removeButton.style.marginTop = "10px";
+			removeButton.style.color = "dodgerblue";
+			removeButton.style.borderRadius = "10%";
+			removeButton.appendChild(document.createTextNode(buttonTxt));
+			
+			removeButton.addEventListener("mouseenter", function(){
+				removeButton.style.textShadow = "2px 2px red";
+			});
+
+			removeButton.addEventListener("mouseleave", function(){
+				removeButton.style.textShadow = "none";
+			});
+
+
+		
+
+			return removeButton;
+	}
+
+	static CreateImgElement(imgSrc){
+		var img = document.createElement("img");
+		img.src = imgSrc;
+		img.style.float = "left";
+		img.style.height = "30%";
+		img.style.width = "auto";
+		img.style.marginRight = "20px";
+		return img;
+	}
+
+
+	static ConfigureMessageBox(message,messageTxt,top,left,
+		width = GAME_SETTINGS.getScreenWidth()*0.90, 
+		height = GAME_SETTINGS.getScreenHeight()*0.60){
+
+			message.style.position = 'absolute';
+			message.style.display = 'block';
+			
+
+			message.style.width = width + "px";
+			message.style.height = height + "px";
+			message.style.padding = "10px";
+			message.style.paddingTop = '20px';
+			message.style.fontFamily = UIGenerator.Fonts.Bangers;
+			message.style.color = "white";
+			message.style.borderRadius = "10%";
+			message.style.fontSize = "2em";
+
+			message.style.backgroundColor = "dodgerblue";
+			message.style.border = "solid 2px #FC9E80";
+			message.style.top = top +'px';
+			message.style.left = left +'px';
+
+			var txtNode = document.createTextNode(messageTxt);
+			message.appendChild(txtNode);
+	}
+
+
 
 }

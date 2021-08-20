@@ -35,32 +35,41 @@
 			//Instantiate player
 			this.createPlayer();
 
-			//Create sprite generators
-			this.spriteGenerators = [
-				new AlienGenerator(this.canvasElement),
-				new WingmanGenerator(this.canvasElement),
-				new EvilCloudGenerator(this.canvasElement),
-				new EvilSunGenerator(this.canvasElement)
+			//Configure level configuration
 
-			];
+			var lastChar = window.location.href.substring(window.location.href.length-1);
+			var currentLevel = parseInt(lastChar);
+
+
+			if(isNaN(currentLevel) || currentLevel == null || currentLevel == undefined){
+				currentLevel = 1;
+			}
+			
+			console.log(currentLevel);
+			this.levelConfiguration = LevelLoader.GetLevelConfiguration(parseInt(currentLevel));
+
+			//Create sprite generators
+			this.spriteGenerators = this.generateSpriteGenerators();
 
 			//Spawn enemies
+			var randNumEnemies = this.levelConfiguration.getRandomNumberOfEnemies();
 			this.spriteGenerators.forEach((generator) =>{
-				generator.spawnObjects(1);
+				generator.spawnObjects(randNumEnemies);
 			});
 
 			//Configure the event handler that is called when the player shoots
 			this.configurePlayerShootHandler();
 	
-			//Create a way for player to interact with game
 			
-		
+			//Configure background music
 			var bgMusicAudio = document.createElement("audio");
 			this.bgMusicAudio = bgMusicAudio;
 			this.bgMusicAudio.src = "polka_train.ogg";
 			this.addToContainer(this.bgMusicAudio);
 			this.loadBackgroundMusic();
 	
+
+			//Create a way for player to interact with game
 			InputHelper.ConfigureCanvasKeyboardControls(this);
 			
 			//Create UI elements
@@ -74,6 +83,40 @@
 
 			
 
+		}
+
+		generateSpriteGenerators(){
+			var spriteGenerators = null;
+
+			switch (this.levelConfiguration.enemyType) {
+				case "alien":
+					spriteGenerators = [new AlienGenerator(this.canvasElement)];
+					break;
+				case "wingman":
+					spriteGenerators = [new WingmanGenerator(this.canvasElement)];
+					break;
+				case "evilsun":
+					spriteGenerators = [new EvilSunGenerator(this.canvasElement)];
+					break;
+				case "evilcloud":
+					spriteGenerators = [new EvilCloudGenerator(this.canvasElement)];
+					break;
+
+				case "all":
+					spriteGenerators = [
+					new EvilCloudGenerator(this.canvasElement),
+					new EvilSunGenerator(this.canvasElement),
+					new AlienGenerator(this.canvasElement),
+					new WingmanGenerator(this.canvasElement)
+					];
+					break;
+				default:
+					spriteGenerators = [new AlienGenerator(this.canvasElement)];
+					break;
+			
+			}
+
+			return  spriteGenerators;
 		}
 
 		configurePlayerShootHandler(){
@@ -120,8 +163,16 @@
 
 
 		createTitleBanner(){
-			this.titleElement = UIGenerator.CreateTitleBanner("Alien Sniper Defense");
+			this.titleBannerText = "Current Level: " + this.levelConfiguration.levelNumber;
+			this.titleElement = UIGenerator.CreateTitleBanner(this.titleBannerText);
 			this.addToContainer(this.titleElement);
+		}
+
+		updateTitleBanner(){
+				this.container.removeChild(this.titleElement);
+				this.titleBannerText = "Current Level: " + sessionStorage.getItem("currentLevel");
+				this.titleElement = UIGenerator.CreateTitleBanner(this.titleBannerText);
+				this.addToContainer(this.titleElement);
 		}
 
 		createHomeReturnButton(){
@@ -462,7 +513,21 @@
 
 			if(currentGame.getTotalEnemies() == 0){
 				currentGame.isWon = true;
-				var msg = UIGenerator.CreateGameFinishedMessage("Congratulations! You won!",150,150,"/assets/Medals/flat_medal1.png");
+				var msg = UIGenerator.CreateNextLevelMessage("Congratulations! You won!",
+					150,150,
+					"/assets/Medals/flat_medal1.png",function(){
+						var nextLevel = currentGame.levelConfiguration.levelNumber + 1;
+						
+						if(window.location.href.substr(window.location.href.length-2,window.location.href.length-1) == "#"){
+							window.location =window.location.href.substr(0,window.location.href-2) + nextLevel; 
+						} else {
+							window.location = window.location.href + "#" + nextLevel;
+
+						}
+						window.location.reload();
+
+
+					});
 				currentGame.addToContainer(msg);
 			}
 		}

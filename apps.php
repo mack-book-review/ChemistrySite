@@ -54,19 +54,22 @@ font-family: 'Sigmar One', cursive;
 <script src="js/evilsungenerator.js"></script>
 <script src="js/evilcloudgenerator.js"></script>
 <script src="js/inputhelper.js"></script>
+<script src="js/levelconfiguration.js"></script>
+<script src="js/levelloader.js"></script>
 <script src="js/game.js"></script>
 <script type = "text/javascript" charset = "utf-8">
 
             // This function will be called once the page loads completely
+
             function pageLoaded(){
 
 				var gameContainer = document.getElementById("game-container");
 
-			//Declare the global game settings as a constant
-			var game = new Game(gameContainer);
+				//Declare the global game settings as a constant
+				var game = new Game(gameContainer);
 
 
-			game.startGame();
+				game.startGame();
 			}
 
 

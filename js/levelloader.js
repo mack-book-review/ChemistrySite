@@ -6,7 +6,7 @@ class LevelLoader{
 			case 1:
 				return new LevelConfiguration(1,60,3,5,"alien");
 			case 2:
-				return new LevelConfiguration(2,60,3,5,"wingman";
+				return new LevelConfiguration(2,60,3,5,"wingman");
 			case 3:
 				return new LevelConfiguration(3,60,3,5,"evilsun");
 			case 4:

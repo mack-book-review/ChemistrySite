@@ -55,8 +55,7 @@ class HUD{
 	}
 
 	getHUDText(){
-		var text = "Player Health:  " + this.playerHealth;
-		text += "  /  Total Enemies: " + this.totalEnemies;
+		var text = "Total Enemies: " + this.totalEnemies;
 		text += "  /  Kill Count: " + this.killCount;
 		return text;
 	}

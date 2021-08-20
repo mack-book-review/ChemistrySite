@@ -19,6 +19,8 @@ class GameSettings{
 		this.backgroundImgPath = "assets/Backgrounds/starry_sky.jpg";
 	}
 
+
+
 	getBackgroundImgPath(){
 		return this.backgroundImgPath;
 	}
